@@ -1,0 +1,14 @@
+# JBoss CLI script to configure EAP for reproducing the issue
+# Subsystem: undertow
+# Issue: 
+
+connect
+batch
+
+# Configure undertow subsystem
+/subsystem=undertow/server=default-server/http-listener=default:write-attribute(name=max-connections,value=200)
+
+run-batch
+
+# Reload to apply changes
+:reload

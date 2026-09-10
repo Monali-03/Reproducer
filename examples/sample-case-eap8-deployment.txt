@@ -1,0 +1,141 @@
+Product: JBoss EAP
+Version: 8.0.1
+JDK: OpenJDK 21.0.1
+OS: RHEL 9.3
+Deployment: Standalone (single node, development environment)
+
+Issue Description:
+Application that was previously deployed on EAP 7.4 fails to deploy on EAP 8.0
+with ClassNotFoundException for javax.servlet.http.HttpServlet. The customer has
+migrated their application from Java EE to Jakarta EE, updating all their own
+source code to use jakarta.* packages. However, some third-party libraries bundled
+in the WAR still reference javax.* classes internally.
+
+The customer's application (app.war) includes the following third-party JARs in
+WEB-INF/lib:
+  - legacy-utils-1.2.jar (internal company library, source not available)
+  - old-reporting-3.5.1.jar (open source, but latest version still uses javax.*)
+  - custom-auth-filter-2.0.jar (vendor library, javax.servlet.Filter impl)
+
+The customer has already:
+  1. Migrated all their own code from javax.* to jakarta.*
+  2. Updated pom.xml to use Jakarta EE 10 dependencies
+  3. Updated web.xml to Jakarta EE 10 schema
+  4. Updated persistence.xml to Jakarta Persistence 3.1 schema
+
+Error Messages:
+ERROR [org.jboss.msc.service.fail] (MSC service thread 1-1) MSC000001: Failed to
+start service jboss.deployment.unit."app.war".INSTALL:
+org.jboss.msc.service.StartException in service
+jboss.deployment.unit."app.war".INSTALL: WFLYSRV0153: Failed to process phase
+INSTALL of deployment "app.war"
+
+Caused by: java.lang.ClassNotFoundException: javax.servlet.http.HttpServlet from
+[Module "deployment.app.war"]
+    at org.jboss.modules.ModuleClassLoader.findClass(ModuleClassLoader.java:255)
+    at org.jboss.modules.ConcurrentClassLoader.performLoadClassUnchecked(ConcurrentClassLoader.java:410)
+    at org.jboss.modules.ConcurrentClassLoader.performLoadClass(ConcurrentClassLoader.java:398)
+    at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:116)
+    at com.vendor.auth.CustomAuthFilter.<clinit>(CustomAuthFilter.java:28)
+    at java.base/java.lang.Class.forName0(Native Method)
+    at java.base/java.lang.Class.forName(Class.java:375)
+    at org.jboss.as.server.deployment.reflect.DeploymentReflectionIndex.getClassIndex(DeploymentReflectionIndex.java:68)
+
+Additional deployment errors:
+WARN  [org.jboss.as.dependency.private] (MSC service thread 1-1) WFLYSRV0059:
+Class javax.servlet.http.HttpServlet not found in deployment "app.war"
+
+ERROR [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0coords:
+{"WFLYCTL0080: Failed services" => {"jboss.deployment.unit.\"app.war\".INSTALL"
+=> "WFLYSRV0153: Failed to process phase INSTALL of deployment \"app.war\""}}
+
+Second stack trace from a different class in the same deployment:
+java.lang.NoClassDefFoundError: javax/servlet/Filter
+    at java.base/java.lang.ClassLoader.defineClass1(Native Method)
+    at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1017)
+    at org.jboss.modules.ModuleClassLoader.doDefineOrLoadClass(ModuleClassLoader.java:424)
+    at org.jboss.modules.ModuleClassLoader.defineClass(ModuleClassLoader.java:555)
+    at org.jboss.modules.ModuleClassLoader.loadClassLocal(ModuleClassLoader.java:339)
+    at org.jboss.modules.ModuleClassLoader$1.loadClassLocal(ModuleClassLoader.java:126)
+    at org.jboss.modules.Module.loadModuleClass(Module.java:731)
+    at org.jboss.modules.ModuleClassLoader.findClass(ModuleClassLoader.java:247)
+    at org.jboss.modules.ConcurrentClassLoader.performLoadClassUnchecked(ConcurrentClassLoader.java:410)
+    at org.jboss.modules.ConcurrentClassLoader.performLoadClass(ConcurrentClassLoader.java:398)
+    at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:116)
+    at com.legacy.utils.HttpHelper.init(HttpHelper.java:51)
+
+jboss-deployment-structure.xml (current, not working):
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.3">
+  <deployment>
+    <dependencies>
+      <module name="jakarta.servlet.api"/>
+    </dependencies>
+  </deployment>
+</jboss-deployment-structure>
+
+pom.xml dependencies (relevant section):
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.bom</groupId>
+      <artifactId>jboss-eap-ee10</artifactId>
+      <version>8.0.1.GA</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+
+<dependencies>
+  <dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>jakarta.enterprise</groupId>
+    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>jakarta.persistence</groupId>
+    <artifactId>jakarta.persistence-api</artifactId>
+    <scope>provided</scope>
+  </dependency>
+</dependencies>
+
+Reproduction Steps:
+1. Set up EAP 8.0.1 standalone with default configuration
+2. Build the application WAR with the three third-party JARs in WEB-INF/lib
+3. Deploy app.war to EAP 8
+4. Deployment fails with ClassNotFoundException for javax.servlet.http.HttpServlet
+
+Expected Behavior:
+Application should deploy successfully on EAP 8. Third-party libraries using
+javax.* should either work via a compatibility layer or the deployment should
+provide a clear migration path.
+
+Actual Behavior:
+Deployment fails with ClassNotFoundException for javax classes referenced by
+third-party JARs. The customer's own code (which uses jakarta.*) is not the
+problem -- the issue is exclusively with bundled third-party libraries.
+
+Customer Questions:
+1. Is there a javax-to-jakarta compatibility module for EAP 8?
+2. Can jboss-deployment-structure.xml be used to add javax.* API access?
+3. Is bytecode transformation (like Eclipse Transformer) supported on EAP 8?
+4. What is the recommended approach for applications with mixed javax/jakarta
+   dependencies?
+
+Environment Details:
+- EAP 8.0.1 installed from zip distribution
+- Default standalone.xml (no modifications)
+- Application is a WAR (not EAR)
+- No EAP modules have been modified
+- Application worked on EAP 7.4.14 with all javax.* imports
+
+Previous EAP 7.4 Configuration (for reference):
+- standalone.xml with default subsystems
+- No jboss-deployment-structure.xml needed
+- All dependencies used javax.* packages
+- Application deployed successfully with no classloading issues

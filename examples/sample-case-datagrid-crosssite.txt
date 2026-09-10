@@ -1,0 +1,156 @@
+Product: Red Hat Data Grid
+Version: 8.4.6
+JDK: OpenJDK 17.0.9
+OS: RHEL 9.3
+Deployment: OpenShift 4.14
+
+Issue Description:
+Cross-site replication between two Data Grid clusters (NYC and LON) is failing
+intermittently. The LON site stops receiving updates from NYC after approximately
+2 hours of operation. No errors visible on NYC side. LON site shows stale data.
+
+The clusters are connected via RELAY2 with bridge nodes. Each site has 3 Data Grid
+pods in a StatefulSet. The Data Grid Operator (version 8.4.5) is managing both
+clusters.
+
+The issue first appeared after scaling the NYC cluster from 2 to 3 pods. Prior to
+scaling, cross-site replication was stable for weeks.
+
+Error Messages (LON site):
+WARN  [org.jgroups.protocols.relay.RELAY2] (jgroups-16,datagrid-0) site NYC is
+unreachable, site: NYC
+
+ERROR [org.infinispan.XSITE] (jgroups-23,datagrid-0) ISPN000439: Unable to
+backup to site NYC: org.infinispan.xsite.XSiteAdminOperations$SiteStatus: offline
+
+WARN  [org.infinispan.XSITE] (jgroups-23,datagrid-0) ISPN000445: Received
+response from NYC for request 1254 but no request was found. This could be a
+late response to an already timed out request.
+
+INFO  [org.jgroups.protocols.relay.RELAY2] (jgroups-9,datagrid-0) local_addr=
+datagrid-0, site=LON, bridge_name=bridge, view=[NYC:datagrid-0|3] (1)
+[NYC:datagrid-0]
+
+Error Messages (NYC site):
+No explicit errors. Only informational messages:
+
+INFO  [org.jgroups.protocols.relay.RELAY2] (jgroups-7,datagrid-0) local_addr=
+datagrid-0, site=NYC, bridge_name=bridge, view=[NYC:datagrid-0|5] (2)
+[NYC:datagrid-0, LON:datagrid-0]
+
+INFO  [org.infinispan.CLUSTER] (jgroups-7,datagrid-0) ISPN000094: Received new
+cluster view for channel bridge: [NYC:datagrid-0|5] (2) [NYC:datagrid-0,
+LON:datagrid-0]
+
+Topology:
+NYC Site (OpenShift 4.14, AWS us-east-1):
+  - Namespace: datagrid-nyc
+  - 3 Data Grid 8.4.6 pods (StatefulSet: datagrid)
+  - Service: datagrid-nyc (ClusterIP)
+  - Cross-site Service: datagrid-nyc-xsite (LoadBalancer, NLB)
+  - TLS: Passthrough Route for cross-site
+
+LON Site (OpenShift 4.14, AWS eu-west-2):
+  - Namespace: datagrid-lon
+  - 3 Data Grid 8.4.6 pods (StatefulSet: datagrid)
+  - Service: datagrid-lon (ClusterIP)
+  - Cross-site Service: datagrid-lon-xsite (LoadBalancer, NLB)
+  - TLS: Passthrough Route for cross-site
+
+Network:
+  - VPC peering between us-east-1 and eu-west-2
+  - AWS NLB for cross-site communication (TCP port 7900)
+  - NLB idle timeout: 350 seconds
+  - Security groups allow TCP 7900 between VPCs
+
+Infinispan CR (NYC site):
+apiVersion: infinispan.org/v1
+kind: Infinispan
+metadata:
+  name: datagrid
+  namespace: datagrid-nyc
+spec:
+  replicas: 3
+  version: 8.4.6
+  service:
+    type: DataGrid
+    sites:
+      local:
+        name: NYC
+        expose:
+          type: LoadBalancer
+      locations:
+        - name: LON
+          url: openshift://api.lon-cluster.example.com:6443
+          secretName: lon-site-token
+  logging:
+    categories:
+      org.jgroups.protocols.relay: debug
+      org.infinispan.xsite: debug
+
+Cache Configuration:
+apiVersion: infinispan.org/v2alpha1
+kind: Cache
+metadata:
+  name: customer-data
+spec:
+  clusterName: datagrid
+  name: customer-data
+  template: |
+    distributedCache:
+      mode: SYNC
+      owners: 2
+      statistics: true
+      encoding:
+        mediaType: application/x-protostream
+      backups:
+        LON:
+          backup:
+            strategy: ASYNC
+            takeOffline:
+              afterFailures: 5
+              minWait: 10000
+            stateTransfer:
+              chunkSize: 512
+              timeout: 600000
+              maxRetries: 30
+              waitTime: 2000
+
+JGroups RELAY2 Configuration (from ConfigMap):
+<relay site="NYC" xmlns="urn:org:jgroups">
+  <remote-site name="LON" channel="bridge"/>
+  <property name="max_site_masters">1</property>
+</relay>
+
+Reproduction Steps:
+1. Deploy Data Grid to both OpenShift clusters using the Operator
+2. Create the "customer-data" cache with cross-site backup
+3. Write data to NYC site using Hot Rod client
+4. Verify data appears on LON site (works initially)
+5. Wait approximately 2 hours
+6. Write new data to NYC site
+7. Check LON site -- data is stale, new entries are missing
+8. Restart datagrid-0 pod on LON site
+9. Replication resumes and missing data appears (state transfer works)
+
+Expected Behavior:
+Data written to NYC should be replicated to LON within seconds, continuously.
+
+Actual Behavior:
+Replication works initially but stops after approximately 2 hours. LON shows stale
+data. Manual restart of LON bridge node (datagrid-0, which is the site master)
+temporarily restores replication. The issue recurs after another ~2 hours.
+
+Suspected Root Cause (customer):
+Customer suspects the AWS NLB idle timeout (350 seconds) may be closing the TCP
+connection used by RELAY2, but JGroups does not detect the broken connection and
+continues to believe the bridge is active. They have tried adjusting the NLB idle
+timeout to 3600 seconds but the issue persists (just takes longer to manifest).
+
+Additional Information:
+- Data Grid heap usage: ~60% of 2Gi limit
+- Pod resource limits: 2 CPU, 2Gi memory
+- No OOMKilled events
+- No pod restarts during the failure window
+- OpenShift node health checks pass
+- Cross-site latency (us-east-1 to eu-west-2): ~80ms average

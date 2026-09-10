@@ -1,0 +1,490 @@
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1
+
+  JAVA: /usr/lib/jvm/java-21/bin/java
+
+  JAVA_OPTS:  -Xlog:gc*:file="/home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/standalone-node3/log/gc.log":time,uptimemillis:filecount=5,filesize=3M -Djdk.serialFilter="maxbytes=10485760;maxdepth=128;maxarray=100000;maxrefs=300000" -Xms1303m -Xmx1303m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true  --add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-exports=java.naming/com.sun.jndi.ldap=ALL-UNNAMED --add-exports=java.naming/com.sun.jndi.url.ldap=ALL-UNNAMED --add-exports=java.naming/com.sun.jndi.url.ldaps=ALL-UNNAMED --add-exports=jdk.naming.dns/com.sun.jndi.dns=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.management/javax.management=ALL-UNNAMED --add-opens=java.naming/javax.naming=ALL-UNNAMED
+
+=========================================================================
+
+[0m15:55:38,458 INFO  [org.jboss.modules] (main) JBoss Modules version 2.1.6.Final-redhat-00001
+[0m[0m15:55:40,722 INFO  [org.jboss.msc] (main) JBoss MSC version 1.5.5.Final-redhat-00001
+[0m[0m15:55:40,764 INFO  [org.jboss.threads] (main) JBoss Threads version 2.4.0.Final-redhat-00001
+[0m[0m15:55:41,215 INFO  [org.jboss.as] (MSC service thread 1-3) WFLYSRV0049: JBoss EAP 8.1 (WildFly Core 27.1.0.Final-redhat-00010) starting
+[0m[0m15:55:45,056 INFO  [org.wildfly.security] (Controller Boot Thread) ELY00001: WildFly Elytron version 2.6.4.Final-redhat-00001
+[0m[0m15:55:50,116 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0039: Creating http management service using socket-binding (management-http)
+[0m[0m15:55:50,248 INFO  [org.xnio] (MSC service thread 1-2) XNIO version 3.8.16.Final-redhat-00001
+[0m[0m15:55:50,302 INFO  [org.xnio.nio] (MSC service thread 1-2) XNIO NIO Implementation Version 3.8.16.Final-redhat-00001
+[0m[0m15:55:50,550 INFO  [org.jboss.remoting] (MSC service thread 1-4) JBoss Remoting version 5.0.31.Final-redhat-00001
+[0m[0m15:55:50,573 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 56) WFLYCLINF0001: Activating Infinispan subsystem.
+[0m[0m15:55:50,650 INFO  [org.jboss.as.jaxrs] (ServerService Thread Pool -- 58) WFLYRS0016: RESTEasy version 6.2.12.Final-redhat-00001
+[0m[0m15:55:50,656 INFO  [org.wildfly.extension.health] (ServerService Thread Pool -- 55) WFLYHEALTH0001: Activating Base Health Subsystem
+[0m[0m15:55:50,664 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 61) WFLYCLJG0001: Activating JGroups subsystem. JGroups version 5.3.16
+[0m[33m15:55:50,677 WARN  [org.jboss.as.txn] (ServerService Thread Pool -- 76) WFLYTX0013: The node-identifier attribute on the /subsystem=transactions is set to the default value. This is a danger for environments running multiple servers. Please make sure the attribute value is unique.
+[0m[0m15:55:50,683 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 68) WFLYNAM0001: Activating Naming Subsystem
+[0m[0m15:55:50,684 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 57) WFLYIO001: Worker 'default' has auto-configured to 24 IO threads with 192 max task threads based on your 12 available processors
+[0m[0m15:55:50,697 INFO  [org.jboss.as.jsf] (ServerService Thread Pool -- 64) WFLYJSF0007: Activated the following Jakarta Server Faces Implementations: [main]
+[0m[0m15:55:50,712 INFO  [org.wildfly.extension.elytron.oidc._private] (ServerService Thread Pool -- 54) WFLYOIDC0001: Activating WildFly Elytron OIDC Subsystem
+[0m[0m15:55:50,750 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 78) WFLYWS0002: Activating WebServices Extension
+[0m[0m15:55:50,786 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 45) WFLYJCA0004: Deploying JDBC-compliant driver class org.h2.Driver (version 2.2)
+[0m[0m15:55:50,832 INFO  [org.wildfly.extension.metrics] (ServerService Thread Pool -- 66) WFLYMETRICS0001: Activating Base Metrics Subsystem
+[0m[0m15:55:50,946 INFO  [org.jboss.as.connector] (MSC service thread 1-4) WFLYJCA0009: Starting Jakarta Connectors Subsystem (WildFly/IronJacamar 3.0.14.Final-redhat-00001)
+[0m[0m15:55:50,960 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0003: Undertow 2.3.18.SP1-redhat-00001 starting
+[0m[0m15:55:50,962 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) WFLYSRV0027: Starting deployment of "reproducer.war" (runtime-name: "reproducer.war")
+[0m[0m15:55:51,074 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-6) WFLYJCA0018: Started Driver service with driver-name = h2
+[0m[0m15:55:51,244 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-6) WFLYMAIL0001: Bound mail session [java:jboss/mail/Default]
+[0m[0m15:55:51,230 INFO  [org.jboss.as.naming] (MSC service thread 1-3) WFLYNAM0003: Starting Naming Service
+[0m[33m15:55:52,163 WARN  [org.wildfly.extension.elytron] (MSC service thread 1-7) WFLYELY00023: KeyStore file '/home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/standalone-node3/configuration/application.keystore' does not exist. Used blank.
+[0m[0m15:55:52,168 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 77) WFLYUT0014: Creating file handler for path '/home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/welcome-content' with options [directory-listing: 'false', follow-symlink: 'false', case-sensitive: 'true', safe-symlink-paths: '[]']
+[0m[0m15:55:52,182 INFO  [org.jboss.as.ejb3] (MSC service thread 1-1) WFLYEJB0481: Strict pool slsb-strict-max-pool is using a max instance size of 192 (per class), which is derived from thread worker pool sizing.
+[0m[0m15:55:52,182 INFO  [org.jboss.as.ejb3] (MSC service thread 1-5) WFLYEJB0482: Strict pool mdb-strict-max-pool is using a max instance size of 48 (per class), which is derived from the number of CPUs on this host.
+[0m[0m15:55:52,316 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0012: Started server default-server.
+[0m[0m15:55:52,327 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) Queuing requests.
+[0m[0m15:55:52,330 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) WFLYUT0018: Host default-host starting
+[0m[33m15:55:52,346 WARN  [org.wildfly.extension.elytron] (MSC service thread 1-3) WFLYELY01084: KeyStore /home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/standalone-node3/configuration/application.keystore not found, it will be auto-generated on first use with a self-signed certificate for host localhost
+[0m[0m15:55:52,723 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0006: Undertow HTTP listener default listening on 0.0.0.0:8280
+[0m[0m15:55:52,720 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0006: Undertow AJP listener ajp listening on 0.0.0.0:8209
+[0m[0m15:55:52,762 INFO  [org.jboss.modcluster] (ServerService Thread Pool -- 80) MODCLUSTER000001: Initializing mod_cluster version 2.1.0.Final-redhat-00001
+[0m[0m15:55:52,935 INFO  [org.jboss.modcluster] (ServerService Thread Pool -- 80) MODCLUSTER000032: Listening to proxy advertisements on /224.0.1.105:23364
+[0m[0m15:55:53,529 INFO  [org.jboss.as.ejb3] (MSC service thread 1-4) WFLYEJB0493: Jakarta Enterprise Beans subsystem suspension complete
+[0m[0m15:55:53,602 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0006: Undertow HTTPS listener https listening on 0.0.0.0:8643
+[0m[0m15:55:53,970 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-3) WFLYJCA0001: Bound data source [java:jboss/datasources/ExampleDS]
+[0m[0m15:55:54,698 INFO  [org.wildfly.prospero] (Controller Boot Thread) jboss-eap-installation-manager version: 1.3.6.Final-redhat-00006
+[0m[0m15:55:55,046 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-1) WFLYDS0013: Started FileSystemDeploymentService for directory /home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/standalone-node3/deployments
+[0m[0m15:55:55,053 INFO  [org.jboss.ws.common.management] (MSC service thread 1-6) JBWS022052: Starting JBossWS 7.3.3.Final-redhat-00001 (Apache CXF 4.0.8.redhat-00001) 
+[0m[0m15:55:59,104 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 87) WFLYCLJG0032: Connecting 'ee' channel. 'node3' joining cluster 'ejb' via /127.0.0.1:55400
+[0m[0m15:55:59,106 INFO  [org.jgroups.JChannel] (ServerService Thread Pool -- 87) local_addr: 40ad3450-b779-47ae-98d2-3f31e7d26344, name: node3
+[0m[33m15:55:59,134 WARN  [org.jgroups.protocols.UDP] (ServerService Thread Pool -- 87) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 20MB, but the OS only allocated 4.19MB
+[0m[33m15:55:59,136 WARN  [org.jgroups.protocols.UDP] (ServerService Thread Pool -- 87) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 4.19MB
+[0m[0m15:55:59,182 INFO  [org.jgroups.protocols.FD_SOCK2] (ServerService Thread Pool -- 87) server listening on /127.0.0.1:54400
+[0m[0m15:56:03,601 INFO  [org.wildfly.core.installationmanager] (MSC service thread 1-5) WFLYIM0023: Installation was provisioned using the following channel versions: '[ManifestVersion{channelId='org.jboss.eap.channels:eap-8.1', description='EAP 8.1 GA', version='1.0.0.GA-redhat-00012'}]'
+[0m[0m15:56:03,723 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 87) WFLYCLJG0033: Connected 'ee' channel. 'node3' joined cluster 'ejb' with view: [node2|2] (3) [node2, node1, node3]
+[0m[0m15:56:06,471 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 83) ISPN000556: Starting user marshaller 'org.wildfly.clustering.cache.infinispan.marshalling.UserMarshaller'
+[0m[0m15:56:06,476 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 82) ISPN000556: Starting user marshaller 'org.wildfly.clustering.cache.infinispan.marshalling.UserMarshaller'
+[0m[0m15:56:06,492 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 85) ISPN000556: Starting user marshaller 'org.wildfly.clustering.cache.infinispan.marshalling.UserMarshaller'
+[0m[0m15:56:06,489 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 86) ISPN000556: Starting user marshaller 'org.wildfly.clustering.cache.infinispan.marshalling.UserMarshaller'
+[0m[0m15:56:07,106 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 86) ISPN000389: Loaded global state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:25:30.994827708Z
+[0m[0m15:56:07,106 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 82) ISPN000389: Loaded global state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:25:30.967324639Z
+[0m[0m15:56:07,107 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 85) ISPN000389: Loaded global state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:25:30.988103360Z
+[0m[0m15:56:07,106 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 83) ISPN000389: Loaded global state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:25:30.960291098Z
+[0m[0m15:56:08,716 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node1, node3], phase READ_OLD_WRITE_ALL, topology id 6
+[0m[0m15:56:08,736 INFO  [org.infinispan.LIFECYCLE] (thread-13,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node1, node3], phase READ_OLD_WRITE_ALL, topology id 6
+[0m[0m15:56:08,760 INFO  [org.infinispan.LIFECYCLE] (thread-7,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node1, node3], phase READ_OLD_WRITE_ALL, topology id 6
+[0m[0m15:56:08,898 INFO  [org.infinispan.LIFECYCLE] (thread-13,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node1, node3], phase READ_OLD_WRITE_ALL, topology id 6
+[0m[0m15:56:09,002 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t7) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node1, node3], topology id 6
+[0m[0m15:56:09,012 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p6-t7) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node1, node3], topology id 6
+[0m[0m15:56:09,011 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t7) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node1, node3], topology id 6
+[0m[0m15:56:09,113 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p7-t7) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node1, node3], topology id 6
+[0m[0m15:56:09,571 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) ISPN000973: Task 'state-transfer-org.infinispan.CONFIG' started at 2026-09-10T10:26:09.002127791Z and done 2026-09-10T10:26:09.570756543Z
+[0m[0m15:56:09,591 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) ISPN000973: Task 'state-transfer-org.infinispan.CONFIG' started at 2026-09-10T10:26:09.010358177Z and done 2026-09-10T10:26:09.591594999Z
+[0m[0m15:56:09,581 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) ISPN000973: Task 'state-transfer-org.infinispan.CONFIG' started at 2026-09-10T10:26:09.111411841Z and done 2026-09-10T10:26:09.581406122Z
+[0m[0m15:56:09,593 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) ISPN000973: Task 'state-transfer-org.infinispan.CONFIG' started at 2026-09-10T10:26:09.010098349Z and done 2026-09-10T10:26:09.593659334Z
+[0m[0m15:56:10,207 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 82) Started server cache container
+[0m[0m15:56:10,208 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 83) Started hibernate cache container
+[0m[0m15:56:10,210 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 86) Started web cache container
+[0m[0m15:56:10,230 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 85) Started ejb cache container
+[0m[0m15:56:10,411 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node2, node1, node3], phase READ_OLD_WRITE_ALL, topology id 6
+[0m[0m15:56:10,435 INFO  [org.infinispan.LIFECYCLE] (thread-13,ejb,node3) [Context=default-server] ISPN100002: Starting rebalance with members [node2, node1, node3], phase READ_OLD_WRITE_ALL, topology id 6
+[0m[0m15:56:10,501 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t17) [Context=default-server] ISPN100010: Finished rebalance with members [node2, node1, node3], topology id 6
+[0m[0m15:56:10,510 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 85) WFLYCLINF0002: Started http-remoting-connector cache from ejb container
+[0m[0m15:56:10,533 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 82) WFLYCLINF0002: Started default-server cache from web container
+[0m[0m15:56:10,534 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 83) ISPN000025: wakeUpInterval is <= 0, not starting expired purge thread
+[0m[0m15:56:10,535 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t17) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node2, node1, node3], topology id 6
+[0m[0m15:56:10,575 INFO  [org.infinispan.LIFECYCLE] (thread-13,ejb,node3) ISPN000973: Task 'state-transfer-http-remoting-connector' started at 2026-09-10T10:26:10.488637162Z and done 2026-09-10T10:26:10.575262455Z
+[0m[0m15:56:10,607 INFO  [org.infinispan.LIFECYCLE] (thread-13,ejb,node3) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node2, node1, node3], phase READ_OLD_WRITE_ALL, topology id 6
+[0m[0m15:56:10,623 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) ISPN000973: Task 'state-transfer-default-server' started at 2026-09-10T10:26:10.500210809Z and done 2026-09-10T10:26:10.623693057Z
+[0m[0m15:56:10,673 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 83) WFLYCLINF0002: Started reproducer.war cache from web container
+[0m[0m15:56:10,704 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 85) WFLYCLINF0002: Started http-remoting-connector cache from ejb container
+[0m[0m15:56:10,707 INFO  [org.infinispan.LIFECYCLE] (thread-13,ejb,node3) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node2, node1, node3], topology id 6
+[0m[0m15:56:10,719 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 82) WFLYCLINF0002: Started default-server cache from web container
+[0m[0m15:56:10,760 INFO  [org.infinispan.LIFECYCLE] (thread-13,ejb,node3) ISPN000973: Task 'state-transfer-reproducer.war' started at 2026-09-10T10:26:10.706467844Z and done 2026-09-10T10:26:10.760756046Z
+[0m[0m15:56:10,928 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 83) WFLYCLINF0002: Started reproducer.war cache from web container
+[0m[0m15:56:11,569 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 83) WFLYUT0021: Registered web context: '/reproducer' for server 'default-server'
+[0m[0m15:56:11,794 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 46) WFLYSRV0010: Deployed "reproducer.war" (runtime-name : "reproducer.war")
+[0m[0m15:56:11,986 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0212: Resuming server
+[0m[0m15:56:12,012 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:10190/management
+[0m[0m15:56:12,017 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://127.0.0.1:10190
+[0m[0m15:56:12,033 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: JBoss EAP 8.1 (WildFly Core 27.1.0.Final-redhat-00010) started in 35070ms - Started 521 of 814 services (507 services are lazy, passive or on-demand) - Server configuration file in use: standalone-ha.xml
+[0m[0m15:56:26,379 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 11
+[0m[0m15:56:26,380 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 11
+[0m[0m15:56:26,384 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p7-t17) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3], topology id 11
+[0m[0m15:56:26,388 INFO  [org.infinispan.LIFECYCLE] (thread-13,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 11
+[0m[0m15:56:26,418 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p6-t17) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3], topology id 11
+[0m[0m15:56:26,493 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node2, node3], topology id 11
+[0m[0m15:56:26,511 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) ISPN000973: Task 'state-transfer-reproducer.war' started at 2026-09-10T10:26:26.489878594Z and done 2026-09-10T10:26:26.511166675Z
+[0m[0m15:56:26,547 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=default-server] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 11
+[0m[0m15:56:26,560 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 11
+[0m[0m15:56:26,567 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t1) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node2, node3], topology id 11
+[0m[0m15:56:26,564 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t18) [Context=default-server] ISPN100010: Finished rebalance with members [node2, node3], topology id 11
+[0m[0m15:56:26,639 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 11
+[0m[0m15:56:26,664 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t21) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3], topology id 11
+[0m[0m15:56:26,672 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 11
+[0m[0m15:56:26,700 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3], topology id 11
+[0m[0m15:56:26,878 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:56:26,884 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:56:26,893 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:56:26,896 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:56:26,910 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:56:26,913 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:56:26,920 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:56:26,921 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:56:28,226 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100000: Node node1 joined the cluster
+[0m[0m15:56:28,230 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100000: Node node1 joined the cluster
+[0m[0m15:56:28,234 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100000: Node node1 joined the cluster
+[0m[0m15:56:28,242 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100000: Node node1 joined the cluster
+[0m[0m15:56:28,253 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100000: Node node1 joined the cluster
+[0m[0m15:56:28,260 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100000: Node node1 joined the cluster
+[0m[0m15:56:28,263 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100000: Node node1 joined the cluster
+[0m[0m15:56:28,267 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100000: Node node1 joined the cluster
+[0m[0m15:56:28,398 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3, node1], phase READ_OLD_WRITE_ALL, topology id 15
+[0m[0m15:56:28,412 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p6-t4) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3, node1], topology id 15
+[0m[0m15:56:28,505 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3, node1], phase READ_OLD_WRITE_ALL, topology id 15
+[0m[0m15:56:28,511 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3, node1], topology id 15
+[0m[0m15:56:28,543 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3, node1], phase READ_OLD_WRITE_ALL, topology id 15
+[0m[0m15:56:28,567 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3, node1], phase READ_OLD_WRITE_ALL, topology id 15
+[0m[0m15:56:28,567 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t17) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3, node1], topology id 15
+[0m[0m15:56:28,577 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t19) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3, node1], topology id 15
+[0m[0m15:56:28,768 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node2, node3, node1], phase READ_OLD_WRITE_ALL, topology id 15
+[0m[0m15:56:28,780 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t23) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node2, node3, node1], topology id 15
+[0m[0m15:56:28,813 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=default-server] ISPN100002: Starting rebalance with members [node2, node3, node1], phase READ_OLD_WRITE_ALL, topology id 15
+[0m[0m15:56:28,824 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=default-server] ISPN100010: Finished rebalance with members [node2, node3, node1], topology id 15
+[0m[0m15:56:28,844 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node2, node3, node1], phase READ_OLD_WRITE_ALL, topology id 15
+[0m[0m15:56:28,885 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t2) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node2, node3, node1], topology id 15
+[0m[33m15:56:29,119 WARN  [org.jboss.as.ejb3.remote] (main - 1) WFLYEJB0509: Clustered Jakarta Enterprise Beans in Node: node1 are bound to INADDR_ANY(0.0.0.0). Either use a non-wildcard server bind address or add client-mapping entries to the relevant socket-binding for the Remoting connector
+[0m[0m15:56:32,452 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 20
+[0m[0m15:56:32,454 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 20
+[0m[0m15:56:32,456 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p7-t10) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 20
+[0m[0m15:56:32,456 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 20
+[0m[0m15:56:32,498 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 20
+[0m[0m15:56:32,544 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node3, node1], topology id 20
+[0m[0m15:56:32,557 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=default-server] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 20
+[0m[0m15:56:32,562 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) ISPN000973: Task 'state-transfer-reproducer.war' started at 2026-09-10T10:26:32.532463805Z and done 2026-09-10T10:26:32.562648939Z
+[0m[0m15:56:32,562 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 20
+[0m[0m15:56:32,566 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t18) [Context=default-server] ISPN100010: Finished rebalance with members [node3, node1], topology id 20
+[0m[0m15:56:32,568 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t6) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node3, node1], topology id 20
+[0m[0m15:56:32,588 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 20
+[0m[0m15:56:32,594 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 20
+[0m[0m15:56:32,606 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t21) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 20
+[0m[0m15:56:32,614 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t9) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 20
+[0m[0m15:56:32,690 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node2 left the cluster
+[0m[0m15:56:32,692 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node2 left the cluster
+[0m[0m15:56:32,694 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node2 left the cluster
+[0m[0m15:56:32,695 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node2 left the cluster
+[0m[0m15:56:32,701 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node2 left the cluster
+[0m[0m15:56:32,714 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node2 left the cluster
+[0m[0m15:56:32,721 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node2 left the cluster
+[0m[0m15:56:32,723 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) ISPN100001: Node node2 left the cluster
+[0m[0m15:56:32,786 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p7-t14) [Context=org.infinispan.CONFIG] ISPN100007: After merge (or coordinator change), recovered members [node3, node1] with topology id 21
+[0m[0m15:56:32,783 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p6-t14) [Context=org.infinispan.CONFIG] ISPN100007: After merge (or coordinator change), recovered members [node3, node1] with topology id 21
+[0m[0m15:56:32,793 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p5-t2) [Context=org.infinispan.CONFIG] ISPN100007: After merge (or coordinator change), recovered members [node3, node1] with topology id 21
+[0m[0m15:56:32,802 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p5-t1) [Context=default-server] ISPN100007: After merge (or coordinator change), recovered members [node3, node1] with topology id 21
+[0m[0m15:56:32,805 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p5-t22) [Context=reproducer.war] ISPN100007: After merge (or coordinator change), recovered members [node3, node1] with topology id 21
+[0m[0m15:56:32,807 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p8-t13) [Context=org.infinispan.CONFIG] ISPN100007: After merge (or coordinator change), recovered members [node3, node1] with topology id 21
+[0m[0m15:56:32,808 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p8-t14) [Context=http-remoting-connector] ISPN100007: After merge (or coordinator change), recovered members [node3, node1] with topology id 22
+[0m[0m15:56:32,828 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p7-t14) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,829 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p6-t14) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,835 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p5-t22) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,838 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t22) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,859 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p7-t14) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,871 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p6-t14) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,888 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p7-t17) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 22
+[0m[0m15:56:32,872 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p5-t1) [Context=default-server] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,895 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t1) [Context=default-server] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,897 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p5-t2) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,900 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t2) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,902 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p6-t14) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 22
+[0m[0m15:56:32,906 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t2) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 22
+[0m[0m15:56:32,907 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p8-t13) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,912 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t13) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 22
+[0m[0m15:56:32,909 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node3, node1], topology id 22
+[0m[0m15:56:32,908 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p8-t14) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 23
+[0m[0m15:56:32,923 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t1) [Context=default-server] ISPN100010: Finished rebalance with members [node3, node1], topology id 22
+[0m[0m15:56:32,915 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t13) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 22
+[0m[0m15:56:32,928 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t14) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node3, node1], phase READ_OLD_WRITE_ALL, topology id 23
+[0m[0m15:56:32,960 INFO  [org.infinispan.CLUSTER] (thread-9,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 23
+[0m[0m15:56:32,965 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=default-server] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 23
+[0m[0m15:56:32,969 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 23
+[0m[0m15:56:32,978 INFO  [org.infinispan.CLUSTER] (thread-9,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 23
+[0m[0m15:56:32,981 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 23
+[0m[0m15:56:32,987 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p5-t17) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 24
+[0m[0m15:56:32,994 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p8-t23) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 24
+[0m[0m15:56:32,995 INFO  [org.infinispan.CLUSTER] (thread-9,ejb,node3) [Context=default-server] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 24
+[0m[0m15:56:32,999 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 24
+[0m[0m15:56:33,003 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p8-t14) [Context=http-remoting-connector] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 24
+[0m[0m15:56:33,011 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) ISPN000973: Task 'state-transfer-reproducer.war' started at 2026-09-10T10:26:32.900611418Z and done 2026-09-10T10:26:33.011787039Z
+[0m[0m15:56:33,023 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=reproducer.war] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 23
+[0m[0m15:56:33,030 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t2) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node3, node1], topology id 23
+[0m[0m15:56:33,057 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 25
+[0m[0m15:56:33,063 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 25
+[0m[0m15:56:33,073 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=default-server] ISPN100010: Finished rebalance with members [node3, node1], topology id 25
+[0m[0m15:56:33,110 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=reproducer.war] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 24
+[0m[0m15:56:33,152 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 24
+[0m[0m15:56:33,174 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=http-remoting-connector] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 25
+[0m[0m15:56:33,186 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 25
+[0m[0m15:56:33,196 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node3, node1], topology id 26
+[0m[0m15:56:33,207 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node3, node1], topology id 25
+[0m[0m15:56:33,211 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1], topology id 25
+[0m[0m15:56:34,215 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) ISPN100000: Node node2 joined the cluster
+[0m[0m15:56:34,215 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) ISPN100000: Node node2 joined the cluster
+[0m[0m15:56:34,216 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) ISPN100000: Node node2 joined the cluster
+[0m[0m15:56:34,216 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) ISPN100000: Node node2 joined the cluster
+[0m[0m15:56:34,217 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) ISPN100000: Node node2 joined the cluster
+[0m[0m15:56:34,217 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) ISPN100000: Node node2 joined the cluster
+[0m[0m15:56:34,220 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) ISPN100000: Node node2 joined the cluster
+[0m[0m15:56:34,221 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) ISPN100000: Node node2 joined the cluster
+[0m[0m15:56:34,462 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,465 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,466 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,468 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,470 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t12) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 26
+[0m[0m15:56:34,473 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p6-t4) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 26
+[0m[0m15:56:34,516 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,525 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,532 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p7-t4) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 26
+[0m[0m15:56:34,601 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 27
+[0m[0m15:56:34,603 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,606 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,610 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t11) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 26
+[0m[0m15:56:34,609 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 27
+[0m[0m15:56:34,640 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 28
+[0m[0m15:56:34,647 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 28
+[0m[0m15:56:34,654 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 29
+[0m[0m15:56:34,661 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 27
+[0m[0m15:56:34,666 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 29
+[0m[0m15:56:34,678 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 28
+[0m[0m15:56:34,711 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 27
+[0m[0m15:56:34,716 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 29
+[0m[0m15:56:34,744 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 28
+[0m[0m15:56:34,748 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 27
+[0m[0m15:56:34,751 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 27
+[0m[0m15:56:34,760 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 29
+[0m[0m15:56:34,766 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p8-t19) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 27
+[0m[0m15:56:34,840 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=http-remoting-connector] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 28
+[0m[0m15:56:34,842 INFO  [org.infinispan.CLUSTER] (thread-12,ejb,node3) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,844 INFO  [org.infinispan.LIFECYCLE] (thread-12,ejb,node3) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,854 INFO  [org.infinispan.CLUSTER] (thread-9,ejb,node3) [Context=default-server] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,858 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=default-server] ISPN100002: Starting rebalance with members [node3, node1, node2], phase READ_OLD_WRITE_ALL, topology id 26
+[0m[0m15:56:34,862 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=http-remoting-connector] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 29
+[0m[0m15:56:34,864 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t21) [Context=default-server] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 26
+[0m[0m15:56:34,863 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p5-t20) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 26
+[0m[0m15:56:34,897 INFO  [org.infinispan.CLUSTER] (thread-9,ejb,node3) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 30
+[0m[0m15:56:34,965 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=default-server] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 27
+[0m[33m15:56:34,965 WARN  [org.jboss.as.ejb3.remote] (main - 1) WFLYEJB0509: Clustered Jakarta Enterprise Beans in Node: node2 are bound to INADDR_ANY(0.0.0.0). Either use a non-wildcard server bind address or add client-mapping entries to the relevant socket-binding for the Remoting connector
+[0m[0m15:56:34,971 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=reproducer.war] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 27
+[0m[0m15:56:34,976 INFO  [org.infinispan.CLUSTER] (thread-8,ejb,node3) [Context=default-server] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 28
+[0m[0m15:56:34,993 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p5-t23) [Context=default-server] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 29
+[0m[0m15:56:34,995 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=reproducer.war] ISPN100009: Advancing to rebalance phase READ_NEW_WRITE_ALL, topology id 28
+[0m[0m15:56:35,018 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node3, node1, node2], topology id 29
+[0m[0m15:56:38,866 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-7) WFLYMAIL0002: Unbound mail session [java:jboss/mail/Default]
+[0m[0m15:56:38,867 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 90) [Context=org.infinispan.CONFIG] ISPN100008: Updating cache members list [node1, node2], topology id 30
+[0m[0m15:56:38,873 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 90) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node1, node2], phase READ_OLD_WRITE_ALL, topology id 31
+[0m[0m15:56:38,871 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 91) WFLYUT0022: Unregistered web context: '/reproducer' from server 'default-server'
+[0m[0m15:56:38,868 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 83) [Context=org.infinispan.CONFIG] ISPN100008: Updating cache members list [node1, node2], topology id 30
+[0m[0m15:56:38,880 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 83) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node1, node2], phase READ_OLD_WRITE_ALL, topology id 31
+[0m[0m15:56:38,889 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 90) ISPN000390: Persisted state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:26:38.885631706Z
+[0m[0m15:56:38,902 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 83) ISPN000390: Persisted state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:26:38.897796121Z
+[0m[0m15:56:38,903 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 90) Stopped server cache container
+[0m[0m15:56:38,913 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) WFLYUT0019: Host default-host stopping
+[0m[0m15:56:38,919 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 83) Stopped hibernate cache container
+[0m[0m15:56:38,920 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 90) [Context=reproducer.war] ISPN100008: Updating cache members list [node1, node2], topology id 30
+[0m[0m15:56:38,922 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) WFLYJCA0010: Unbound data source [java:jboss/datasources/ExampleDS]
+[0m[0m15:56:38,924 INFO  [org.jboss.modcluster] (ServerService Thread Pool -- 91) MODCLUSTER000002: Initiating mod_cluster shutdown
+[0m[0m15:56:38,924 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 90) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node1, node2], phase READ_OLD_WRITE_ALL, topology id 31
+[0m[0m15:56:38,928 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-8) WFLYJCA0019: Stopped Driver service with driver-name = h2
+[0m[0m15:56:38,930 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 90) WFLYCLINF0003: Stopped reproducer.war cache from web container
+[0m[0m15:56:38,967 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 91) [Context=http-remoting-connector] ISPN100008: Updating cache members list [node1, node2], topology id 31
+[0m[0m15:56:38,969 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 90) [Context=default-server] ISPN100008: Updating cache members list [node1, node2], topology id 30
+[0m[0m15:56:38,972 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 90) [Context=default-server] ISPN100002: Starting rebalance with members [node1, node2], phase READ_OLD_WRITE_ALL, topology id 31
+[0m[0m15:56:38,978 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 90) WFLYCLINF0003: Stopped default-server cache from web container
+[0m[0m15:56:38,996 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 90) [Context=org.infinispan.CONFIG] ISPN100008: Updating cache members list [node1, node2], topology id 30
+[0m[0m15:56:38,998 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 90) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node1, node2], phase READ_OLD_WRITE_ALL, topology id 31
+[0m[0m15:56:39,002 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 91) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node1, node2], phase READ_OLD_WRITE_ALL, topology id 32
+[0m[0m15:56:39,008 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 91) WFLYCLINF0003: Stopped http-remoting-connector cache from ejb container
+[0m[0m15:56:39,011 INFO  [org.infinispan.CLUSTER] (thread-11,ejb,node3) [Context=default-server] ISPN100009: Advancing to rebalance phase READ_ALL_WRITE_ALL, topology id 32
+[0m[0m15:56:39,015 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0008: Undertow AJP listener ajp suspending
+[0m[0m15:56:39,016 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0008: Undertow HTTPS listener https suspending
+[0m[0m15:56:39,015 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 90) ISPN000390: Persisted state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:26:39.013393124Z
+[0m[0m15:56:39,020 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0007: Undertow AJP listener ajp stopped, was bound to 0.0.0.0:8209
+[0m[0m15:56:39,021 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 91) [Context=org.infinispan.CONFIG] ISPN100008: Updating cache members list [node1, node2], topology id 30
+[0m[0m15:56:39,021 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) WFLYSRV0028: Stopped deployment reproducer.war (runtime-name: reproducer.war) in 174ms
+[0m[0m15:56:39,025 INFO  [org.infinispan.CLUSTER] (ServerService Thread Pool -- 91) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node1, node2], phase READ_OLD_WRITE_ALL, topology id 31
+[0m[0m15:56:39,018 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0008: Undertow HTTP listener default suspending
+[0m[0m15:56:39,025 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0007: Undertow HTTPS listener https stopped, was bound to 0.0.0.0:8643
+[0m[0m15:56:39,029 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0007: Undertow HTTP listener default stopped, was bound to 0.0.0.0:8280
+[0m[0m15:56:39,027 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 90) Stopped web cache container
+[0m[0m15:56:39,031 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 91) ISPN000390: Persisted state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:26:39.030338471Z
+[0m[0m15:56:39,046 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 91) Stopped ejb cache container
+[0m[0m15:56:39,052 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0004: Undertow 2.3.18.SP1-redhat-00001 stopping
+[0m[0m15:56:39,056 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 90) WFLYCLJG0034: Disconnecting 'ee' channel. 'node3' leaving cluster 'ejb' with view: [node3|6] (3) [node3, node1, node2]
+[0m[0m15:56:39,087 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 90) WFLYCLJG0035: Disconnected 'ee' channel. 'node3' left cluster 'ejb'
+[0m[0m15:56:39,142 INFO  [org.jboss.as] (MSC service thread 1-3) WFLYSRV0050: JBoss EAP 8.1 (WildFly Core 27.1.0.Final-redhat-00010) stopped in 299ms
+[0m[0m15:56:39,149 INFO  [org.jboss.as] (MSC service thread 1-3) WFLYSRV0049: JBoss EAP 8.1 (WildFly Core 27.1.0.Final-redhat-00010) starting
+[0m[0m15:56:39,607 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0039: Creating http management service using socket-binding (management-http)
+[0m[0m15:56:39,630 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) WFLYSRV0027: Starting deployment of "reproducer.war" (runtime-name: "reproducer.war")
+[0m[0m15:56:39,630 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 45) WFLYJCA0004: Deploying JDBC-compliant driver class org.h2.Driver (version 2.2)
+[0m[0m15:56:39,632 INFO  [org.wildfly.extension.elytron.oidc._private] (ServerService Thread Pool -- 54) WFLYOIDC0001: Activating WildFly Elytron OIDC Subsystem
+[0m[0m15:56:39,634 INFO  [org.wildfly.extension.health] (ServerService Thread Pool -- 55) WFLYHEALTH0001: Activating Base Health Subsystem
+[0m[0m15:56:39,634 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 56) WFLYCLINF0001: Activating Infinispan subsystem.
+[0m[0m15:56:39,637 INFO  [org.jboss.as.jaxrs] (ServerService Thread Pool -- 58) WFLYRS0016: RESTEasy version 6.2.12.Final-redhat-00001
+[0m[0m15:56:39,639 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 61) WFLYCLJG0001: Activating JGroups subsystem. JGroups version 5.3.16
+[0m[0m15:56:39,639 INFO  [org.jboss.as.connector] (MSC service thread 1-6) WFLYJCA0009: Starting Jakarta Connectors Subsystem (WildFly/IronJacamar 3.0.14.Final-redhat-00001)
+[0m[0m15:56:39,642 INFO  [org.jboss.as.ejb3] (MSC service thread 1-3) WFLYEJB0481: Strict pool slsb-strict-max-pool is using a max instance size of 48 (per class), which is derived from thread worker pool sizing.
+[0m[0m15:56:39,642 INFO  [org.wildfly.extension.metrics] (ServerService Thread Pool -- 66) WFLYMETRICS0001: Activating Base Metrics Subsystem
+[0m[0m15:56:39,643 INFO  [org.jboss.as.ejb3] (MSC service thread 1-5) WFLYEJB0482: Strict pool mdb-strict-max-pool is using a max instance size of 48 (per class), which is derived from the number of CPUs on this host.
+[0m[0m15:56:39,643 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 57) WFLYIO001: Worker 'default' has auto-configured to 24 IO threads with 192 max task threads based on your 12 available processors
+[0m[0m15:56:39,645 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-4) WFLYJCA0018: Started Driver service with driver-name = h2
+[0m[0m15:56:39,646 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 68) WFLYNAM0001: Activating Naming Subsystem
+[0m[0m15:56:39,654 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-5) WFLYMAIL0001: Bound mail session [java:jboss/mail/Default]
+[0m[0m15:56:39,657 INFO  [org.jboss.as.naming] (MSC service thread 1-4) WFLYNAM0003: Starting Naming Service
+[0m[33m15:56:39,657 WARN  [org.jboss.as.txn] (ServerService Thread Pool -- 76) WFLYTX0013: The node-identifier attribute on the /subsystem=transactions is set to the default value. This is a danger for environments running multiple servers. Please make sure the attribute value is unique.
+[0m[0m15:56:39,658 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 78) WFLYWS0002: Activating WebServices Extension
+[0m[0m15:56:39,672 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0003: Undertow 2.3.18.SP1-redhat-00001 starting
+[0m[33m15:56:39,682 WARN  [org.wildfly.extension.elytron] (MSC service thread 1-6) WFLYELY00023: KeyStore file '/home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/standalone-node3/configuration/application.keystore' does not exist. Used blank.
+[0m[33m15:56:39,685 WARN  [org.wildfly.extension.elytron] (MSC service thread 1-8) WFLYELY01084: KeyStore /home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/standalone-node3/configuration/application.keystore not found, it will be auto-generated on first use with a self-signed certificate for host localhost
+[0m[0m15:56:39,691 INFO  [org.jboss.as.ejb3] (MSC service thread 1-4) WFLYEJB0493: Jakarta Enterprise Beans subsystem suspension complete
+[0m[0m15:56:39,702 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0001: Bound data source [java:jboss/datasources/ExampleDS]
+[0m[0m15:56:39,703 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 77) WFLYUT0014: Creating file handler for path '/home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/welcome-content' with options [directory-listing: 'false', follow-symlink: 'false', case-sensitive: 'true', safe-symlink-paths: '[]']
+[0m[0m15:56:39,703 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0012: Started server default-server.
+[0m[0m15:56:39,706 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0006: Undertow AJP listener ajp listening on 0.0.0.0:8209
+[0m[0m15:56:39,707 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) Queuing requests.
+[0m[0m15:56:39,707 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) WFLYUT0006: Undertow HTTP listener default listening on 0.0.0.0:8280
+[0m[0m15:56:39,707 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-6) WFLYUT0006: Undertow HTTPS listener https listening on 0.0.0.0:8643
+[0m[0m15:56:39,707 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0018: Host default-host starting
+[0m[0m15:56:39,708 INFO  [org.jboss.modcluster] (ServerService Thread Pool -- 80) MODCLUSTER000001: Initializing mod_cluster version 2.1.0.Final-redhat-00001
+[0m[0m15:56:39,710 INFO  [org.jboss.modcluster] (ServerService Thread Pool -- 80) MODCLUSTER000032: Listening to proxy advertisements on /224.0.1.105:23364
+[0m[0m15:56:39,833 INFO  [org.jboss.ws.common.management] (MSC service thread 1-5) JBWS022052: Starting JBossWS 7.3.3.Final-redhat-00001 (Apache CXF 4.0.8.redhat-00001) 
+[0m[0m15:56:39,838 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-6) WFLYDS0013: Started FileSystemDeploymentService for directory /home/mopatil/Documents/EAP_lab/jboss-eap-8.1.0/jboss-eap-8.1/standalone-node3/deployments
+[0m[0m15:56:40,236 INFO  [org.wildfly.core.installationmanager] (MSC service thread 1-3) WFLYIM0023: Installation was provisioned using the following channel versions: '[ManifestVersion{channelId='org.jboss.eap.channels:eap-8.1', description='EAP 8.1 GA', version='1.0.0.GA-redhat-00012'}]'
+[0m[0m15:56:40,249 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 88) WFLYCLJG0032: Connecting 'ee' channel. 'node3' joining cluster 'ejb' via /127.0.0.1:55400
+[0m[0m15:56:40,250 INFO  [org.jgroups.JChannel] (ServerService Thread Pool -- 88) local_addr: 70f6f5e2-3387-47e6-bad3-439b3398fee5, name: node3
+[0m[33m15:56:40,251 WARN  [org.jgroups.protocols.UDP] (ServerService Thread Pool -- 88) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 20MB, but the OS only allocated 4.19MB
+[0m[33m15:56:40,252 WARN  [org.jgroups.protocols.UDP] (ServerService Thread Pool -- 88) JGRP000015: the receive buffer of socket ManagedMulticastSocketBinding was set to 25MB, but the OS only allocated 4.19MB
+[0m[0m15:56:40,254 INFO  [org.jgroups.protocols.FD_SOCK2] (ServerService Thread Pool -- 88) server listening on /127.0.0.1:54400
+[0m[0m15:56:40,284 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 88) WFLYCLJG0033: Connected 'ee' channel. 'node3' joined cluster 'ejb' with view: [node1|8] (3) [node1, node2, node3]
+[0m[0m15:56:40,334 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 87) ISPN000556: Starting user marshaller 'org.wildfly.clustering.cache.infinispan.marshalling.UserMarshaller'
+[0m[0m15:56:40,348 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 87) ISPN000389: Loaded global state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:26:38.897796121Z
+[0m[0m15:56:40,368 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 81) ISPN000556: Starting user marshaller 'org.wildfly.clustering.cache.infinispan.marshalling.UserMarshaller'
+[0m[0m15:56:40,382 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 81) ISPN000389: Loaded global state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:26:38.885631706Z
+[0m[0m15:56:40,385 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node1, node2, node3], phase READ_OLD_WRITE_ALL, topology id 37
+[0m[0m15:56:40,402 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 86) ISPN000556: Starting user marshaller 'org.wildfly.clustering.cache.infinispan.marshalling.UserMarshaller'
+[0m[0m15:56:40,404 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p22-t5) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node1, node2, node3], topology id 37
+[0m[0m15:56:40,416 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 85) ISPN000556: Starting user marshaller 'org.wildfly.clustering.cache.infinispan.marshalling.UserMarshaller'
+[0m[0m15:56:40,416 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node1, node2, node3], phase READ_OLD_WRITE_ALL, topology id 37
+[0m[0m15:56:40,427 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 86) ISPN000389: Loaded global state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:26:39.013393124Z
+[0m[0m15:56:40,429 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p26-t5) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node1, node2, node3], topology id 37
+[0m[0m15:56:40,433 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 85) ISPN000389: Loaded global state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:26:39.030338471Z
+[0m[0m15:56:40,437 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) ISPN000973: Task 'state-transfer-org.infinispan.CONFIG' started at 2026-09-10T10:26:40.403602960Z and done 2026-09-10T10:26:40.437273967Z
+[0m[0m15:56:40,471 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) ISPN000973: Task 'state-transfer-org.infinispan.CONFIG' started at 2026-09-10T10:26:40.429048925Z and done 2026-09-10T10:26:40.471282830Z
+[0m[0m15:56:40,472 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node1, node2, node3], phase READ_OLD_WRITE_ALL, topology id 37
+[0m[0m15:56:40,485 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node1, node2, node3], phase READ_OLD_WRITE_ALL, topology id 37
+[0m[0m15:56:40,496 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p30-t5) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node1, node2, node3], topology id 37
+[0m[0m15:56:40,501 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 87) Started hibernate cache container
+[0m[0m15:56:40,504 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p35-t5) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node1, node2, node3], topology id 37
+[0m[0m15:56:40,521 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) ISPN000973: Task 'state-transfer-org.infinispan.CONFIG' started at 2026-09-10T10:26:40.496351440Z and done 2026-09-10T10:26:40.521463972Z
+[0m[0m15:56:40,528 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) ISPN000973: Task 'state-transfer-org.infinispan.CONFIG' started at 2026-09-10T10:26:40.503987756Z and done 2026-09-10T10:26:40.528680121Z
+[0m[0m15:56:40,534 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 81) Started server cache container
+[0m[0m15:56:40,585 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 86) Started web cache container
+[0m[0m15:56:40,591 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 85) Started ejb cache container
+[0m[0m15:56:40,607 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 85) ISPN000025: wakeUpInterval is <= 0, not starting expired purge thread
+[0m[0m15:56:40,614 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node1, node2, node3], phase READ_OLD_WRITE_ALL, topology id 38
+[0m[0m15:56:40,628 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=default-server] ISPN100002: Starting rebalance with members [node1, node2, node3], phase READ_OLD_WRITE_ALL, topology id 38
+[0m[0m15:56:40,635 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 86) WFLYCLINF0002: Started http-remoting-connector cache from ejb container
+[0m[0m15:56:40,636 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node1, node2, node3], phase READ_OLD_WRITE_ALL, topology id 37
+[0m[0m15:56:40,637 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p35-t15) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node1, node2, node3], topology id 38
+[0m[0m15:56:40,641 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p30-t16) [Context=default-server] ISPN100010: Finished rebalance with members [node1, node2, node3], topology id 38
+[0m[0m15:56:40,644 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 85) WFLYCLINF0002: Started reproducer.war cache from web container
+[0m[0m15:56:40,645 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 81) WFLYCLINF0002: Started default-server cache from web container
+[0m[0m15:56:40,657 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node1, node2, node3], topology id 37
+[0m[0m15:56:40,667 INFO  [org.infinispan.LIFECYCLE] (thread-8,ejb,node3) ISPN000973: Task 'state-transfer-default-server' started at 2026-09-10T10:26:40.640600986Z and done 2026-09-10T10:26:40.667451964Z
+[0m[0m15:56:40,668 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) ISPN000973: Task 'state-transfer-http-remoting-connector' started at 2026-09-10T10:26:40.636183670Z and done 2026-09-10T10:26:40.668242671Z
+[0m[0m15:56:40,671 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) ISPN000973: Task 'state-transfer-reproducer.war' started at 2026-09-10T10:26:40.656488601Z and done 2026-09-10T10:26:40.671258708Z
+[0m[0m15:56:40,705 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 81) WFLYCLINF0002: Started default-server cache from web container
+[0m[0m15:56:40,714 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 86) WFLYCLINF0002: Started http-remoting-connector cache from ejb container
+[0m[0m15:56:40,723 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 85) WFLYCLINF0002: Started reproducer.war cache from web container
+[0m[0m15:56:40,798 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 85) WFLYUT0021: Registered web context: '/reproducer' for server 'default-server'
+[0m[0m15:56:40,882 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 46) WFLYSRV0010: Deployed "reproducer.war" (runtime-name : "reproducer.war")
+[0m[0m15:56:40,937 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0212: Resuming server
+[0m[0m15:56:40,941 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:10190/management
+[0m[0m15:56:40,942 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://127.0.0.1:10190
+[0m[0m15:56:40,945 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: JBoss EAP 8.1 (WildFly Core 27.1.0.Final-redhat-00010) started in 1791ms - Started 521 of 814 services (507 services are lazy, passive or on-demand) - Server configuration file in use: standalone-ha.xml
+[0m[0m15:57:05,158 INFO  [org.infinispan.CLUSTER] (thread-10,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:57:05,159 INFO  [org.infinispan.CLUSTER] (thread-10,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:57:05,163 INFO  [org.infinispan.CLUSTER] (thread-10,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:57:05,164 INFO  [org.infinispan.CLUSTER] (thread-10,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:57:05,165 INFO  [org.infinispan.CLUSTER] (thread-10,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:57:05,166 INFO  [org.infinispan.CLUSTER] (thread-10,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:57:05,170 INFO  [org.infinispan.CLUSTER] (thread-10,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:57:05,170 INFO  [org.infinispan.CLUSTER] (thread-10,ejb,node3) ISPN100001: Node node1 left the cluster
+[0m[0m15:57:05,188 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=http-remoting-connector] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 44
+[0m[0m15:57:05,191 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 43
+[0m[0m15:57:05,194 INFO  [org.infinispan.LIFECYCLE] (thread-7,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 43
+[0m[0m15:57:05,199 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p35-t2) [Context=http-remoting-connector] ISPN100010: Finished rebalance with members [node2, node3], topology id 44
+[0m[0m15:57:05,199 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p35-t7) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3], topology id 43
+[0m[0m15:57:05,208 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p26-t20) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3], topology id 43
+[0m[0m15:57:05,209 INFO  [org.infinispan.LIFECYCLE] (thread-10,ejb,node3) [Context=reproducer.war] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 43
+[0m[0m15:57:05,209 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=default-server] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 44
+[0m[0m15:57:05,209 INFO  [org.infinispan.LIFECYCLE] (thread-11,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 43
+[0m[0m15:57:05,210 INFO  [org.infinispan.LIFECYCLE] (thread-7,ejb,node3) [Context=org.infinispan.CONFIG] ISPN100002: Starting rebalance with members [node2, node3], phase READ_OLD_WRITE_ALL, topology id 43
+[0m[0m15:57:05,213 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p30-t21) [Context=default-server] ISPN100010: Finished rebalance with members [node2, node3], topology id 44
+[0m[0m15:57:05,215 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p22-t20) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3], topology id 43
+[0m[0m15:57:05,218 INFO  [org.infinispan.LIFECYCLE] (non-blocking-thread-node3-p30-t22) [Context=org.infinispan.CONFIG] ISPN100010: Finished rebalance with members [node2, node3], topology id 43
+[0m[0m15:57:05,422 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) [Context=reproducer.war] ISPN100010: Finished rebalance with members [node2, node3], topology id 43
+[0m[0m15:57:05,462 INFO  [org.infinispan.LIFECYCLE] (thread-9,ejb,node3) ISPN000973: Task 'state-transfer-reproducer.war' started at 2026-09-10T10:27:05.419677476Z and done 2026-09-10T10:27:05.462646941Z
+[0m[0m15:57:07,152 INFO  [org.infinispan.CLUSTER] (VERIFY_SUSPECT2.Runner-1) ISPN100001: Node node2 left the cluster
+[0m[0m15:57:07,152 INFO  [org.infinispan.CLUSTER] (VERIFY_SUSPECT2.Runner-1) ISPN100001: Node node2 left the cluster
+[0m[0m15:57:07,153 INFO  [org.infinispan.CLUSTER] (VERIFY_SUSPECT2.Runner-1) ISPN100001: Node node2 left the cluster
+[0m[0m15:57:07,153 INFO  [org.infinispan.CLUSTER] (VERIFY_SUSPECT2.Runner-1) ISPN100001: Node node2 left the cluster
+[0m[0m15:57:07,154 INFO  [org.infinispan.CLUSTER] (VERIFY_SUSPECT2.Runner-1) ISPN100001: Node node2 left the cluster
+[0m[0m15:57:07,154 INFO  [org.infinispan.CLUSTER] (VERIFY_SUSPECT2.Runner-1) ISPN100001: Node node2 left the cluster
+[0m[0m15:57:07,154 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p26-t2) [Context=org.infinispan.CONFIG] ISPN100007: After merge (or coordinator change), recovered members [node2, node3] with topology id 47
+[0m[0m15:57:07,154 INFO  [org.infinispan.CLUSTER] (VERIFY_SUSPECT2.Runner-1) ISPN100001: Node node2 left the cluster
+[0m[0m15:57:07,155 INFO  [org.infinispan.CLUSTER] (VERIFY_SUSPECT2.Runner-1) ISPN100001: Node node2 left the cluster
+[0m[0m15:57:07,155 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p30-t23) [Context=org.infinispan.CONFIG] ISPN100007: After merge (or coordinator change), recovered members [node2, node3] with topology id 47
+[0m[0m15:57:07,155 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p30-t1) [Context=default-server] ISPN100007: After merge (or coordinator change), recovered members [node2, node3] with topology id 48
+[0m[0m15:57:07,156 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p26-t2) [Context=org.infinispan.CONFIG] ISPN100008: Updating cache members list [node3], topology id 48
+[0m[0m15:57:07,156 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p30-t24) [Context=reproducer.war] ISPN100007: After merge (or coordinator change), recovered members [node2, node3] with topology id 47
+[0m[0m15:57:07,156 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p35-t21) [Context=org.infinispan.CONFIG] ISPN100007: After merge (or coordinator change), recovered members [node2, node3] with topology id 47
+[0m[0m15:57:07,156 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p35-t19) [Context=http-remoting-connector] ISPN100007: After merge (or coordinator change), recovered members [node2, node3] with topology id 48
+[0m[0m15:57:07,158 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p30-t24) [Context=reproducer.war] ISPN100008: Updating cache members list [node3], topology id 48
+[0m[0m15:57:07,159 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p30-t1) [Context=default-server] ISPN100008: Updating cache members list [node3], topology id 49
+[0m[0m15:57:07,155 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p22-t2) [Context=org.infinispan.CONFIG] ISPN100007: After merge (or coordinator change), recovered members [node2, node3] with topology id 47
+[0m[0m15:57:07,160 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p35-t19) [Context=http-remoting-connector] ISPN100008: Updating cache members list [node3], topology id 49
+[0m[0m15:57:07,158 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p30-t23) [Context=org.infinispan.CONFIG] ISPN100008: Updating cache members list [node3], topology id 48
+[0m[0m15:57:07,161 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p35-t21) [Context=org.infinispan.CONFIG] ISPN100008: Updating cache members list [node3], topology id 48
+[0m[0m15:57:07,168 INFO  [org.infinispan.CLUSTER] (non-blocking-thread-node3-p22-t2) [Context=org.infinispan.CONFIG] ISPN100008: Updating cache members list [node3], topology id 48
+[0m[0m15:57:07,425 INFO  [com.redhat.reproducer.SessionReproducerServlet] (default task-1) Node=node3 SessionID=5xHN_6cUgZ59u2XlvQWuWZBXOfSjASl9hHc2Vpa6 Counter=8 New=false
+[0m[0m15:57:27,934 INFO  [org.jboss.as.server] (management-handler-thread - 1) WFLYSRV0272: Suspending server
+[0m[0m15:57:27,940 INFO  [org.jboss.as.ejb3] (management-handler-thread - 1) WFLYEJB0493: Jakarta Enterprise Beans subsystem suspension complete
+[0m[0m15:57:27,945 INFO  [org.jboss.as.server] (Management Triggered Shutdown) WFLYSRV0241: Shutting down in response to management operation 'shutdown'
+[0m[0m15:57:27,955 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 91) WFLYUT0022: Unregistered web context: '/reproducer' from server 'default-server'
+[0m[0m15:57:27,961 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-3) WFLYMAIL0002: Unbound mail session [java:jboss/mail/Default]
+[0m[0m15:57:27,965 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) WFLYUT0019: Host default-host stopping
+[0m[0m15:57:27,967 INFO  [org.jboss.modcluster] (ServerService Thread Pool -- 92) MODCLUSTER000002: Initiating mod_cluster shutdown
+[0m[0m15:57:27,967 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-8) WFLYJCA0010: Unbound data source [java:jboss/datasources/ExampleDS]
+[0m[0m15:57:27,971 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 93) ISPN000390: Persisted state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:27:27.970632568Z
+[0m[0m15:57:27,971 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 85) ISPN000390: Persisted state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:27:27.969519055Z
+[0m[0m15:57:27,976 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-8) WFLYJCA0019: Stopped Driver service with driver-name = h2
+[0m[0m15:57:27,976 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 91) WFLYCLINF0003: Stopped default-server cache from web container
+[0m[0m15:57:27,979 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 85) Stopped server cache container
+[0m[0m15:57:27,980 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 94) WFLYCLINF0003: Stopped reproducer.war cache from web container
+[0m[0m15:57:27,982 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 92) WFLYCLINF0003: Stopped http-remoting-connector cache from ejb container
+[0m[0m15:57:27,983 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 93) Stopped hibernate cache container
+[0m[0m15:57:27,995 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 92) ISPN000390: Persisted state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:27:27.994052053Z
+[0m[0m15:57:27,995 INFO  [org.infinispan.CONTAINER] (ServerService Thread Pool -- 94) ISPN000390: Persisted state, version=15.0.16.Final-redhat-00001 timestamp=2026-09-10T10:27:27.994273197Z
+[0m[0m15:57:27,999 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 94) Stopped ejb cache container
+[0m[0m15:57:28,002 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 92) Stopped web cache container
+[0m[0m15:57:28,005 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 92) WFLYCLJG0034: Disconnecting 'ee' channel. 'node3' leaving cluster 'ejb' with view: [node3|10] (1) [node3]
+[0m[0m15:57:28,006 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0008: Undertow HTTP listener default suspending
+[0m[0m15:57:28,006 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0008: Undertow HTTPS listener https suspending
+[0m[0m15:57:28,006 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0008: Undertow AJP listener ajp suspending
+[0m[0m15:57:28,008 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0007: Undertow HTTP listener default stopped, was bound to 0.0.0.0:8280
+[0m[0m15:57:28,008 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0007: Undertow HTTPS listener https stopped, was bound to 0.0.0.0:8643
+[0m[0m15:57:28,009 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0007: Undertow AJP listener ajp stopped, was bound to 0.0.0.0:8209
+[0m[0m15:57:28,010 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) WFLYSRV0028: Stopped deployment reproducer.war (runtime-name: reproducer.war) in 54ms
+[0m[0m15:57:28,011 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0004: Undertow 2.3.18.SP1-redhat-00001 stopping
+[0m[0m15:57:28,012 INFO  [org.jboss.as.clustering.jgroups] (ServerService Thread Pool -- 92) WFLYCLJG0035: Disconnected 'ee' channel. 'node3' left cluster 'ejb'
+[0m[0m15:57:28,025 INFO  [org.jboss.as] (MSC service thread 1-7) WFLYSRV0050: JBoss EAP 8.1 (WildFly Core 27.1.0.Final-redhat-00010) stopped in 71ms
+[0m

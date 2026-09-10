@@ -1,0 +1,10 @@
+# JBoss CLI configuration for infinispan reproducer
+# Server config: standalone-ha.xml
+
+# Enable infinispan statistics for debugging
+/subsystem=infinispan/cache-container=web:write-attribute(name=statistics-enabled,value=true)
+/subsystem=infinispan/cache-container=web/distributed-cache=dist:write-attribute(name=statistics-enabled,value=true)
+
+# Enable clustering debug logging
+/subsystem=logging/logger=org.infinispan:add(level=DEBUG)
+/subsystem=logging/logger=org.jgroups:add(level=DEBUG)

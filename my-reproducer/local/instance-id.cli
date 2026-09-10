@@ -1,0 +1,5 @@
+# Make Undertow append the node's route to JSESSIONID (e.g. <id>.node1).
+# This is what lets the Apache balancer do sticky routing + failover.
+# Applied per node; ${jboss.node.name} resolves to node1/node2/node3 at runtime.
+/subsystem=undertow:write-attribute(name=instance-id, value=${jboss.node.name})
+:reload

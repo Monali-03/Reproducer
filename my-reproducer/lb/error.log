@@ -1,0 +1,545 @@
+[Mon Sep 07 19:06:39.533733 2026] [mpm_event:notice] [pid 133251:tid 133251] AH00489: Apache/2.4.67 (Fedora Linux) configured -- resuming normal operations
+[Mon Sep 07 19:06:39.534011 2026] [core:notice] [pid 133251:tid 133251] AH00094: Command line: 'httpd -f /home/mopatil/reproducer-agent/my-reproducer/lb/httpd.runtime.conf'
+[Mon Sep 07 19:07:03.205460 2026] [proxy_http:error] [pid 133255:tid 133283] (70007)The timeout specified has expired: [client ::1:49378] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.205601 2026] [proxy:error] [pid 133255:tid 133283] [client ::1:49378] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.213825 2026] [proxy_http:error] [pid 133255:tid 133291] (70007)The timeout specified has expired: [client ::1:49402] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.213913 2026] [proxy:error] [pid 133255:tid 133291] [client ::1:49402] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.228380 2026] [proxy_http:error] [pid 133254:tid 133288] (70007)The timeout specified has expired: [client ::1:49430] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.228481 2026] [proxy:error] [pid 133254:tid 133288] [client ::1:49430] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.233139 2026] [proxy_http:error] [pid 133255:tid 133294] (70007)The timeout specified has expired: [client ::1:49418] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.233189 2026] [proxy:error] [pid 133255:tid 133294] [client ::1:49418] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.241295 2026] [proxy_http:error] [pid 133253:tid 133273] (70007)The timeout specified has expired: [client ::1:49442] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.241389 2026] [proxy:error] [pid 133253:tid 133273] [client ::1:49442] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.242263 2026] [proxy_http:error] [pid 133255:tid 133287] (70007)The timeout specified has expired: [client ::1:49422] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.242332 2026] [proxy:error] [pid 133255:tid 133287] [client ::1:49422] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.248156 2026] [proxy_http:error] [pid 133253:tid 133266] (70007)The timeout specified has expired: [client ::1:49452] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.248248 2026] [proxy:error] [pid 133253:tid 133266] [client ::1:49452] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.251221 2026] [proxy_http:error] [pid 133253:tid 133280] (70007)The timeout specified has expired: [client ::1:49464] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.251284 2026] [proxy:error] [pid 133253:tid 133280] [client ::1:49464] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.252153 2026] [proxy_http:error] [pid 133253:tid 133284] (70007)The timeout specified has expired: [client ::1:49476] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.252208 2026] [proxy:error] [pid 133253:tid 133284] [client ::1:49476] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.261347 2026] [proxy_http:error] [pid 133253:tid 133293] (70007)The timeout specified has expired: [client ::1:49490] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.261444 2026] [proxy:error] [pid 133253:tid 133293] [client ::1:49490] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.267139 2026] [proxy_http:error] [pid 133254:tid 133278] (70007)The timeout specified has expired: [client ::1:49530] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.267209 2026] [proxy:error] [pid 133254:tid 133278] [client ::1:49530] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.270140 2026] [proxy_http:error] [pid 133254:tid 133296] (70007)The timeout specified has expired: [client ::1:49542] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.270191 2026] [proxy:error] [pid 133254:tid 133296] [client ::1:49542] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.270293 2026] [proxy_http:error] [pid 133254:tid 133300] (70007)The timeout specified has expired: [client ::1:49518] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.270367 2026] [proxy:error] [pid 133254:tid 133300] [client ::1:49518] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.271163 2026] [proxy_http:error] [pid 133254:tid 133292] (70007)The timeout specified has expired: [client ::1:49434] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.271223 2026] [proxy:error] [pid 133254:tid 133292] [client ::1:49434] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.272149 2026] [proxy_http:error] [pid 133254:tid 133305] (70007)The timeout specified has expired: [client ::1:49546] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.272203 2026] [proxy:error] [pid 133254:tid 133305] [client ::1:49546] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.274260 2026] [proxy_http:error] [pid 133255:tid 133295] (70007)The timeout specified has expired: [client ::1:49560] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.274335 2026] [proxy:error] [pid 133255:tid 133295] [client ::1:49560] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.276200 2026] [proxy_http:error] [pid 133253:tid 133297] (70007)The timeout specified has expired: [client ::1:49506] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.276266 2026] [proxy:error] [pid 133253:tid 133297] [client ::1:49506] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.279170 2026] [proxy_http:error] [pid 133255:tid 133298] (70007)The timeout specified has expired: [client ::1:49606] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.279223 2026] [proxy:error] [pid 133255:tid 133298] [client ::1:49606] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.279212 2026] [proxy_http:error] [pid 133254:tid 133303] (70007)The timeout specified has expired: [client ::1:49580] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.279236 2026] [proxy_http:error] [pid 133253:tid 133301] (70007)The timeout specified has expired: [client ::1:49510] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.279265 2026] [proxy:error] [pid 133254:tid 133303] [client ::1:49580] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.279307 2026] [proxy:error] [pid 133253:tid 133301] [client ::1:49510] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.287257 2026] [proxy_http:error] [pid 133253:tid 133308] (70007)The timeout specified has expired: [client ::1:49596] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.287332 2026] [proxy:error] [pid 133253:tid 133308] [client ::1:49596] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.288222 2026] [proxy_http:error] [pid 133253:tid 133304] (70007)The timeout specified has expired: [client ::1:49574] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.288309 2026] [proxy:error] [pid 133253:tid 133304] [client ::1:49574] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.292159 2026] [proxy_http:error] [pid 133253:tid 133270] (70007)The timeout specified has expired: [client ::1:49440] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.292239 2026] [proxy:error] [pid 133253:tid 133270] [client ::1:49440] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.292249 2026] [proxy_http:error] [pid 133253:tid 133289] (70007)The timeout specified has expired: [client ::1:49622] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.292326 2026] [proxy:error] [pid 133253:tid 133289] [client ::1:49622] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.294197 2026] [proxy_http:error] [pid 133253:tid 133276] (70007)The timeout specified has expired: [client ::1:49634] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.294266 2026] [proxy:error] [pid 133253:tid 133276] [client ::1:49634] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.301275 2026] [proxy_http:error] [pid 133254:tid 133309] (70007)The timeout specified has expired: [client ::1:49638] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.301342 2026] [proxy:error] [pid 133254:tid 133309] [client ::1:49638] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.304156 2026] [proxy_http:error] [pid 133255:tid 133299] (70007)The timeout specified has expired: [client ::1:49650] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.304256 2026] [proxy:error] [pid 133255:tid 133299] [client ::1:49650] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:03.559966 2026] [proxy_http:error] [pid 133253:tid 133306] (70007)The timeout specified has expired: [client ::1:49666] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:03.560080 2026] [proxy:error] [pid 133253:tid 133306] [client ::1:49666] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:06.602619 2026] [proxy_http:error] [pid 133253:tid 133320] (70007)The timeout specified has expired: [client ::1:49670] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:06.602759 2026] [proxy:error] [pid 133253:tid 133320] [client ::1:49670] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.638790 2026] [proxy_http:error] [pid 133253:tid 133280] (70007)The timeout specified has expired: [client ::1:49688] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.638900 2026] [proxy:error] [pid 133253:tid 133280] [client ::1:49688] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.653004 2026] [proxy_http:error] [pid 133255:tid 133324] (70007)The timeout specified has expired: [client ::1:49720] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.653164 2026] [proxy:error] [pid 133255:tid 133324] [client ::1:49720] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.658150 2026] [proxy_http:error] [pid 133468:tid 133470] (70007)The timeout specified has expired: [client ::1:49734] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.658264 2026] [proxy:error] [pid 133468:tid 133470] [client ::1:49734] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.659162 2026] [proxy_http:error] [pid 133468:tid 133472] (70007)The timeout specified has expired: [client ::1:49752] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.659217 2026] [proxy_http:error] [pid 133468:tid 133471] (70007)The timeout specified has expired: [client ::1:49742] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.659262 2026] [proxy:error] [pid 133468:tid 133472] [client ::1:49752] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.659312 2026] [proxy:error] [pid 133468:tid 133471] [client ::1:49742] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.668171 2026] [proxy_http:error] [pid 133498:tid 133510] (70007)The timeout specified has expired: [client ::1:49676] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.668293 2026] [proxy:error] [pid 133498:tid 133510] [client ::1:49676] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.670147 2026] [proxy_http:error] [pid 133498:tid 133512] (70007)The timeout specified has expired: [client ::1:49714] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.670220 2026] [proxy:error] [pid 133498:tid 133512] [client ::1:49714] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.673189 2026] [proxy_http:error] [pid 133498:tid 133514] (70007)The timeout specified has expired: [client ::1:49776] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.673314 2026] [proxy:error] [pid 133498:tid 133514] [client ::1:49776] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.675198 2026] [proxy_http:error] [pid 133497:tid 133500] (70007)The timeout specified has expired: [client ::1:49704] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.675208 2026] [proxy_http:error] [pid 133497:tid 133501] (70007)The timeout specified has expired: [client ::1:49700] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.675382 2026] [proxy:error] [pid 133497:tid 133500] [client ::1:49704] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.675439 2026] [proxy:error] [pid 133497:tid 133501] [client ::1:49700] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.676141 2026] [proxy_http:error] [pid 133497:tid 133502] (70007)The timeout specified has expired: [client ::1:49760] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.676191 2026] [proxy:error] [pid 133497:tid 133502] [client ::1:49760] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.677170 2026] [proxy_http:error] [pid 133498:tid 133516] (70007)The timeout specified has expired: [client ::1:49782] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.677251 2026] [proxy:error] [pid 133498:tid 133516] [client ::1:49782] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.681136 2026] [proxy_http:error] [pid 133254:tid 133262] (70007)The timeout specified has expired: [client ::1:49796] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.681251 2026] [proxy:error] [pid 133254:tid 133262] [client ::1:49796] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.682140 2026] [proxy_http:error] [pid 133254:tid 133264] (70007)The timeout specified has expired: [client ::1:49814] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.682200 2026] [proxy:error] [pid 133254:tid 133264] [client ::1:49814] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.685168 2026] [proxy_http:error] [pid 133255:tid 133327] (70007)The timeout specified has expired: [client ::1:49812] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.685285 2026] [proxy:error] [pid 133255:tid 133327] [client ::1:49812] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.689209 2026] [proxy_http:error] [pid 133253:tid 133284] (70007)The timeout specified has expired: [client ::1:49828] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.689319 2026] [proxy:error] [pid 133253:tid 133284] [client ::1:49828] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.694228 2026] [proxy_http:error] [pid 133254:tid 133267] (70007)The timeout specified has expired: [client ::1:49840] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.694286 2026] [proxy:error] [pid 133254:tid 133267] [client ::1:49840] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.696183 2026] [proxy_http:error] [pid 133253:tid 133323] (70007)The timeout specified has expired: [client ::1:49850] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.696311 2026] [proxy:error] [pid 133253:tid 133323] [client ::1:49850] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.698166 2026] [proxy_http:error] [pid 133468:tid 133473] (70007)The timeout specified has expired: [client ::1:49866] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.698254 2026] [proxy:error] [pid 133468:tid 133473] [client ::1:49866] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.703152 2026] [proxy_http:error] [pid 133498:tid 133520] (70007)The timeout specified has expired: [client ::1:49868] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.703189 2026] [proxy_http:error] [pid 133498:tid 133518] (70007)The timeout specified has expired: [client ::1:49884] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.703219 2026] [proxy:error] [pid 133498:tid 133520] [client ::1:49868] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.703270 2026] [proxy:error] [pid 133498:tid 133518] [client ::1:49884] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.705161 2026] [proxy_http:error] [pid 133253:tid 133326] (70007)The timeout specified has expired: [client ::1:49902] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.705167 2026] [proxy_http:error] [pid 133253:tid 133293] (70007)The timeout specified has expired: [client ::1:49896] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.705257 2026] [proxy_http:error] [pid 133497:tid 133503] (70007)The timeout specified has expired: [client ::1:49892] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.705289 2026] [proxy:error] [pid 133253:tid 133326] [client ::1:49902] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.705337 2026] [proxy:error] [pid 133253:tid 133293] [client ::1:49896] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.705375 2026] [proxy:error] [pid 133497:tid 133503] [client ::1:49892] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.706113 2026] [proxy_http:error] [pid 133253:tid 133335] (70007)The timeout specified has expired: [client ::1:49894] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.706161 2026] [proxy:error] [pid 133253:tid 133335] [client ::1:49894] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.711137 2026] [proxy_http:error] [pid 133253:tid 133297] (70007)The timeout specified has expired: [client ::1:49934] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.711148 2026] [proxy_http:error] [pid 133498:tid 133522] (70007)The timeout specified has expired: [client ::1:49932] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.711168 2026] [proxy_http:error] [pid 133497:tid 133506] (70007)The timeout specified has expired: [client ::1:49916] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.711167 2026] [proxy_http:error] [pid 133497:tid 133504] (70007)The timeout specified has expired: [client ::1:49918] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.711241 2026] [proxy:error] [pid 133253:tid 133297] [client ::1:49934] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.711291 2026] [proxy:error] [pid 133498:tid 133522] [client ::1:49932] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.711323 2026] [proxy:error] [pid 133497:tid 133506] [client ::1:49916] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.711351 2026] [proxy:error] [pid 133497:tid 133504] [client ::1:49918] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:09.713154 2026] [proxy_http:error] [pid 133253:tid 133329] (70007)The timeout specified has expired: [client ::1:49914] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:09.713216 2026] [proxy:error] [pid 133253:tid 133329] [client ::1:49914] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:07:10.017928 2026] [proxy_http:error] [pid 133468:tid 133474] (70007)The timeout specified has expired: [client ::1:49942] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:07:10.018135 2026] [proxy:error] [pid 133468:tid 133474] [client ::1:49942] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:08:17.382917 2026] [mpm_event:notice] [pid 133251:tid 133251] AH00491: caught SIGTERM, shutting down
+[Mon Sep 07 19:09:37.627162 2026] [mpm_event:notice] [pid 137027:tid 137027] AH00489: Apache/2.4.67 (Fedora Linux) configured -- resuming normal operations
+[Mon Sep 07 19:09:37.627473 2026] [core:notice] [pid 137027:tid 137027] AH00094: Command line: 'httpd -f /home/mopatil/reproducer-agent/my-reproducer/lb/httpd.runtime.conf'
+[Mon Sep 07 19:09:41.962978 2026] [proxy_http:error] [pid 137029:tid 137033] (70007)The timeout specified has expired: [client ::1:59424] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.963496 2026] [proxy:error] [pid 137029:tid 137033] [client ::1:59424] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:41.964285 2026] [proxy_http:error] [pid 137029:tid 137035] (70007)The timeout specified has expired: [client ::1:59426] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.964293 2026] [proxy_http:error] [pid 137029:tid 137034] (70007)The timeout specified has expired: [client ::1:59414] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.964368 2026] [proxy:error] [pid 137029:tid 137035] [client ::1:59426] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:41.964419 2026] [proxy:error] [pid 137029:tid 137034] [client ::1:59414] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:41.982262 2026] [proxy_http:error] [pid 137030:tid 137060] (70007)The timeout specified has expired: [client ::1:59434] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.982356 2026] [proxy:error] [pid 137030:tid 137060] [client ::1:59434] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:41.984292 2026] [proxy_http:error] [pid 137030:tid 137056] (70007)The timeout specified has expired: [client ::1:59436] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.984383 2026] [proxy:error] [pid 137030:tid 137056] [client ::1:59436] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:41.988177 2026] [proxy_http:error] [pid 137029:tid 137037] (70007)The timeout specified has expired: [client ::1:59456] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.988259 2026] [proxy:error] [pid 137029:tid 137037] [client ::1:59456] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:41.989154 2026] [proxy_http:error] [pid 137029:tid 137038] (70007)The timeout specified has expired: [client ::1:59478] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.989224 2026] [proxy:error] [pid 137029:tid 137038] [client ::1:59478] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:41.990164 2026] [proxy_http:error] [pid 137030:tid 137064] (70007)The timeout specified has expired: [client ::1:59438] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.990157 2026] [proxy_http:error] [pid 137029:tid 137036] (70007)The timeout specified has expired: [client ::1:59442] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:41.990245 2026] [proxy:error] [pid 137030:tid 137064] [client ::1:59438] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:41.990291 2026] [proxy:error] [pid 137029:tid 137036] [client ::1:59442] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.001387 2026] [proxy_http:error] [pid 137030:tid 137068] (70007)The timeout specified has expired: [client ::1:59466] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.001523 2026] [proxy:error] [pid 137030:tid 137068] [client ::1:59466] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.002358 2026] [proxy_http:error] [pid 137032:tid 137091] (70007)The timeout specified has expired: [client ::1:59486] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.002483 2026] [proxy:error] [pid 137032:tid 137091] [client ::1:59486] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.008186 2026] [proxy_http:error] [pid 137029:tid 137040] (70007)The timeout specified has expired: [client ::1:59512] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.008306 2026] [proxy:error] [pid 137029:tid 137040] [client ::1:59512] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.018368 2026] [proxy_http:error] [pid 137032:tid 137094] (70007)The timeout specified has expired: [client ::1:59500] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.018461 2026] [proxy:error] [pid 137032:tid 137094] [client ::1:59500] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.020273 2026] [proxy_http:error] [pid 137029:tid 137041] (70007)The timeout specified has expired: [client ::1:59522] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.020352 2026] [proxy:error] [pid 137029:tid 137041] [client ::1:59522] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.026269 2026] [proxy_http:error] [pid 137029:tid 137044] (70007)The timeout specified has expired: [client ::1:59532] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.026322 2026] [proxy:error] [pid 137029:tid 137044] [client ::1:59532] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.028213 2026] [proxy_http:error] [pid 137032:tid 137096] (70007)The timeout specified has expired: [client ::1:59548] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.028306 2026] [proxy:error] [pid 137032:tid 137096] [client ::1:59548] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.030137 2026] [proxy_http:error] [pid 137032:tid 137099] (70007)The timeout specified has expired: [client ::1:59556] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.030193 2026] [proxy:error] [pid 137032:tid 137099] [client ::1:59556] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.032220 2026] [proxy_http:error] [pid 137030:tid 137070] (70007)The timeout specified has expired: [client ::1:59570] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.032292 2026] [proxy:error] [pid 137030:tid 137070] [client ::1:59570] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.033185 2026] [proxy_http:error] [pid 137029:tid 137042] (70007)The timeout specified has expired: [client ::1:59586] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.033258 2026] [proxy:error] [pid 137029:tid 137042] [client ::1:59586] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.040245 2026] [proxy_http:error] [pid 137029:tid 137043] (70007)The timeout specified has expired: [client ::1:59600] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.040341 2026] [proxy:error] [pid 137029:tid 137043] [client ::1:59600] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.045266 2026] [proxy_http:error] [pid 137029:tid 137045] (70007)The timeout specified has expired: [client ::1:59616] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.045344 2026] [proxy:error] [pid 137029:tid 137045] [client ::1:59616] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.050167 2026] [proxy_http:error] [pid 137032:tid 137102] (70007)The timeout specified has expired: [client ::1:59632] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.050260 2026] [proxy:error] [pid 137032:tid 137102] [client ::1:59632] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.051239 2026] [proxy_http:error] [pid 137032:tid 137103] (70007)The timeout specified has expired: [client ::1:59646] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.051327 2026] [proxy:error] [pid 137032:tid 137103] [client ::1:59646] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.052198 2026] [proxy_http:error] [pid 137029:tid 137046] (70007)The timeout specified has expired: [client ::1:59652] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.052260 2026] [proxy:error] [pid 137029:tid 137046] [client ::1:59652] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.053205 2026] [proxy_http:error] [pid 137032:tid 137104] (70007)The timeout specified has expired: [client ::1:59666] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.053299 2026] [proxy:error] [pid 137032:tid 137104] [client ::1:59666] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.059246 2026] [proxy_http:error] [pid 137029:tid 137049] (70007)The timeout specified has expired: [client ::1:59672] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.059308 2026] [proxy:error] [pid 137029:tid 137049] [client ::1:59672] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.065166 2026] [proxy_http:error] [pid 137029:tid 137048] (70007)The timeout specified has expired: [client ::1:59688] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.065287 2026] [proxy:error] [pid 137029:tid 137048] [client ::1:59688] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:42.341519 2026] [proxy_http:error] [pid 137032:tid 137105] (70007)The timeout specified has expired: [client ::1:59700] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:42.341680 2026] [proxy:error] [pid 137032:tid 137105] [client ::1:59700] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:45.886289 2026] [proxy_http:error] [pid 137030:tid 137081] (70007)The timeout specified has expired: [client ::1:51898] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:45.886419 2026] [proxy:error] [pid 137030:tid 137081] [client ::1:51898] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:49.426296 2026] [proxy_http:error] [pid 137030:tid 137084] (70007)The timeout specified has expired: [client ::1:51904] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:49.426413 2026] [proxy:error] [pid 137030:tid 137084] [client ::1:51904] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:52.967256 2026] [proxy_http:error] [pid 137029:tid 137054] (70007)The timeout specified has expired: [client ::1:37758] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:52.967370 2026] [proxy:error] [pid 137029:tid 137054] [client ::1:37758] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.544168 2026] [proxy_http:error] [pid 137030:tid 137090] (70007)The timeout specified has expired: [client ::1:37792] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.544484 2026] [proxy:error] [pid 137030:tid 137090] [client ::1:37792] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.549145 2026] [proxy_http:error] [pid 137390:tid 137394] (70007)The timeout specified has expired: [client ::1:37828] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.549337 2026] [proxy:error] [pid 137390:tid 137394] [client ::1:37828] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.551213 2026] [proxy_http:error] [pid 137220:tid 137223] (70007)The timeout specified has expired: [client ::1:37824] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.551338 2026] [proxy:error] [pid 137220:tid 137223] [client ::1:37824] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.555191 2026] [proxy_http:error] [pid 137029:tid 137038] (70007)The timeout specified has expired: [client ::1:37850] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.555285 2026] [proxy:error] [pid 137029:tid 137038] [client ::1:37850] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.558173 2026] [proxy_http:error] [pid 137032:tid 137079] (70007)The timeout specified has expired: [client ::1:37856] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.558257 2026] [proxy:error] [pid 137032:tid 137079] [client ::1:37856] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.559119 2026] [proxy_http:error] [pid 137029:tid 137036] (70007)The timeout specified has expired: [client ::1:37868] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.559192 2026] [proxy:error] [pid 137029:tid 137036] [client ::1:37868] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.561211 2026] [proxy_http:error] [pid 137030:tid 137092] (70007)The timeout specified has expired: [client ::1:37870] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.561322 2026] [proxy:error] [pid 137030:tid 137092] [client ::1:37870] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.564189 2026] [proxy_http:error] [pid 137032:tid 137088] (70007)The timeout specified has expired: [client ::1:37872] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.564271 2026] [proxy:error] [pid 137032:tid 137088] [client ::1:37872] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.566152 2026] [proxy_http:error] [pid 137391:tid 137406] (70007)The timeout specified has expired: [client ::1:37880] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.566242 2026] [proxy:error] [pid 137391:tid 137406] [client ::1:37880] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.570208 2026] [proxy_http:error] [pid 137030:tid 137093] (70007)The timeout specified has expired: [client ::1:37894] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.570292 2026] [proxy:error] [pid 137030:tid 137093] [client ::1:37894] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.571140 2026] [proxy_http:error] [pid 137030:tid 137095] (70007)The timeout specified has expired: [client ::1:37908] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.571197 2026] [proxy:error] [pid 137030:tid 137095] [client ::1:37908] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.571189 2026] [proxy_http:error] [pid 137030:tid 137097] (70007)The timeout specified has expired: [client ::1:37886] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.571251 2026] [proxy:error] [pid 137030:tid 137097] [client ::1:37886] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.572158 2026] [proxy_http:error] [pid 137391:tid 137408] (70007)The timeout specified has expired: [client ::1:37922] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.572237 2026] [proxy:error] [pid 137391:tid 137408] [client ::1:37922] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.577128 2026] [proxy_http:error] [pid 137391:tid 137410] (70007)The timeout specified has expired: [client ::1:37942] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.577134 2026] [proxy_http:error] [pid 137390:tid 137395] (70007)The timeout specified has expired: [client ::1:37940] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.577203 2026] [proxy:error] [pid 137391:tid 137410] [client ::1:37942] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.577240 2026] [proxy:error] [pid 137390:tid 137395] [client ::1:37940] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.578134 2026] [proxy_http:error] [pid 137029:tid 137055] (70007)The timeout specified has expired: [client ::1:37928] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.578205 2026] [proxy:error] [pid 137029:tid 137055] [client ::1:37928] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.582257 2026] [proxy_http:error] [pid 137391:tid 137403] (70007)The timeout specified has expired: [client ::1:37834] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.582329 2026] [proxy:error] [pid 137391:tid 137403] [client ::1:37834] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.587360 2026] [proxy_http:error] [pid 137029:tid 137058] (70007)The timeout specified has expired: [client ::1:37964] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.587463 2026] [proxy:error] [pid 137029:tid 137058] [client ::1:37964] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.598429 2026] [proxy_http:error] [pid 137391:tid 137411] (70007)The timeout specified has expired: [client ::1:37958] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.598458 2026] [proxy_http:error] [pid 137032:tid 137106] (70007)The timeout specified has expired: [client ::1:37972] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.598523 2026] [proxy:error] [pid 137391:tid 137411] [client ::1:37958] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.598551 2026] [proxy:error] [pid 137032:tid 137106] [client ::1:37972] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.599279 2026] [proxy_http:error] [pid 137032:tid 137082] (70007)The timeout specified has expired: [client ::1:37986] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.599360 2026] [proxy:error] [pid 137032:tid 137082] [client ::1:37986] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.604204 2026] [proxy_http:error] [pid 137391:tid 137415] (70007)The timeout specified has expired: [client ::1:38028] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.604299 2026] [proxy:error] [pid 137391:tid 137415] [client ::1:38028] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.605020 2026] [proxy_http:error] [pid 137391:tid 137413] (70007)The timeout specified has expired: [client ::1:38008] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.605100 2026] [proxy:error] [pid 137391:tid 137413] [client ::1:38008] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.605314 2026] [proxy_http:error] [pid 137032:tid 137107] (70007)The timeout specified has expired: [client ::1:38002] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.605368 2026] [proxy:error] [pid 137032:tid 137107] [client ::1:38002] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.606336 2026] [proxy_http:error] [pid 137029:tid 137057] (70007)The timeout specified has expired: [client ::1:38038] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.606399 2026] [proxy:error] [pid 137029:tid 137057] [client ::1:38038] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.607128 2026] [proxy_http:error] [pid 137391:tid 137417] (70007)The timeout specified has expired: [client ::1:38022] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.607139 2026] [proxy_http:error] [pid 137029:tid 137040] (70007)The timeout specified has expired: [client ::1:38042] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.607193 2026] [proxy:error] [pid 137391:tid 137417] [client ::1:38022] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.607243 2026] [proxy:error] [pid 137029:tid 137040] [client ::1:38042] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:09:57.898255 2026] [proxy_http:error] [pid 137029:tid 137059] (70007)The timeout specified has expired: [client ::1:38044] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:09:57.898355 2026] [proxy:error] [pid 137029:tid 137059] [client ::1:38044] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:10:01.437228 2026] [proxy_http:error] [pid 137390:tid 137400] (70007)The timeout specified has expired: [client ::1:38054] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:10:01.437406 2026] [proxy:error] [pid 137390:tid 137400] [client ::1:38054] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:10:04.976818 2026] [proxy_http:error] [pid 137032:tid 137110] (70007)The timeout specified has expired: [client ::1:59462] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:10:04.976951 2026] [proxy:error] [pid 137032:tid 137110] [client ::1:59462] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:10:08.517307 2026] [proxy_http:error] [pid 137032:tid 137099] (70007)The timeout specified has expired: [client ::1:59474] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:10:08.517410 2026] [proxy:error] [pid 137032:tid 137099] [client ::1:59474] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:11:54.164566 2026] [mpm_event:notice] [pid 137027:tid 137027] AH00491: caught SIGTERM, shutting down
+[Mon Sep 07 19:13:17.755276 2026] [mpm_event:notice] [pid 141080:tid 141080] AH00489: Apache/2.4.67 (Fedora Linux) configured -- resuming normal operations
+[Mon Sep 07 19:13:17.755604 2026] [core:notice] [pid 141080:tid 141080] AH00094: Command line: 'httpd -f /home/mopatil/reproducer-agent/my-reproducer/lb/httpd.runtime.conf'
+[Mon Sep 07 19:13:29.143693 2026] [proxy_http:error] [pid 141082:tid 141090] (70007)The timeout specified has expired: [client ::1:46482] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.143768 2026] [proxy_http:error] [pid 141082:tid 141092] (70007)The timeout specified has expired: [client ::1:46484] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.143818 2026] [proxy:error] [pid 141082:tid 141090] [client ::1:46482] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.143866 2026] [proxy:error] [pid 141082:tid 141092] [client ::1:46484] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.157140 2026] [proxy_http:error] [pid 141082:tid 141100] (70007)The timeout specified has expired: [client ::1:46498] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.157221 2026] [proxy:error] [pid 141082:tid 141100] [client ::1:46498] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.167396 2026] [proxy_http:error] [pid 141084:tid 141132] (70007)The timeout specified has expired: [client ::1:46536] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.167513 2026] [proxy:error] [pid 141084:tid 141132] [client ::1:46536] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.168155 2026] [proxy_http:error] [pid 141083:tid 141104] (70007)The timeout specified has expired: [client ::1:46542] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.168242 2026] [proxy:error] [pid 141083:tid 141104] [client ::1:46542] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.169199 2026] [proxy_http:error] [pid 141084:tid 141135] (70007)The timeout specified has expired: [client ::1:46544] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.169312 2026] [proxy:error] [pid 141084:tid 141135] [client ::1:46544] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.170274 2026] [proxy_http:error] [pid 141084:tid 141130] (70007)The timeout specified has expired: [client ::1:46516] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.170366 2026] [proxy:error] [pid 141084:tid 141130] [client ::1:46516] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.171180 2026] [proxy_http:error] [pid 141082:tid 141097] (70007)The timeout specified has expired: [client ::1:46558] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.171292 2026] [proxy:error] [pid 141082:tid 141097] [client ::1:46558] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.177388 2026] [proxy_http:error] [pid 141082:tid 141106] (70007)The timeout specified has expired: [client ::1:46576] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.177470 2026] [proxy:error] [pid 141082:tid 141106] [client ::1:46576] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.178177 2026] [proxy_http:error] [pid 141083:tid 141111] (70007)The timeout specified has expired: [client ::1:46566] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.178260 2026] [proxy:error] [pid 141083:tid 141111] [client ::1:46566] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.179138 2026] [proxy_http:error] [pid 141082:tid 141110] (70007)The timeout specified has expired: [client ::1:46564] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.179205 2026] [proxy:error] [pid 141082:tid 141110] [client ::1:46564] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.183179 2026] [proxy_http:error] [pid 141082:tid 141114] (70007)The timeout specified has expired: [client ::1:46582] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.183254 2026] [proxy:error] [pid 141082:tid 141114] [client ::1:46582] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.184175 2026] [proxy_http:error] [pid 141083:tid 141108] (70007)The timeout specified has expired: [client ::1:46570] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.184230 2026] [proxy:error] [pid 141083:tid 141108] [client ::1:46570] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.184305 2026] [proxy_http:error] [pid 141082:tid 141118] (70007)The timeout specified has expired: [client ::1:46586] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.184374 2026] [proxy:error] [pid 141082:tid 141118] [client ::1:46586] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.186150 2026] [proxy_http:error] [pid 141082:tid 141122] (70007)The timeout specified has expired: [client ::1:46590] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.186222 2026] [proxy:error] [pid 141082:tid 141122] [client ::1:46590] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.189178 2026] [proxy_http:error] [pid 141082:tid 141126] (70007)The timeout specified has expired: [client ::1:46602] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.189252 2026] [proxy:error] [pid 141082:tid 141126] [client ::1:46602] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.189699 2026] [proxy_http:error] [pid 141082:tid 141129] (70007)The timeout specified has expired: [client ::1:46608] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.189738 2026] [proxy:error] [pid 141082:tid 141129] [client ::1:46608] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.190449 2026] [proxy_http:error] [pid 141084:tid 141139] (70007)The timeout specified has expired: [client ::1:46618] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.190523 2026] [proxy:error] [pid 141084:tid 141139] [client ::1:46618] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:29.587317 2026] [proxy_http:error] [pid 141083:tid 141113] (70007)The timeout specified has expired: [client ::1:46628] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:29.587442 2026] [proxy:error] [pid 141083:tid 141113] [client ::1:46628] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.671120 2026] [proxy_http:error] [pid 141084:tid 141164] (70007)The timeout specified has expired: [client ::1:52644] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.671375 2026] [proxy:error] [pid 141084:tid 141164] [client ::1:52644] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.705638 2026] [proxy_http:error] [pid 141082:tid 141087] (70007)The timeout specified has expired: [client ::1:52698] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.705734 2026] [proxy:error] [pid 141082:tid 141087] [client ::1:52698] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.708264 2026] [proxy_http:error] [pid 141274:tid 141276] (70007)The timeout specified has expired: [client ::1:52756] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.708432 2026] [proxy:error] [pid 141274:tid 141276] [client ::1:52756] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.712196 2026] [proxy_http:error] [pid 141274:tid 141278] (70007)The timeout specified has expired: [client ::1:52790] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.712322 2026] [proxy:error] [pid 141274:tid 141278] [client ::1:52790] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.713146 2026] [proxy_http:error] [pid 141302:tid 141310] (70007)The timeout specified has expired: [client ::1:52788] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.713224 2026] [proxy:error] [pid 141302:tid 141310] [client ::1:52788] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.720319 2026] [proxy_http:error] [pid 141303:tid 141320] (70007)The timeout specified has expired: [client ::1:52784] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.720451 2026] [proxy:error] [pid 141303:tid 141320] [client ::1:52784] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.722165 2026] [proxy_http:error] [pid 141274:tid 141280] (70007)The timeout specified has expired: [client ::1:52822] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.722231 2026] [proxy:error] [pid 141274:tid 141280] [client ::1:52822] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.722229 2026] [proxy_http:error] [pid 141303:tid 141322] (70007)The timeout specified has expired: [client ::1:52806] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.722291 2026] [proxy:error] [pid 141303:tid 141322] [client ::1:52806] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.724151 2026] [proxy_http:error] [pid 141274:tid 141281] (70007)The timeout specified has expired: [client ::1:52824] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.724222 2026] [proxy:error] [pid 141274:tid 141281] [client ::1:52824] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.726124 2026] [proxy_http:error] [pid 141303:tid 141318] (70007)The timeout specified has expired: [client ::1:52800] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.726187 2026] [proxy:error] [pid 141303:tid 141318] [client ::1:52800] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.730150 2026] [proxy_http:error] [pid 141274:tid 141282] (70007)The timeout specified has expired: [client ::1:52848] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.730243 2026] [proxy:error] [pid 141274:tid 141282] [client ::1:52848] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.731107 2026] [proxy_http:error] [pid 141303:tid 141325] (70007)The timeout specified has expired: [client ::1:52828] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.731154 2026] [proxy:error] [pid 141303:tid 141325] [client ::1:52828] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.732124 2026] [proxy_http:error] [pid 141303:tid 141327] (70007)The timeout specified has expired: [client ::1:52830] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.732141 2026] [proxy:error] [pid 141303:tid 141327] [client ::1:52830] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.739263 2026] [proxy_http:error] [pid 141082:tid 141143] (70007)The timeout specified has expired: [client ::1:52890] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.739266 2026] [proxy_http:error] [pid 141082:tid 141092] (70007)The timeout specified has expired: [client ::1:52862] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.739278 2026] [proxy_http:error] [pid 141082:tid 141146] (70007)The timeout specified has expired: [client ::1:52874] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.739336 2026] [proxy:error] [pid 141082:tid 141143] [client ::1:52890] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.739359 2026] [proxy:error] [pid 141082:tid 141092] [client ::1:52862] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.739408 2026] [proxy:error] [pid 141082:tid 141146] [client ::1:52874] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.740182 2026] [proxy_http:error] [pid 141303:tid 141329] (70007)The timeout specified has expired: [client ::1:52840] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.740242 2026] [proxy:error] [pid 141303:tid 141329] [client ::1:52840] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:44.740249 2026] [proxy_http:error] [pid 141274:tid 141277] (70007)The timeout specified has expired: [client ::1:52728] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:44.740313 2026] [proxy:error] [pid 141274:tid 141277] [client ::1:52728] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:13:45.111299 2026] [proxy_http:error] [pid 141083:tid 141089] (70007)The timeout specified has expired: [client ::1:52906] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:13:45.111447 2026] [proxy:error] [pid 141083:tid 141089] [client ::1:52906] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:15:27.649608 2026] [mpm_event:notice] [pid 141080:tid 141080] AH00491: caught SIGTERM, shutting down
+[Mon Sep 07 19:18:05.846455 2026] [mpm_event:notice] [pid 145096:tid 145096] AH00489: Apache/2.4.67 (Fedora Linux) configured -- resuming normal operations
+[Mon Sep 07 19:18:05.846690 2026] [core:notice] [pid 145096:tid 145096] AH00094: Command line: 'httpd -f /home/mopatil/reproducer-agent/my-reproducer/lb/httpd.runtime.conf'
+[Mon Sep 07 19:18:15.856320 2026] [proxy_http:error] [pid 145099:tid 145140] (20014)Internal error (specific information not available): [client ::1:40996] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856344 2026] [proxy_http:error] [pid 145100:tid 145154] (20014)Internal error (specific information not available): [client ::1:41062] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856355 2026] [proxy_http:error] [pid 145099:tid 145135] (20014)Internal error (specific information not available): [client ::1:41012] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856375 2026] [proxy_http:error] [pid 145100:tid 145152] (20014)Internal error (specific information not available): [client ::1:40982] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856415 2026] [proxy:error] [pid 145099:tid 145140] [client ::1:40996] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856198 2026] [proxy_http:error] [pid 145098:tid 145136] (20014)Internal error (specific information not available): [client ::1:41072] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856423 2026] [proxy_http:error] [pid 145098:tid 145125] (20014)Internal error (specific information not available): [client ::1:40968] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856480 2026] [proxy:error] [pid 145100:tid 145154] [client ::1:41062] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856517 2026] [proxy_http:error] [pid 145100:tid 145147] (20014)Internal error (specific information not available): [client ::1:40926] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856537 2026] [proxy:error] [pid 145099:tid 145135] [client ::1:41012] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856524 2026] [proxy_http:error] [pid 145098:tid 145108] (20014)Internal error (specific information not available): [client ::1:40928] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856565 2026] [proxy:error] [pid 145100:tid 145152] [client ::1:40982] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856608 2026] [proxy:error] [pid 145098:tid 145136] [client ::1:41072] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856636 2026] [proxy:error] [pid 145098:tid 145125] [client ::1:40968] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856683 2026] [proxy:error] [pid 145100:tid 145147] [client ::1:40926] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856727 2026] [proxy:error] [pid 145098:tid 145108] [client ::1:40928] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856806 2026] [proxy_http:error] [pid 145098:tid 145105] (20014)Internal error (specific information not available): [client ::1:40866] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856872 2026] [proxy:error] [pid 145098:tid 145105] [client ::1:40866] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856982 2026] [proxy_http:error] [pid 145099:tid 145112] (20014)Internal error (specific information not available): [client ::1:40840] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.856958 2026] [proxy_http:error] [pid 145098:tid 145102] (20014)Internal error (specific information not available): [client ::1:40826] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857030 2026] [proxy:error] [pid 145099:tid 145112] [client ::1:40840] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.857089 2026] [proxy:error] [pid 145098:tid 145102] [client ::1:40826] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.857205 2026] [proxy_http:error] [pid 145100:tid 145149] (20014)Internal error (specific information not available): [client ::1:40916] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857195 2026] [proxy_http:error] [pid 145099:tid 145123] (20014)Internal error (specific information not available): [client ::1:40910] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857239 2026] [proxy:error] [pid 145100:tid 145149] [client ::1:40916] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856285 2026] [proxy_http:error] [pid 145098:tid 145129] (20014)Internal error (specific information not available): [client ::1:41024] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857279 2026] [proxy:error] [pid 145099:tid 145123] [client ::1:40910] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856201 2026] [proxy_http:error] [pid 145098:tid 145134] (20014)Internal error (specific information not available): [client ::1:41050] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857308 2026] [proxy:error] [pid 145098:tid 145129] [client ::1:41024] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.857339 2026] [proxy:error] [pid 145098:tid 145134] [client ::1:41050] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856410 2026] [proxy_http:error] [pid 145098:tid 145120] (20014)Internal error (specific information not available): [client ::1:40990] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857482 2026] [proxy:error] [pid 145098:tid 145120] [client ::1:40990] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.857474 2026] [proxy_http:error] [pid 145100:tid 145139] (20014)Internal error (specific information not available): [client ::1:40834] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857541 2026] [proxy:error] [pid 145100:tid 145139] [client ::1:40834] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.857689 2026] [proxy_http:error] [pid 145100:tid 145142] (20014)Internal error (specific information not available): [client ::1:40844] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857731 2026] [proxy:error] [pid 145100:tid 145142] [client ::1:40844] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.857719 2026] [proxy_http:error] [pid 145098:tid 145106] (20014)Internal error (specific information not available): [client ::1:40932] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857769 2026] [proxy:error] [pid 145098:tid 145106] [client ::1:40932] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.857837 2026] [proxy_http:error] [pid 145099:tid 145130] (20014)Internal error (specific information not available): [client ::1:40972] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857891 2026] [proxy:error] [pid 145099:tid 145130] [client ::1:40972] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.857922 2026] [proxy_http:error] [pid 145100:tid 145137] (20014)Internal error (specific information not available): [client ::1:40814] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.857952 2026] [proxy:error] [pid 145100:tid 145137] [client ::1:40814] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.858112 2026] [proxy_http:error] [pid 145098:tid 145104] (20014)Internal error (specific information not available): [client ::1:40838] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.858148 2026] [proxy:error] [pid 145098:tid 145104] [client ::1:40838] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.858499 2026] [proxy_http:error] [pid 145099:tid 145127] (20014)Internal error (specific information not available): [client ::1:40902] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.858553 2026] [proxy:error] [pid 145099:tid 145127] [client ::1:40902] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.858944 2026] [proxy_http:error] [pid 145099:tid 145119] (20014)Internal error (specific information not available): [client ::1:40896] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.858984 2026] [proxy:error] [pid 145099:tid 145119] [client ::1:40896] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.859348 2026] [proxy_http:error] [pid 145100:tid 145144] (20014)Internal error (specific information not available): [client ::1:40882] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.859387 2026] [proxy:error] [pid 145100:tid 145144] [client ::1:40882] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.858027 2026] [proxy_http:error] [pid 145098:tid 145114] (20014)Internal error (specific information not available): [client ::1:40924] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.859820 2026] [proxy:error] [pid 145098:tid 145114] [client ::1:40924] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.860175 2026] [proxy_http:error] [pid 145098:tid 145111] (20014)Internal error (specific information not available): [client ::1:40944] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.860253 2026] [proxy:error] [pid 145098:tid 145111] [client ::1:40944] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.861055 2026] [proxy_http:error] [pid 145099:tid 145116] (20014)Internal error (specific information not available): [client ::1:40860] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.861140 2026] [proxy:error] [pid 145099:tid 145116] [client ::1:40860] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.862707 2026] [proxy_http:error] [pid 145099:tid 145146] (104)Connection reset by peer: [client ::1:41078] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.862778 2026] [proxy:error] [pid 145099:tid 145146] [client ::1:41078] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856430 2026] [proxy_http:error] [pid 145098:tid 145117] (20014)Internal error (specific information not available): [client ::1:40954] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.863800 2026] [proxy:error] [pid 145098:tid 145117] [client ::1:40954] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:15.856348 2026] [proxy_http:error] [pid 145098:tid 145132] (20014)Internal error (specific information not available): [client ::1:41038] AH01102: error reading status line from remote server localhost:8180
+[Mon Sep 07 19:18:15.864206 2026] [proxy:error] [pid 145098:tid 145132] [client ::1:41038] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:16.416983 2026] [proxy:error] [pid 145098:tid 145102] (111)Connection refused: AH00957: http: attempt to connect to 127.0.0.1:8180 (localhost:8180) failed
+[Mon Sep 07 19:18:16.417841 2026] [proxy:error] [pid 145098:tid 145102] AH00959: ap_proxy_connect_backend disabling worker for (localhost:8180) for 5s
+[Mon Sep 07 19:18:16.417904 2026] [proxy_http:error] [pid 145098:tid 145102] [client ::1:41080] AH01114: HTTP: failed to make connection to backend: localhost
+[Mon Sep 07 19:18:27.163417 2026] [proxy_http:error] [pid 145098:tid 145138] (70007)The timeout specified has expired: [client ::1:41262] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.163390 2026] [proxy_http:error] [pid 145098:tid 145132] (70007)The timeout specified has expired: [client ::1:41222] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.163435 2026] [proxy_http:error] [pid 145098:tid 145114] (70007)The timeout specified has expired: [client ::1:41268] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.163515 2026] [proxy:error] [pid 145098:tid 145138] [client ::1:41262] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.163570 2026] [proxy:error] [pid 145098:tid 145132] [client ::1:41222] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.163602 2026] [proxy:error] [pid 145098:tid 145114] [client ::1:41268] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.165159 2026] [proxy_http:error] [pid 145100:tid 145115] (70007)The timeout specified has expired: [client ::1:41232] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.165283 2026] [proxy:error] [pid 145100:tid 145115] [client ::1:41232] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.166154 2026] [proxy_http:error] [pid 145099:tid 145179] (70007)The timeout specified has expired: [client ::1:41234] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.166243 2026] [proxy:error] [pid 145099:tid 145179] [client ::1:41234] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.167146 2026] [proxy_http:error] [pid 145100:tid 145124] (70007)The timeout specified has expired: [client ::1:41264] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.167236 2026] [proxy:error] [pid 145100:tid 145124] [client ::1:41264] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.176295 2026] [proxy_http:error] [pid 145098:tid 145141] (70007)The timeout specified has expired: [client ::1:41270] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.176295 2026] [proxy_http:error] [pid 145350:tid 145362] (70007)The timeout specified has expired: [client ::1:41196] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.176339 2026] [proxy_http:error] [pid 145099:tid 145178] (70007)The timeout specified has expired: [client ::1:41124] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.176423 2026] [proxy:error] [pid 145098:tid 145141] [client ::1:41270] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.176450 2026] [proxy:error] [pid 145350:tid 145362] [client ::1:41196] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.176514 2026] [proxy:error] [pid 145099:tid 145178] [client ::1:41124] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.177215 2026] [proxy_http:error] [pid 145100:tid 145122] (70007)The timeout specified has expired: [client ::1:41284] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.177279 2026] [proxy:error] [pid 145100:tid 145122] [client ::1:41284] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.180172 2026] [proxy_http:error] [pid 145350:tid 145374] (70007)The timeout specified has expired: [client ::1:41286] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.180250 2026] [proxy:error] [pid 145350:tid 145374] [client ::1:41286] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.183109 2026] [proxy_http:error] [pid 145098:tid 145145] (70007)The timeout specified has expired: [client ::1:41314] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.183183 2026] [proxy:error] [pid 145098:tid 145145] [client ::1:41314] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.184134 2026] [proxy_http:error] [pid 145100:tid 145126] (70007)The timeout specified has expired: [client ::1:41298] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.184201 2026] [proxy:error] [pid 145100:tid 145126] [client ::1:41298] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.186209 2026] [proxy_http:error] [pid 145098:tid 145111] (70007)The timeout specified has expired: [client ::1:41320] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.186256 2026] [proxy:error] [pid 145098:tid 145111] [client ::1:41320] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.188108 2026] [proxy_http:error] [pid 145098:tid 145150] (70007)The timeout specified has expired: [client ::1:41328] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.188156 2026] [proxy:error] [pid 145098:tid 145150] [client ::1:41328] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.196357 2026] [proxy_http:error] [pid 145098:tid 145153] (70007)The timeout specified has expired: [client ::1:41354] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.196454 2026] [proxy:error] [pid 145098:tid 145153] [client ::1:41354] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.198262 2026] [proxy_http:error] [pid 145098:tid 145148] (70007)The timeout specified has expired: [client ::1:41342] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.198347 2026] [proxy:error] [pid 145098:tid 145148] [client ::1:41342] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.201149 2026] [proxy_http:error] [pid 145350:tid 145361] (70007)The timeout specified has expired: [client ::1:41356] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.201232 2026] [proxy:error] [pid 145350:tid 145361] [client ::1:41356] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.203115 2026] [proxy_http:error] [pid 145098:tid 145158] (70007)The timeout specified has expired: [client ::1:41372] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.203183 2026] [proxy:error] [pid 145098:tid 145158] [client ::1:41372] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:18:27.556393 2026] [proxy_http:error] [pid 145099:tid 145180] (70007)The timeout specified has expired: [client ::1:41374] AH01102: error reading status line from remote server localhost:8080
+[Mon Sep 07 19:18:27.556504 2026] [proxy:error] [pid 145099:tid 145180] [client ::1:41374] AH00898: Error reading from remote server returned by /reproducer/session
+[Mon Sep 07 19:26:49.422803 2026] [mpm_event:notice] [pid 145096:tid 145096] AH00491: caught SIGTERM, shutting down
+[Wed Sep 09 17:41:24.740843 2026] [mpm_event:notice] [pid 276568:tid 276568] AH00489: Apache/2.4.67 (Fedora Linux) configured -- resuming normal operations
+[Wed Sep 09 17:41:24.741911 2026] [core:notice] [pid 276568:tid 276568] AH00094: Command line: 'httpd -f /home/mopatil/reproducer-agent/my-reproducer/lb/httpd.runtime.conf'
+[Wed Sep 09 17:41:30.799773 2026] [proxy_http:error] [pid 276571:tid 276610] (20014)Internal error (specific information not available): [client ::1:45946] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.799773 2026] [proxy_http:error] [pid 276572:tid 276637] (20014)Internal error (specific information not available): [client ::1:46000] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.799784 2026] [proxy_http:error] [pid 276572:tid 276633] (20014)Internal error (specific information not available): [client ::1:45992] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.799859 2026] [proxy:error] [pid 276571:tid 276610] [client ::1:45946] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.799850 2026] [proxy_http:error] [pid 276571:tid 276608] (20014)Internal error (specific information not available): [client ::1:45930] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.799862 2026] [proxy_http:error] [pid 276571:tid 276604] (20014)Internal error (specific information not available): [client ::1:45892] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.799873 2026] [proxy_http:error] [pid 276572:tid 276631] (20014)Internal error (specific information not available): [client ::1:45960] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.799875 2026] [proxy_http:error] [pid 276571:tid 276606] (20014)Internal error (specific information not available): [client ::1:45924] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.799923 2026] [proxy:error] [pid 276572:tid 276637] [client ::1:46000] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.799980 2026] [proxy:error] [pid 276572:tid 276633] [client ::1:45992] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.799746 2026] [proxy_http:error] [pid 276570:tid 276598] (20014)Internal error (specific information not available): [client ::1:45968] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.800021 2026] [proxy:error] [pid 276571:tid 276608] [client ::1:45930] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800167 2026] [proxy:error] [pid 276570:tid 276598] [client ::1:45968] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800510 2026] [proxy_http:error] [pid 276572:tid 276626] (20014)Internal error (specific information not available): [client ::1:45908] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.800561 2026] [proxy:error] [pid 276572:tid 276626] [client ::1:45908] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800824 2026] [proxy_http:error] [pid 276570:tid 276591] (20014)Internal error (specific information not available): [client ::1:45896] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.800854 2026] [proxy:error] [pid 276570:tid 276591] [client ::1:45896] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.801097 2026] [proxy_http:error] [pid 276570:tid 276587] (20014)Internal error (specific information not available): [client ::1:45886] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.801123 2026] [proxy:error] [pid 276570:tid 276587] [client ::1:45886] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.801385 2026] [proxy_http:error] [pid 276570:tid 276585] (20014)Internal error (specific information not available): [client ::1:45864] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.801414 2026] [proxy:error] [pid 276570:tid 276585] [client ::1:45864] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.799766 2026] [proxy_http:error] [pid 276570:tid 276595] (20014)Internal error (specific information not available): [client ::1:45970] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.801763 2026] [proxy:error] [pid 276570:tid 276595] [client ::1:45970] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.803556 2026] [proxy_http:error] [pid 276570:tid 276581] (20014)Internal error (specific information not available): [client ::1:45848] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.803641 2026] [proxy:error] [pid 276570:tid 276581] [client ::1:45848] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800049 2026] [proxy:error] [pid 276571:tid 276604] [client ::1:45892] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.804814 2026] [proxy_http:error] [pid 276570:tid 276576] (20014)Internal error (specific information not available): [client ::1:45784] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.804900 2026] [proxy:error] [pid 276570:tid 276576] [client ::1:45784] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.804889 2026] [proxy_http:error] [pid 276572:tid 276607] (20014)Internal error (specific information not available): [client ::1:45772] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.804914 2026] [proxy_http:error] [pid 276570:tid 276574] (20014)Internal error (specific information not available): [client ::1:45736] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.804978 2026] [proxy:error] [pid 276572:tid 276607] [client ::1:45772] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.805077 2026] [proxy_http:error] [pid 276572:tid 276603] (20014)Internal error (specific information not available): [client ::1:45752] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.805121 2026] [proxy:error] [pid 276572:tid 276603] [client ::1:45752] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.805682 2026] [proxy_http:error] [pid 276572:tid 276611] (20014)Internal error (specific information not available): [client ::1:45756] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.805703 2026] [proxy:error] [pid 276570:tid 276574] [client ::1:45736] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.805750 2026] [proxy:error] [pid 276572:tid 276611] [client ::1:45756] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.808056 2026] [proxy_http:error] [pid 276572:tid 276617] (20014)Internal error (specific information not available): [client ::1:45834] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.808139 2026] [proxy:error] [pid 276572:tid 276617] [client ::1:45834] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.808281 2026] [proxy_http:error] [pid 276571:tid 276597] (20014)Internal error (specific information not available): [client ::1:45726] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.808360 2026] [proxy:error] [pid 276571:tid 276597] [client ::1:45726] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.808970 2026] [proxy_http:error] [pid 276571:tid 276600] (20014)Internal error (specific information not available): [client ::1:45714] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.809013 2026] [proxy:error] [pid 276571:tid 276600] [client ::1:45714] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.811220 2026] [proxy_http:error] [pid 276571:tid 276612] (104)Connection reset by peer: [client ::1:46004] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.800046 2026] [proxy_http:error] [pid 276572:tid 276621] (20014)Internal error (specific information not available): [client ::1:45872] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.812323 2026] [proxy:error] [pid 276571:tid 276612] [client ::1:46004] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.812408 2026] [proxy:error] [pid 276572:tid 276621] [client ::1:45872] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800078 2026] [proxy:error] [pid 276572:tid 276631] [client ::1:45960] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800136 2026] [proxy_http:error] [pid 276570:tid 276580] (20014)Internal error (specific information not available): [client ::1:45812] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.813103 2026] [proxy:error] [pid 276570:tid 276580] [client ::1:45812] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800150 2026] [proxy_http:error] [pid 276571:tid 276602] (20014)Internal error (specific information not available): [client ::1:45808] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.800253 2026] [proxy_http:error] [pid 276570:tid 276577] (20014)Internal error (specific information not available): [client ::1:45800] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.813647 2026] [proxy_http:error] [pid 276572:tid 276614] (20014)Internal error (specific information not available): [client ::1:45780] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.813684 2026] [proxy:error] [pid 276572:tid 276614] [client ::1:45780] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800270 2026] [proxy_http:error] [pid 276570:tid 276582] (20014)Internal error (specific information not available): [client ::1:45880] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.813914 2026] [proxy:error] [pid 276570:tid 276582] [client ::1:45880] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.815066 2026] [proxy:error] [pid 276570:tid 276577] [client ::1:45800] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800289 2026] [proxy:error] [pid 276571:tid 276606] [client ::1:45924] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.816226 2026] [proxy:error] [pid 276571:tid 276602] [client ::1:45808] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800287 2026] [proxy_http:error] [pid 276570:tid 276578] (20014)Internal error (specific information not available): [client ::1:45828] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.824778 2026] [proxy:error] [pid 276570:tid 276578] [client ::1:45828] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:30.800276 2026] [proxy_http:error] [pid 276570:tid 276575] (20014)Internal error (specific information not available): [client ::1:45740] AH01102: error reading status line from remote server localhost:8080
+[Wed Sep 09 17:41:30.838305 2026] [proxy:error] [pid 276570:tid 276575] [client ::1:45740] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:31.359762 2026] [proxy:error] [pid 276571:tid 276635] (111)Connection refused: AH00957: http: attempt to connect to 127.0.0.1:8080 (localhost:8080) failed
+[Wed Sep 09 17:41:31.360353 2026] [proxy:error] [pid 276571:tid 276635] AH00959: ap_proxy_connect_backend disabling worker for (localhost:8080) for 5s
+[Wed Sep 09 17:41:31.360379 2026] [proxy_http:error] [pid 276571:tid 276635] [client ::1:46006] AH01114: HTTP: failed to make connection to backend: localhost
+[Wed Sep 09 17:41:42.250238 2026] [proxy_http:error] [pid 276572:tid 276586] (70007)The timeout specified has expired: [client ::1:46076] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.250357 2026] [proxy:error] [pid 276572:tid 276586] [client ::1:46076] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.263345 2026] [proxy_http:error] [pid 276571:tid 276589] (70007)The timeout specified has expired: [client ::1:46086] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.263378 2026] [proxy_http:error] [pid 276570:tid 276585] (70007)The timeout specified has expired: [client ::1:46092] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.263424 2026] [proxy:error] [pid 276571:tid 276589] [client ::1:46086] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.263468 2026] [proxy:error] [pid 276570:tid 276585] [client ::1:46092] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.264233 2026] [proxy_http:error] [pid 276570:tid 276587] (70007)The timeout specified has expired: [client ::1:46060] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.264267 2026] [proxy:error] [pid 276570:tid 276587] [client ::1:46060] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.268294 2026] [proxy_http:error] [pid 276783:tid 276786] (70007)The timeout specified has expired: [client ::1:46110] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.268396 2026] [proxy:error] [pid 276783:tid 276786] [client ::1:46110] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.272232 2026] [proxy_http:error] [pid 276570:tid 276576] (70007)The timeout specified has expired: [client ::1:46104] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.272321 2026] [proxy:error] [pid 276570:tid 276576] [client ::1:46104] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.273221 2026] [proxy_http:error] [pid 276570:tid 276581] (70007)The timeout specified has expired: [client ::1:46120] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.273259 2026] [proxy:error] [pid 276570:tid 276581] [client ::1:46120] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.276366 2026] [proxy_http:error] [pid 276570:tid 276574] (70007)The timeout specified has expired: [client ::1:46134] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.276434 2026] [proxy:error] [pid 276570:tid 276574] [client ::1:46134] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.279267 2026] [proxy_http:error] [pid 276570:tid 276605] (70007)The timeout specified has expired: [client ::1:46148] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.279338 2026] [proxy:error] [pid 276570:tid 276605] [client ::1:46148] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.280277 2026] [proxy_http:error] [pid 276570:tid 276609] (70007)The timeout specified has expired: [client ::1:46138] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.280340 2026] [proxy:error] [pid 276570:tid 276609] [client ::1:46138] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.289278 2026] [proxy_http:error] [pid 276570:tid 276601] (70007)The timeout specified has expired: [client ::1:46190] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.289364 2026] [proxy:error] [pid 276570:tid 276601] [client ::1:46190] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.291390 2026] [proxy_http:error] [pid 276570:tid 276595] (70007)The timeout specified has expired: [client ::1:46164] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.291479 2026] [proxy:error] [pid 276570:tid 276595] [client ::1:46164] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.292340 2026] [proxy_http:error] [pid 276570:tid 276580] (70007)The timeout specified has expired: [client ::1:46174] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.292403 2026] [proxy:error] [pid 276570:tid 276580] [client ::1:46174] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.293312 2026] [proxy_http:error] [pid 276572:tid 276599] (70007)The timeout specified has expired: [client ::1:46196] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.293372 2026] [proxy:error] [pid 276572:tid 276599] [client ::1:46196] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.306248 2026] [proxy_http:error] [pid 276570:tid 276577] (70007)The timeout specified has expired: [client ::1:46218] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.306273 2026] [proxy_http:error] [pid 276571:tid 276590] (70007)The timeout specified has expired: [client ::1:46246] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.306332 2026] [proxy:error] [pid 276570:tid 276577] [client ::1:46218] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.306379 2026] [proxy:error] [pid 276571:tid 276590] [client ::1:46246] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.313259 2026] [proxy_http:error] [pid 276570:tid 276616] (70007)The timeout specified has expired: [client ::1:46250] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.313355 2026] [proxy:error] [pid 276570:tid 276616] [client ::1:46250] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.315297 2026] [proxy_http:error] [pid 276572:tid 276633] (70007)The timeout specified has expired: [client ::1:46258] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.315355 2026] [proxy:error] [pid 276572:tid 276633] [client ::1:46258] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.320297 2026] [proxy_http:error] [pid 276783:tid 276788] (70007)The timeout specified has expired: [client ::1:46266] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.320396 2026] [proxy:error] [pid 276783:tid 276788] [client ::1:46266] AH00898: Error reading from remote server returned by /reproducer/session
+[Wed Sep 09 17:41:42.666462 2026] [proxy_http:error] [pid 276571:tid 276592] (70007)The timeout specified has expired: [client ::1:46290] AH01102: error reading status line from remote server localhost:8280
+[Wed Sep 09 17:41:42.666582 2026] [proxy:error] [pid 276571:tid 276592] [client ::1:46290] AH00898: Error reading from remote server returned by /reproducer/session
+[Thu Sep 10 15:45:22.505380 2026] [mpm_event:notice] [pid 276568:tid 276568] AH00491: caught SIGTERM, shutting down
