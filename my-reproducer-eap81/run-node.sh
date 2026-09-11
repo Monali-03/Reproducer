@@ -15,13 +15,24 @@ NAME="${1:?usage: run-node.sh <node-name> <port-offset> [base-dir-name]}"
 OFFSET="${2:?usage: run-node.sh <node-name> <port-offset> [base-dir-name]}"
 BASEDIR_NAME="${3:-standalone-$NAME}"
 
-EAP_HOME="${EAP_HOME:?ERROR: Set EAP_HOME to your JBoss EAP installation}"
+if [ -z "${EAP_HOME:-}" ]; then
+    if ! eap_export="$("$SCRIPT_DIR/ensure-eap-home.sh" --export)"; then
+        echo "[$NAME] ABORTED: wrong or missing EAP installation (see above)." >&2
+        exit 1
+    fi
+    eval "$eap_export"
+fi
+export EAP_HOME
 BASE="$EAP_HOME/$BASEDIR_NAME"
 
 # A terminal emulator started as a D-Bus service (gnome-terminal, ptyxis) does
 # NOT inherit the launcher's environment, so resolve the JDK here too.
 if [ -z "${JAVA_HOME:-}" ]; then
-    eval "$("$SCRIPT_DIR/ensure-jdk.sh" --export)"
+    if ! jdk_export="$("$SCRIPT_DIR/ensure-jdk.sh" --export)"; then
+        echo "[$NAME] ABORTED: no usable JDK for this EAP (see above)." >&2
+        exit 1
+    fi
+    eval "$jdk_export"
 fi
 export JAVA_HOME
 

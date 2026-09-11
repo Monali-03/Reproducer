@@ -39,6 +39,160 @@ Return a JSON object where keys are file paths and values are file contents.
 # because they are long, static shell programs -- there is nothing to
 # interpolate except the placeholders marked __LIKE_THIS__.
 
+_ENSURE_SERVER_HOME_SH = """\
+#!/bin/bash
+# Resolve the server installation this reproducer is FOR, and refuse to run
+# against any other one. Prints "export SERVER_HOME=... EAP_HOME=..." on stdout,
+# progress on stderr:
+#
+#     eval "$(./ensure-server-home.sh --export)"
+#
+# Why this exists: the target product/version comes from the support case, but
+# the install path comes from whoever's shell happens to be running the script.
+# Nothing used to connect the two, so a reproducer generated from an EAP 8 case
+# would silently deploy onto an EAP 7 server (jakarta app on a javax server: the
+# war deploys "OK" and every servlet 404s). The case file decides.
+#
+# Resolution order:
+#   1. A product-specific variable ($HOME_VARS, e.g. EAP8_HOME / DATAGRID_HOME).
+#      Setting one of these is an explicit statement of intent -- a version
+#      mismatch there is a hard error.
+#   2. A generic variable (EAP_HOME / JBOSS_HOME) exported from ~/.bashrc. This
+#      is ambient, not intent: if it points at the wrong major version it is
+#      skipped with a note rather than aborting the run.
+#   3. Autodiscovery under the usual lab locations.
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/nodes.env"
+
+log() { echo "[server-home] $*" >&2; }
+
+# What proves a directory is an installation of this product, and where its
+# version string lives.
+case "$TARGET_KIND" in
+    datagrid) MARKER="bin/server.sh" ;;
+    *)        MARKER="bin/standalone.sh" ;;
+esac
+
+installed_version() {  # -> 7.4.23.GA / 8.5.2.GA
+    # EAP: "7.4.23.GA". Data Grid: "Red Hat Data Grid - Version 8.5.2.GA".
+    # Take the last version-shaped token on the first non-empty line.
+    grep -oE '[0-9]+\\.[0-9]+[0-9.]*(\\.GA|\\.CR[0-9]+|\\.Final)?' \
+        "$1/version.txt" 2>/dev/null | tail -1
+}
+
+find_installs() {
+    local root s
+    for root in ${EAP_SEARCH_PATHS:-} "$HOME/Documents/EAP_lab" "$HOME/Documents/Datagrid" \
+                "$HOME/EAP" "$HOME/eap" "$HOME/jboss" "$HOME/Downloads" \
+                /opt/jboss /opt/eap /opt/datagrid /opt; do
+        [ -d "$root" ] || continue
+        while IFS= read -r s; do
+            [ -n "$s" ] && dirname "$(dirname "$s")"
+        done < <(find "$root" -maxdepth 4 -path "*/$MARKER" 2>/dev/null)
+    done | sort -u
+}
+
+report_candidates() {
+    local h v found=0
+    while IFS= read -r h; do
+        [ -n "$h" ] || continue
+        v="$(installed_version "$h")"
+        log "    ${v:-unknown}  $h"
+        found=1
+    done < <(find_installs)
+    [ "$found" = 1 ] || log "    (none found)"
+}
+
+version_matches() {  # version_matches <installed>
+    [ "${1%%.*}" = "$TARGET_MAJOR" ]
+}
+
+SERVER_HOME=""; HAVE=""; STRICT=0
+
+# --- 1 + 2: variables from the environment ---------------------------------
+for var in $HOME_VARS; do
+    val="${!var:-}"
+    [ -n "$val" ] || continue
+    # Product-specific names (EAP8_HOME, DATAGRID_HOME) are intent; the bare
+    # EAP_HOME / JBOSS_HOME set once in ~/.bashrc is not.
+    case "$var" in
+        EAP_HOME|JBOSS_HOME|SERVER_HOME) explicit=0 ;;
+        *) explicit=1 ;;
+    esac
+
+    if [ ! -f "$val/$MARKER" ]; then
+        if [ "$explicit" = 1 ]; then
+            log "ERROR: \\$$var=$val has no $MARKER"
+            exit 1
+        fi
+        log "ignoring \\$$var=$val (no $MARKER -- not a $TARGET_PRODUCT install)"
+        continue
+    fi
+
+    v="$(installed_version "$val")"
+    if version_matches "$v"; then
+        SERVER_HOME="$val"; HAVE="$v"
+        log "using \\$$var -> ${v:-unknown} at $val"
+        break
+    fi
+
+    if [ "$explicit" = 1 ]; then
+        log "ERROR: this reproducer targets $TARGET_PRODUCT $TARGET_VERSION (from the"
+        log "       support case), but \\$$var points at ${v:-an unknown version}:"
+        log "         $val"
+        log "       Running it there would prove nothing. Installations found:"
+        report_candidates
+        exit 1
+    fi
+    log "\\$$var points at $v, but this reproducer targets $TARGET_PRODUCT $TARGET_VERSION."
+    log "  Ignoring it and looking for a ${TARGET_MAJOR}.x install instead."
+done
+
+# --- 3: autodiscovery -------------------------------------------------------
+if [ -z "$SERVER_HOME" ]; then
+    CHOSEN=""; FALLBACK=""
+    while IFS= read -r h; do
+        [ -n "$h" ] || continue
+        v="$(installed_version "$h")"
+        version_matches "$v" || continue
+        case "$v" in
+            "$TARGET_VERSION"*) CHOSEN="$h"; break ;;   # exact case version wins
+        esac
+        [ -z "$FALLBACK" ] && FALLBACK="$h"
+    done < <(find_installs)
+    SERVER_HOME="${CHOSEN:-$FALLBACK}"
+    if [ -z "$SERVER_HOME" ]; then
+        log "ERROR: no $TARGET_PRODUCT ${TARGET_MAJOR}.x installation found."
+        log "       This reproducer targets $TARGET_PRODUCT $TARGET_VERSION."
+        log "       Installations found on this machine:"
+        report_candidates
+        log "       Set one of: $HOME_VARS -- or point EAP_SEARCH_PATHS at the"
+        log "       directory holding the release."
+        exit 1
+    fi
+    HAVE="$(installed_version "$SERVER_HOME")"
+    log "auto-selected ${HAVE:-unknown} at $SERVER_HOME"
+fi
+
+# Same major, different micro: allowed, but say so loudly. Version-specific
+# regressions are exactly the kind that will not reproduce on the wrong CP.
+case "$HAVE" in
+    "$TARGET_VERSION"*) log "version matches the case exactly ($HAVE)" ;;
+    *) log "WARNING: the case says $TARGET_VERSION but this install is ${HAVE:-unknown}."
+       log "         If the issue is a regression tied to a specific cumulative"
+       log "         patch, it may not reproduce here. Apply the matching CP to"
+       log "         be certain of a negative result." ;;
+esac
+
+if [ "${1:-}" = "--export" ]; then
+    printf 'export SERVER_HOME=%s\n' "$SERVER_HOME"
+    # EAP_HOME stays exported for the EAP scripts and for ensure-jdk.sh.
+    printf 'export EAP_HOME=%s\n' "$SERVER_HOME"
+fi
+"""
+
+
 _ENSURE_JDK_SH = """\
 #!/bin/bash
 # Resolve -- and if necessary DOWNLOAD -- a JDK that can actually boot the EAP
@@ -57,7 +211,16 @@ _ENSURE_JDK_SH = """\
 set -euo pipefail
 
 JDKS_DIR="${REPRODUCER_JDKS_DIR:-$HOME/jdks}"
-EAP_HOME="${EAP_HOME:?ERROR: set EAP_HOME so the required JDK can be determined}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# nodes.env (EAP/Data Grid) or jvm.env (JVM-only) tells us what we are serving.
+# Note the `if`: under `set -e` a bare `[ -f x ] && source x` aborts the whole
+# script when the file is absent, because the AND-list itself returns 1.
+for env_file in nodes.env jvm.env; do
+    if [ -f "$SCRIPT_DIR/$env_file" ]; then
+        source "$SCRIPT_DIR/$env_file"
+    fi
+done
+TARGET_KIND="${TARGET_KIND:-eap}"
 
 log() { echo "[ensure-jdk] $*" >&2; }
 
@@ -67,15 +230,31 @@ java_major() {  # java_major <path-to-java> -> 8, 11, 17, 21, ...
         | awk '{ if ($1 == 1) print $2; else print $1 }'
 }
 
-# --- Which JDK does THIS EAP need? -----------------------------------------
-EAP_VER="$(grep -oE '[0-9]+\\.[0-9]+' "$EAP_HOME/version.txt" 2>/dev/null | head -1)"
-case "${EAP_VER%%.*}" in
-    7)  JDK_MIN=8;  JDK_MAX=11; JDK_WANT=11
-        REASON="EAP $EAP_VER: legacy security subsystem/realms are rejected on JDK 14+" ;;
-    8)  JDK_MIN=17; JDK_MAX=21; JDK_WANT=17
-        REASON="EAP $EAP_VER: Jakarta EE 10 requires JDK 17 or 21" ;;
-    *)  JDK_MIN=17; JDK_MAX=21; JDK_WANT=17
-        REASON="unknown EAP version at $EAP_HOME; assuming a modern release" ;;
+# --- Which JDK does THIS product need? -------------------------------------
+SERVER="${SERVER_HOME:-${EAP_HOME:-}}"
+case "$TARGET_KIND" in
+jvm)
+    # No server: honour REQUIRED_JDK from jvm.env, else whatever is current.
+    JDK_MIN="${REQUIRED_JDK_MIN:-8}"; JDK_MAX="${REQUIRED_JDK_MAX:-25}"
+    JDK_WANT="${REQUIRED_JDK:-17}"
+    REASON="JVM reproducer: using JDK ${JDK_WANT} (set REQUIRED_JDK to match the customer)"
+    ;;
+datagrid)
+    DG_VER="$(grep -oE '[0-9]+\\.[0-9]+' "$SERVER/version.txt" 2>/dev/null | tail -1)"
+    JDK_MIN=17; JDK_MAX=21; JDK_WANT=17
+    REASON="Red Hat Data Grid ${DG_VER:-8.x}: server requires JDK 17 or 21"
+    ;;
+*)
+    EAP_VER="$(grep -oE '[0-9]+\\.[0-9]+' "$SERVER/version.txt" 2>/dev/null | head -1)"
+    case "${EAP_VER%%.*}" in
+        7)  JDK_MIN=8;  JDK_MAX=11; JDK_WANT=11
+            REASON="EAP $EAP_VER: legacy security subsystem/realms are rejected on JDK 14+" ;;
+        8)  JDK_MIN=17; JDK_MAX=21; JDK_WANT=17
+            REASON="EAP $EAP_VER: Jakarta EE 10 requires JDK 17 or 21" ;;
+        *)  JDK_MIN=17; JDK_MAX=21; JDK_WANT=17
+            REASON="unknown EAP version at $SERVER; assuming a modern release" ;;
+    esac
+    ;;
 esac
 log "$REASON -> need JDK ${JDK_MIN}..${JDK_MAX}"
 
@@ -151,6 +330,748 @@ fi
 """
 
 
+# --- Red Hat Data Grid -----------------------------------------------------
+# Data Grid Server is not EAP: bin/server.sh instead of bin/standalone.sh, one
+# endpoint port instead of http+management, `-s <server-root>` instead of
+# jboss.server.base.dir, and endpoint security is ON by default so every node
+# needs a user created before anything can talk to it.
+
+_DG_RUN_NODE_SH = """\
+#!/bin/bash
+# Run ONE Data Grid node in this terminal:  ./run-node.sh <name> <offset> <root>
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/nodes.env"
+
+NAME="${1:?usage: run-node.sh <name> <port-offset> [server-root-name]}"
+OFFSET="${2:?usage: run-node.sh <name> <port-offset> [server-root-name]}"
+ROOT_NAME="${3:-server-$NAME}"
+
+if [ -z "${SERVER_HOME:-}" ]; then
+    if ! home_export="$("$SCRIPT_DIR/ensure-server-home.sh" --export)"; then
+        echo "[$NAME] ABORTED: wrong or missing Data Grid installation (see above)." >&2
+        exit 1
+    fi
+    eval "$home_export"
+fi
+export SERVER_HOME
+if ! jdk_export="$("$SCRIPT_DIR/ensure-jdk.sh" --export)"; then
+    echo "[$NAME] ABORTED: no usable JDK (see above)." >&2
+    exit 1
+fi
+eval "$jdk_export"
+export JAVA_HOME
+
+ROOT="$SERVER_HOME/$ROOT_NAME"
+
+# Each node needs its own server root. Sharing one means they fight over
+# data/, log/ and the index files -- a port offset alone does not isolate them.
+if [ ! -d "$ROOT/conf" ]; then
+    echo "[$NAME] seeding server root $ROOT from the stock server/ directory"
+    mkdir -p "$ROOT"
+    cp -r "$SERVER_HOME/server/conf" "$ROOT/conf"
+fi
+
+# Endpoints are authenticated by default; without a user every REST call is 401
+# and the reproducer looks broken when it is only locked.
+if [ ! -s "$ROOT/conf/users.properties" ] || \\
+   ! grep -q "^${DG_USER}=" "$ROOT/conf/users.properties" 2>/dev/null; then
+    echo "[$NAME] creating endpoint user '$DG_USER'"
+    "$SERVER_HOME/bin/cli.sh" user create "$DG_USER" -p "$DG_PASS" -g admin \\
+        -s "$ROOT" >/dev/null 2>&1 || \\
+        echo "[$NAME] WARNING: could not create user; REST calls may return 401"
+fi
+
+# The stock `tcp` stack discovers peers with MPING, i.e. IP multicast. On a
+# laptop that usually finds nothing -- loopback has no MULTICAST flag and the
+# host firewall drops the datagrams on the real NIC -- so every node forms its
+# own one-member cluster and the reproducer quietly tests nothing. Layer a
+# TCPPING stack with the peers listed explicitly over the stock config
+# (`-c` is repeatable and the files are merged) so the cluster is deterministic.
+#
+# The schema namespace is read out of the install's own infinispan.xml rather
+# than hardcoded, so this works on whatever Data Grid version is present.
+NS="$(grep -oE 'urn:infinispan:config:[0-9]+\\.[0-9]+' \\
+      "$SERVER_HOME/server/conf/infinispan.xml" | head -1)"
+if [ -z "$NS" ]; then
+    echo "[$NAME] WARNING: could not read the config namespace; using multicast discovery."
+    OVERLAY=()
+else
+    hosts=""
+    for entry in "${NODES[@]}"; do
+        read -r _ o _ _ <<< "$entry"
+        hosts="${hosts:+$hosts,}127.0.0.1[$((7800 + o))]"
+    done
+    cat > "$ROOT/conf/repro-cluster.xml" <<XML
+<infinispan xmlns="$NS">
+   <jgroups>
+      <stack name="repro-tcp" extends="tcp">
+         <TCPPING initial_hosts="$hosts" port_range="0"
+                  stack.combine="REPLACE" stack.position="MPING"/>
+      </stack>
+   </jgroups>
+   <cache-container name="default" statistics="true">
+      <transport cluster="repro-cluster" stack="repro-tcp"
+                 node-name="\\${infinispan.node.name:}"/>
+      <security>
+         <authorization/>
+      </security>
+   </cache-container>
+</infinispan>
+XML
+    OVERLAY=(-c repro-cluster.xml)
+    echo "[$NAME] JGroups discovery: TCPPING $hosts"
+fi
+
+echo "[$NAME] Data Grid: port $((11222 + OFFSET)), root $ROOT"
+echo "[$NAME] JAVA_HOME=$JAVA_HOME"
+echo
+
+set +e
+"$SERVER_HOME/bin/server.sh" -o "$OFFSET" -n "$NAME" -s "$ROOT" \\
+    -c "$SERVER_CONFIG" ${OVERLAY[@]+"${OVERLAY[@]}"} \\
+    -b "$BIND_ADDRESS" -k "$BIND_ADDRESS" 2>&1 | tee "$SCRIPT_DIR/$NAME.log"
+status=${PIPESTATUS[0]}
+set -e
+
+if grep -q "ISPN080001\\|ISPN080034" "$SCRIPT_DIR/$NAME.log" 2>/dev/null; then
+    echo "[$NAME] stopped (status $status)."
+    sleep 2
+else
+    echo "[$NAME] NEVER STARTED (status $status) - the boot errors are above."
+    echo "Press Enter to close this window."
+    read -r _ || true
+fi
+"""
+
+
+_DG_START_CLUSTER_SH = """\
+#!/bin/bash
+# Start every Data Grid node, each in its own terminal window.
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/nodes.env"
+
+USE_TERMINALS=1
+[ "${1:-}" = "--no-terminals" ] && USE_TERMINALS=0
+
+# `eval "$(cmd)"` hides cmd's exit status from set -e, so capture and check first.
+resolve() {
+    local out
+    if ! out="$("$SCRIPT_DIR/$1" --export)"; then
+        echo "ABORTED: $1 refused to run this reproducer here (see above)." >&2
+        exit 1
+    fi
+    eval "$out"
+}
+resolve ensure-server-home.sh
+resolve ensure-jdk.sh
+export SERVER_HOME JAVA_HOME
+
+detect_terminal() {
+    for t in ptyxis gnome-terminal konsole xfce4-terminal kitty alacritty xterm; do
+        command -v "$t" >/dev/null 2>&1 && { echo "$t"; return; }
+    done
+    command -v tmux >/dev/null 2>&1 && { echo tmux; return; }
+    echo none
+}
+
+launch_node() {
+    local name="$1" offset="$2" root="$3"
+    # Terminals started over D-Bus (ptyxis, gnome-terminal) do NOT inherit this
+    # shell's environment, so everything needed is passed on the command line.
+    local cmd
+    cmd="SERVER_HOME=$(printf '%q' "$SERVER_HOME") JAVA_HOME=$(printf '%q' "$JAVA_HOME")"
+    cmd="$cmd $(printf '%q' "$SCRIPT_DIR/run-node.sh") $name $offset $root"
+
+    case "$TERM_EMU" in
+        ptyxis)         ptyxis --new-window -- bash -lc "$cmd" & ;;
+        gnome-terminal) gnome-terminal --window -- bash -lc "$cmd" & ;;
+        konsole)        konsole --new-tab -e bash -lc "$cmd" & ;;
+        xfce4-terminal) xfce4-terminal --window -e "bash -lc '$cmd'" & ;;
+        kitty)          kitty bash -lc "$cmd" & ;;
+        alacritty)      alacritty -e bash -lc "$cmd" & ;;
+        xterm)          xterm -e bash -lc "$cmd" & ;;
+        tmux)           tmux new-session -d -s "repro-$name" "bash -lc '$cmd'" ;;
+        *)              bash -c "$cmd" > "$SCRIPT_DIR/$name.log" 2>&1 & ;;
+    esac
+}
+
+TERM_EMU=none
+[ "$USE_TERMINALS" = 1 ] && TERM_EMU="$(detect_terminal)"
+[ "$TERM_EMU" = none ] && echo "No terminal emulator; running nodes in the background."
+
+echo "Launching ${#NODES[@]} Data Grid nodes..."
+for entry in "${NODES[@]}"; do
+    read -r name offset port root <<< "$entry"
+    launch_node "$name" "$offset" "$root"
+    echo "  $name -> port $port (log: $name.log)"
+    sleep 3
+done
+
+# Readiness: the REST health endpoint, not just an open socket -- a listening
+# port says the JVM is up, not that the cache manager is.
+for entry in "${NODES[@]}"; do
+    read -r name offset port root <<< "$entry"
+    echo -n "Waiting for $name (port $port)..."
+    for i in $(seq 1 60); do
+        # DIGEST, not Basic. The properties realm stores only hashed
+        # credentials, so Basic is rejected with ISPN080052 -- and the
+        # health endpoint answers anonymously, so probing it with the
+        # wrong scheme reports HEALTHY while every real call is 403.
+        code="$(curl -s -o /dev/null -w '%{http_code}' --digest -u "$DG_USER:$DG_PASS" \\
+                "http://localhost:$port/rest/v2/caches" 2>/dev/null || true)"
+        if [ "$code" = "200" ]; then echo " HEALTHY"; break; fi
+        [ "$i" = 60 ] && { echo " TIMED OUT (last HTTP $code) - see $name.log"; exit 1; }
+        sleep 2
+    done
+done
+
+echo
+echo "Cluster membership (from ${NODES[0]%% *}):"
+read -r _ _ first_port _ <<< "${NODES[0]}"
+members="$(curl -s --digest -u "$DG_USER:$DG_PASS" \\
+    "http://localhost:$first_port/rest/v2/cache-managers/default" \\
+    | tr ',' '\\n' | grep -iE 'cluster_name|cluster_size|cluster_members')"
+if [ -n "$members" ]; then
+    echo "$members" | sed 's/^/  /'
+else
+    echo "  (could not read cluster info)"
+fi
+
+echo
+echo "=========================================="
+echo "  ${#NODES[@]}-node Data Grid cluster started"
+echo "=========================================="
+for entry in "${NODES[@]}"; do
+    read -r name offset port root <<< "$entry"
+    echo "  $name: http://localhost:$port  (console: /console)"
+done
+echo
+echo "Next: ./test.sh   or   ./run-reproducer.sh --repeat 5"
+echo "Run ./stop-cluster.sh to stop all nodes"
+"""
+
+
+_DG_STOP_CLUSTER_SH = """\
+#!/bin/bash
+# Stop every Data Grid node started by this reproducer.
+set -uo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/nodes.env"
+
+# Match the server's own argv (-n <name> -s <root>) and the run-node.sh
+# wrapper. Matching only the wrapper leaves the JVM running and holding the
+# port, which makes the next attempt fail for a reason that has nothing to
+# do with the customer's issue.
+node_pids() {
+    local name="$1" root="$2"
+    { pgrep -f -- "-n $name -s .*$root" || true
+      pgrep -f -- "run-node.sh $name " || true; } | sort -u
+}
+
+for entry in "${NODES[@]}"; do
+    read -r name offset port root <<< "$entry"
+    pids="$(node_pids "$name" "$root")"
+    if [ -n "$pids" ]; then
+        echo "$name: stopping ($(echo $pids | tr '\\n' ' '))"
+        kill $pids 2>/dev/null || true
+    fi
+done
+
+sleep 3
+for entry in "${NODES[@]}"; do
+    read -r name offset port root <<< "$entry"
+    pids="$(node_pids "$name" "$root")"
+    [ -n "$pids" ] && kill -9 $pids 2>/dev/null || true
+done
+
+# Do not return until the ports are actually free; the next attempt binds them.
+for entry in "${NODES[@]}"; do
+    read -r name offset port root <<< "$entry"
+    for i in $(seq 1 20); do
+        (exec 3<>"/dev/tcp/127.0.0.1/$port") 2>/dev/null || break
+        exec 3<&- 2>/dev/null || true
+        sleep 1
+        [ "$i" = 20 ] && echo "WARNING: port $port ($name) is still bound."
+    done
+done
+echo "All nodes stopped."
+"""
+
+_DG_TEST_SH = """\
+#!/bin/bash
+# Data Grid reproducer: write entries, kill the owner node, read them back.
+# Prints "ISSUE REPRODUCED" if data that should have survived did not.
+set -uo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/nodes.env"
+
+CACHE="${CACHE:-reproducer}"
+ENTRIES="${ENTRIES:-200}"
+
+# DIGEST, not Basic: the properties realm holds only hashed credentials, so a
+# Basic header is rejected with "ISPN080052: ... mechanism 'null' is not
+# supported" -- a 403 that looks exactly like a missing key if you only count
+# non-200 responses.
+AUTH=(--digest -u "$DG_USER:$DG_PASS")
+
+read -r n1 o1 P1 r1 <<< "${NODES[0]}"
+read -r n2 o2 P2 r2 <<< "${NODES[1]:-${NODES[0]}}"
+
+echo "=========================================================="
+echo "  Data Grid Reproducer: $ISSUE_LABEL"
+echo "=========================================================="
+echo
+
+inconclusive() {
+    echo
+    echo "=========================================================="
+    echo "  INCONCLUSIVE: $1"
+    echo "  No verdict is reported -- the reproducer could not run far"
+    echo "  enough to tell a real failure from a broken setup."
+    echo "=========================================================="
+    exit 2
+}
+
+echo "Step 0: check the REST endpoint answers and is authenticated..."
+probe="$(curl -s "${AUTH[@]}" -o /dev/null -w '%{http_code}' \\
+         "http://localhost:$P1/rest/v2/caches" 2>/dev/null || true)"
+if [ "$probe" != "200" ]; then
+    echo "   GET /rest/v2/caches on $n1 returned HTTP $probe"
+    inconclusive "cannot talk to $n1 (HTTP $probe). 401/403 means the endpoint user
+  '$DG_USER' is missing or the auth mechanism is wrong; 000 means the node is down."
+fi
+echo "   OK (HTTP 200 as $DG_USER)"
+
+echo "Step 1: create a distributed cache '$CACHE' (owners=2)..."
+# Caches created over REST are permanent -- they survive in the server root and
+# come back on the next boot, entries and all. Drop it first so each attempt
+# starts from an empty cache instead of reading a previous run's data.
+curl -s "${AUTH[@]}" -o /dev/null -X DELETE \\
+     "http://localhost:$P1/rest/v2/caches/$CACHE" 2>/dev/null || true
+sleep 1
+body="$(curl -s "${AUTH[@]}" -w '\\n%{http_code}' \\
+        -X POST -H 'Content-Type: application/json' \\
+        -d '{"distributed-cache":{"mode":"SYNC","owners":2,"statistics":true}}' \\
+        "http://localhost:$P1/rest/v2/caches/$CACHE")"
+code="$(echo "$body" | tail -1)"
+case "$code" in
+    200|204) echo "   created" ;;
+    *)       inconclusive "could not create the cache (HTTP $code): $(echo "$body" | head -1)" ;;
+esac
+sleep 2
+
+echo "Step 2: write $ENTRIES entries through $n1..."
+write_fail=0
+for i in $(seq 1 "$ENTRIES"); do
+    code="$(curl -s "${AUTH[@]}" -o /dev/null -w '%{http_code}' \\
+            -X POST -H 'Content-Type: text/plain' \\
+            -d "value-$i" "http://localhost:$P1/rest/v2/caches/$CACHE/key-$i")"
+    case "$code" in 200|204) ;; *) write_fail=$((write_fail + 1)) ;; esac
+done
+[ "$write_fail" -gt 0 ] && \\
+    inconclusive "$write_fail of $ENTRIES writes failed, so nothing can be concluded
+  from the reads afterwards."
+size_before="$(curl -s "${AUTH[@]}" "http://localhost:$P1/rest/v2/caches/$CACHE?action=size")"
+echo "   cache size via $n1: $size_before"
+case "$size_before" in
+    ''|*[!0-9]*) inconclusive "cache size came back as '$size_before', not a number." ;;
+esac
+
+echo
+echo "Step 3: kill $n2 abruptly and read every key back from $n1..."
+# Match the server's own argv (-n <name> -s <root>), not the run-node.sh
+# wrapper: killing the wrapper leaves the JVM orphaned and still serving,
+# so the "node loss" never happens and the reads all succeed for the
+# wrong reason.
+pids="$(pgrep -f -- "-n $n2 -s .*$r2" || true)"
+if [ -z "$pids" ]; then
+    inconclusive "could not find the $n2 process to kill; the node-loss step
+  never happened."
+fi
+echo "   >>> kill -9 $n2 (PIDs: $(echo $pids | tr '\\n' ' '))"
+kill -9 $pids 2>/dev/null || true
+
+# Wait for the port to actually stop answering, then for the survivors to
+# install a new view. A fixed sleep either wastes time or reads mid-rebalance.
+for i in $(seq 1 30); do
+    curl -s -o /dev/null --max-time 2 "http://localhost:$P2/rest/v2/caches" 2>/dev/null || break
+    sleep 1
+done
+echo -n "   waiting for the surviving nodes to install a new view..."
+want=$(( ${#NODES[@]} - 1 ))
+for i in $(seq 1 60); do
+    size="$(curl -s "${AUTH[@]}" "http://localhost:$P1/rest/v2/cache-managers/default" \\
+            | tr ',' '\\n' | grep -i cluster_size | grep -oE '[0-9]+' | head -1)"
+    if [ "${size:-0}" = "$want" ]; then echo " cluster_size=$size"; break; fi
+    [ "$i" = 60 ] && echo " still $size after 60s (continuing anyway)"
+    sleep 1
+done
+sleep 5
+
+lost=0; wrong=0; errors=0; first_error=""
+for i in $(seq 1 "$ENTRIES"); do
+    body="$(curl -s "${AUTH[@]}" -w '\\n%{http_code}' \\
+            "http://localhost:$P1/rest/v2/caches/$CACHE/key-$i" 2>/dev/null)"
+    code="$(echo "$body" | tail -1)"
+    val="$(echo "$body" | head -1)"
+    case "$code" in
+        200) [ "$val" = "value-$i" ] || wrong=$((wrong + 1)) ;;
+        404) lost=$((lost + 1)) ;;
+        # Anything else is a broken reproducer, not lost data. 403 is the
+        # classic: wrong auth scheme makes all 200 keys look "missing".
+        *)   errors=$((errors + 1)); [ -z "$first_error" ] && first_error="HTTP $code: $val" ;;
+    esac
+done
+size_after="$(curl -s "${AUTH[@]}" "http://localhost:$P1/rest/v2/caches/$CACHE?action=size")"
+
+echo
+echo "=========================================================="
+echo "  entries written : $ENTRIES"
+echo "  size before/after node loss : $size_before / $size_after"
+echo "  lost (HTTP 404) after node loss : $lost"
+echo "  wrong value after node loss     : $wrong"
+echo "  read errors (not data loss)     : $errors"
+if [ "$errors" -gt 0 ]; then
+    echo "  first read error: $first_error"
+    inconclusive "$errors of $ENTRIES reads failed with an error rather than 404.
+  That is a broken reproducer, not lost data."
+fi
+if [ "$lost" -gt 0 ] || [ "$wrong" -gt 0 ]; then
+    echo
+    echo "  ISSUE REPRODUCED: data did not survive the loss of one owner,"
+    echo "  which owners=2 is supposed to guarantee."
+else
+    echo
+    echo "  Issue NOT reproduced this run: every entry survived."
+    echo "  Re-run with --repeat, or raise ENTRIES / add nodes to widen the window."
+fi
+echo "=========================================================="
+"""
+
+
+_DG_RUN_REPRODUCER_SH = """\
+#!/bin/bash
+# One command: resolve install + JDK, start the cluster, run the test, repeat.
+set -uo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/nodes.env"
+
+REPEAT=1
+TERMINAL_FLAG=""
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --repeat) REPEAT="${2:?--repeat needs a number}"; shift 2 ;;
+        --no-terminals) TERMINAL_FLAG="--no-terminals"; shift ;;
+        *) echo "usage: run-reproducer.sh [--repeat N] [--no-terminals]"; exit 1 ;;
+    esac
+done
+
+hits=0
+bad=0
+for attempt in $(seq 1 "$REPEAT"); do
+    echo
+    echo "##############  ATTEMPT $attempt / $REPEAT  ##############"
+    "$SCRIPT_DIR/stop-cluster.sh" >/dev/null 2>&1 || true
+    sleep 2
+    if ! "$SCRIPT_DIR/start-cluster.sh" $TERMINAL_FLAG; then
+        echo "Cluster failed to start; aborting."
+        exit 1
+    fi
+    "$SCRIPT_DIR/test.sh" 2>&1 | tee "$SCRIPT_DIR/attempt-$attempt.log"
+    if grep -q "INCONCLUSIVE" "$SCRIPT_DIR/attempt-$attempt.log"; then
+        bad=$((bad + 1))
+    elif grep -q "ISSUE REPRODUCED" "$SCRIPT_DIR/attempt-$attempt.log"; then
+        hits=$((hits + 1))
+    fi
+done
+
+"$SCRIPT_DIR/stop-cluster.sh" >/dev/null 2>&1 || true
+
+good=$((REPEAT - bad))
+echo
+echo "=========================================================="
+if [ "$bad" -gt 0 ]; then
+    echo "  $bad of $REPEAT attempt(s) were INCONCLUSIVE (see the reason above)."
+    echo "  Those are not counted either way."
+fi
+echo "  Reproduced on $hits of $good usable attempt(s)"
+if [ "$hits" = 0 ] && [ "$good" -gt 0 ]; then
+    echo "  The issue did NOT reproduce on this build."
+    echo "  That is itself a result: it suggests the bug is not present in"
+    echo "  this Data Grid version. Match the customer's exact micro-version"
+    echo "  before concluding, then advise an upgrade if the latest is clean."
+fi
+echo "=========================================================="
+[ "$good" = 0 ] && exit 2
+exit 0
+"""
+
+# --- JVM (heap / GC / metaspace / thread) ----------------------------------
+# A JVM issue reproduces in one JVM. No server home, no cluster, no war -- what
+# it needs is the customer's flags and the diagnostics that make the failure
+# analysable after the fact.
+
+_JVM_RUN_REPRODUCER_SH = """\
+#!/bin/bash
+# One command: resolve a JDK, compile the workload, run it under the customer's
+# JVM flags with full diagnostics, and report whether the failure happened.
+set -uo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/jvm.env"
+
+REPEAT=1
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --repeat) REPEAT="${2:?--repeat needs a number}"; shift 2 ;;
+        --no-terminals) shift ;;   # accepted for symmetry with the other packages
+        *) echo "usage: run-reproducer.sh [--repeat N]"; exit 1 ;;
+    esac
+done
+
+if ! jdk_export="$("$SCRIPT_DIR/ensure-jdk.sh" --export)"; then
+    echo "ABORTED: no usable JDK (see above)." >&2
+    exit 1
+fi
+eval "$jdk_export"
+export JAVA_HOME
+echo "JAVA_HOME=$JAVA_HOME"
+"$JAVA_HOME/bin/java" -version 2>&1 | sed 's/^/  /'
+
+DUMPS="$SCRIPT_DIR/dumps"
+mkdir -p "$DUMPS" "$SCRIPT_DIR/classes"
+
+echo "Compiling workload..."
+"$JAVA_HOME/bin/javac" -d "$SCRIPT_DIR/classes" "$SCRIPT_DIR/src/Workload.java" || exit 1
+
+hits=0
+for attempt in $(seq 1 "$REPEAT"); do
+    echo
+    echo "##############  ATTEMPT $attempt / $REPEAT  ##############"
+    rm -f "$DUMPS"/*.hprof "$SCRIPT_DIR/gc.log" 2>/dev/null || true
+    LOG="$SCRIPT_DIR/attempt-$attempt.log"
+
+    # The diagnostics that make a JVM issue both reproducible AND analysable:
+    #   HeapDumpOnOutOfMemoryError -> a .hprof to open in Eclipse MAT
+    #   -Xlog:gc*                  -> pause times and allocation rate
+    #   ExitOnOutOfMemoryError off -> we want the dump, then a clean report
+    set -x
+    "$JAVA_HOME/bin/java" $JVM_OPTS \\
+        -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="$DUMPS" \\
+        -Xlog:gc*:file="$SCRIPT_DIR/gc.log":time,uptime,level,tags \\
+        -cp "$SCRIPT_DIR/classes" Workload $WORKLOAD_ARGS > "$LOG" 2>&1
+    status=$?
+    set +x
+
+    tail -25 "$LOG"
+
+    if grep -qE "OutOfMemoryError|StackOverflowError|ISSUE REPRODUCED" "$LOG" \\
+       || ls "$DUMPS"/*.hprof >/dev/null 2>&1; then
+        hits=$((hits + 1))
+        echo "  ISSUE REPRODUCED (exit $status)"
+        ls -la "$DUMPS"/*.hprof 2>/dev/null | sed 's/^/    heap dump: /'
+    else
+        echo "  Issue NOT reproduced this run (exit $status)"
+    fi
+done
+
+echo
+echo "=========================================================="
+echo "  Reproduced on $hits of $REPEAT attempt(s)"
+echo "  gc log     : $SCRIPT_DIR/gc.log"
+echo "  heap dumps : $DUMPS"
+echo "  Take a thread dump of a live run with ./capture.sh"
+if [ "$hits" = 0 ]; then
+    echo
+    echo "  The issue did NOT reproduce with these flags. Check jvm.env against"
+    echo "  the customer's real JAVA_OPTS -- heap size and GC choice are usually"
+    echo "  what decides whether this fails."
+fi
+echo "=========================================================="
+"""
+
+
+_JVM_CAPTURE_SH = """\
+#!/bin/bash
+# Capture diagnostics from a running JVM: thread dumps on a timer, plus a heap
+# histogram. Three dumps a few seconds apart is what distinguishes a real
+# deadlock from a thread that merely looked busy once.
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+COUNT="${1:-3}"
+GAP="${2:-5}"
+OUT="$SCRIPT_DIR/dumps"
+mkdir -p "$OUT"
+
+if ! jdk_export="$("$SCRIPT_DIR/ensure-jdk.sh" --export)"; then exit 1; fi
+eval "$jdk_export"
+
+PID="${PID:-$("$JAVA_HOME/bin/jps" -l 2>/dev/null | grep Workload | awk '{print $1}' | head -1)}"
+if [ -z "${PID:-}" ]; then
+    echo "No Workload JVM running. Start one with ./run-reproducer.sh, or set PID=<pid>." >&2
+    exit 1
+fi
+echo "Capturing from PID $PID"
+
+for i in $(seq 1 "$COUNT"); do
+    stamp="$(date +%Y%m%d-%H%M%S)"
+    "$JAVA_HOME/bin/jstack" -l "$PID" > "$OUT/threaddump-$stamp.txt"
+    echo "  $OUT/threaddump-$stamp.txt"
+    [ "$i" -lt "$COUNT" ] && sleep "$GAP"
+done
+
+"$JAVA_HOME/bin/jcmd" "$PID" GC.class_histogram > "$OUT/histogram-$(date +%H%M%S).txt" 2>/dev/null \\
+    && echo "  heap histogram written"
+echo "Drop these back into the case bundle under dumps/."
+"""
+
+_JVM_WORKLOAD_JAVA = """\
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
+import java.util.*;
+import java.util.concurrent.*;
+
+/**
+ * Drives the three JVM failures that show up in support cases. Which one runs
+ * is chosen by argv[0] so the same reproducer covers all of them:
+ *
+ *   heap      retained allocation -> OutOfMemoryError: Java heap space
+ *   metaspace classloader leak    -> OutOfMemoryError: Metaspace
+ *   threads   lock-ordering bug   -> a real, jstack-visible deadlock
+ *
+ * Edit jvm.env, not this file, to match the customer's heap and collector.
+ */
+public class Workload {
+
+    public static void main(String[] args) throws Exception {
+        String mode = args.length > 0 ? args[0] : "heap";
+        int iterations = args.length > 1 ? Integer.parseInt(args[1]) : 100000;
+        System.out.println("mode=" + mode + " iterations=" + iterations
+                + " maxHeap=" + (Runtime.getRuntime().maxMemory() >> 20) + "m");
+
+        switch (mode) {
+            case "metaspace": metaspace(iterations); break;
+            case "threads":   threads();             break;
+            default:          heap(iterations);      break;
+        }
+    }
+
+    /** Retained allocation: the collector cannot help, so the heap fills. */
+    private static void heap(int iterations) {
+        List<byte[]> retained = new ArrayList<>();
+        for (int i = 0; i < iterations; i++) {
+            retained.add(new byte[64 * 1024]);
+            if (i % 200 == 0) {
+                long used = Runtime.getRuntime().totalMemory()
+                        - Runtime.getRuntime().freeMemory();
+                System.out.println("  allocated " + i + " blocks, heap used "
+                        + (used >> 20) + "m");
+            }
+        }
+        System.out.println("Completed without OOM -- raise iterations or lower -Xmx.");
+    }
+
+    /**
+     * Metaspace leak: every iteration defines a new class in a new loader and
+     * keeps the loader reachable. This is the shape of the real thing -- a
+     * redeploy loop that leaks the application classloader.
+     */
+    private static void metaspace(int iterations) {
+        List<ClassLoader> loaders = new ArrayList<>();
+        // A minimal valid class file (class Tiny {}), redefined under a new
+        // name each time so Metaspace grows instead of being shared.
+        for (int i = 0; i < iterations; i++) {
+            final int n = i;
+            ClassLoader cl = new ClassLoader(Workload.class.getClassLoader()) {
+                @Override
+                protected Class<?> findClass(String name) throws ClassNotFoundException {
+                    byte[] bytes = tinyClass("Tiny" + n);
+                    return defineClass(name, bytes, 0, bytes.length);
+                }
+            };
+            try {
+                loaders.add(cl);
+                Class.forName("Tiny" + n, true, cl);
+            } catch (Throwable t) {
+                if (t instanceof OutOfMemoryError) throw (OutOfMemoryError) t;
+            }
+            if (i % 500 == 0) System.out.println("  loaded " + i + " classes");
+        }
+        System.out.println("Completed without OOM -- lower -XX:MaxMetaspaceSize.");
+    }
+
+    /** Two threads taking two locks in opposite orders: a textbook deadlock. */
+    private static void threads() throws Exception {
+        final Object lockA = new Object();
+        final Object lockB = new Object();
+        CountDownLatch both = new CountDownLatch(2);
+
+        Thread t1 = new Thread(() -> {
+            synchronized (lockA) {
+                both.countDown();
+                await(both);
+                synchronized (lockB) { System.out.println("t1 got both"); }
+            }
+        }, "reproducer-thread-1");
+
+        Thread t2 = new Thread(() -> {
+            synchronized (lockB) {
+                both.countDown();
+                await(both);
+                synchronized (lockA) { System.out.println("t2 got both"); }
+            }
+        }, "reproducer-thread-2");
+
+        t1.start();
+        t2.start();
+        Thread.sleep(3000);
+
+        ThreadMXBean mx = ManagementFactory.getThreadMXBean();
+        long[] deadlocked = mx.findDeadlockedThreads();
+        if (deadlocked != null && deadlocked.length > 0) {
+            System.out.println("ISSUE REPRODUCED: " + deadlocked.length
+                    + " threads deadlocked");
+            for (long id : deadlocked) {
+                System.out.println("  " + mx.getThreadInfo(id, 8));
+            }
+            System.out.println("Take a thread dump now with ./capture.sh");
+            Thread.sleep(60000);   // stay alive so jstack can see it
+        } else {
+            System.out.println("No deadlock detected this run.");
+        }
+        System.exit(0);
+    }
+
+    private static void await(CountDownLatch latch) {
+        try { latch.await(2, TimeUnit.SECONDS); } catch (InterruptedException ignored) { }
+    }
+
+    /** Bytes of `class <name> {}` -- enough for defineClass to consume. */
+    private static byte[] tinyClass(String name) {
+        byte[] n = name.getBytes();
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        java.io.DataOutputStream d = new java.io.DataOutputStream(out);
+        try {
+            d.writeInt(0xCAFEBABE);
+            d.writeShort(0); d.writeShort(50);      // minor, major (Java 6)
+            d.writeShort(5);                        // constant pool count
+            d.writeByte(7); d.writeShort(2);        // #1 Class -> #2
+            d.writeByte(1); d.writeShort(n.length); d.write(n);   // #2 Utf8 name
+            d.writeByte(7); d.writeShort(4);        // #3 Class -> #4
+            d.writeByte(1); d.writeShort(16); d.writeBytes("java/lang/Object");
+            d.writeShort(0x0021);                   // public super
+            d.writeShort(1); d.writeShort(3);       // this, super
+            d.writeShort(0); d.writeShort(0); d.writeShort(0);  // ifaces, fields, methods
+            d.writeShort(0);                        // attributes
+        } catch (java.io.IOException e) {
+            throw new RuntimeException(e);
+        }
+        return out.toByteArray();
+    }
+}
+"""
+
 _RUN_NODE_SH = """\
 #!/bin/bash
 # Run ONE EAP node in the foreground. This is what each terminal window runs,
@@ -169,13 +1090,24 @@ NAME="${1:?usage: run-node.sh <node-name> <port-offset> [base-dir-name]}"
 OFFSET="${2:?usage: run-node.sh <node-name> <port-offset> [base-dir-name]}"
 BASEDIR_NAME="${3:-standalone-$NAME}"
 
-EAP_HOME="${EAP_HOME:?ERROR: Set EAP_HOME to your JBoss EAP installation}"
+if [ -z "${EAP_HOME:-}" ]; then
+    if ! eap_export="$("$SCRIPT_DIR/ensure-server-home.sh" --export)"; then
+        echo "[$NAME] ABORTED: wrong or missing EAP installation (see above)." >&2
+        exit 1
+    fi
+    eval "$eap_export"
+fi
+export EAP_HOME
 BASE="$EAP_HOME/$BASEDIR_NAME"
 
 # A terminal emulator started as a D-Bus service (gnome-terminal, ptyxis) does
 # NOT inherit the launcher's environment, so resolve the JDK here too.
 if [ -z "${JAVA_HOME:-}" ]; then
-    eval "$("$SCRIPT_DIR/ensure-jdk.sh" --export)"
+    if ! jdk_export="$("$SCRIPT_DIR/ensure-jdk.sh" --export)"; then
+        echo "[$NAME] ABORTED: no usable JDK for this EAP (see above)." >&2
+        exit 1
+    fi
+    eval "$jdk_export"
 fi
 export JAVA_HOME
 
@@ -254,8 +1186,19 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-export EAP_HOME="${EAP_HOME:?ERROR: Set EAP_HOME to your JBoss EAP installation}"
-eval "$("$SCRIPT_DIR/ensure-jdk.sh" --export)"
+# `eval "$(cmd)"` hides cmd's exit status from set -e, so capture and check first.
+resolve() {  # resolve <script> -- aborts if the helper rejects the environment
+    local out
+    if ! out="$("$SCRIPT_DIR/$1" --export)"; then
+        echo "ABORTED: $1 refused to run this reproducer here (see above)." >&2
+        exit 1
+    fi
+    eval "$out"
+}
+
+resolve ensure-server-home.sh
+resolve ensure-jdk.sh
+export EAP_HOME
 export JAVA_HOME
 
 if [ ! -f "$SCRIPT_DIR/app/target/reproducer.war" ]; then
@@ -312,17 +1255,23 @@ _START_CLUSTER_SH = """\
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/nodes.env"
-EAP_HOME="${EAP_HOME:?ERROR: Set EAP_HOME to your JBoss EAP installation}"
 
 USE_TERMINALS=1
 [ "${1:-}" = "--no-terminals" ] && USE_TERMINALS=0
 
-if [ ! -f "$EAP_HOME/bin/standalone.sh" ]; then
-    echo "ERROR: $EAP_HOME/bin/standalone.sh not found"
-    exit 1
-fi
+# `eval "$(cmd)"` hides cmd's exit status from set -e, so capture and check first.
+resolve() {  # resolve <script> -- aborts if the helper rejects the environment
+    local out
+    if ! out="$("$SCRIPT_DIR/$1" --export)"; then
+        echo "ABORTED: $1 refused to run this reproducer here (see above)." >&2
+        exit 1
+    fi
+    eval "$out"
+}
 
-eval "$("$SCRIPT_DIR/ensure-jdk.sh" --export)"
+# The case file decides which server this runs against, not the ambient shell.
+resolve ensure-server-home.sh
+resolve ensure-jdk.sh
 export JAVA_HOME EAP_HOME
 
 if [ ! -f "$SCRIPT_DIR/app/target/reproducer.war" ]; then
@@ -446,7 +1395,9 @@ _STOP_CLUSTER_SH = """\
 set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/nodes.env"
-EAP_HOME="${EAP_HOME:-}"
+if [ -z "${EAP_HOME:-}" ]; then
+    eval "$("$SCRIPT_DIR/ensure-server-home.sh" --export)" 2>/dev/null || EAP_HOME=""
+fi
 
 for entry in "${NODES[@]}"; do
     read -r name offset http mgmt basedir <<< "$entry"
@@ -569,6 +1520,14 @@ class ReproducerGenerator:
         namespace: str, server_config: str,
     ) -> None:
         analysis = config.issue_analysis
+        kind = self._product_kind(analysis)
+        if kind == "datagrid":
+            self._write_files(output_dir, self._gen_datagrid_package(config, server_config))
+            return
+        if kind == "jvm":
+            self._write_files(output_dir, self._gen_jvm_package(config, namespace))
+            return
+
         files: dict[str, str] = {}
 
         # 1. Application
@@ -582,6 +1541,7 @@ class ReproducerGenerator:
         #    (downloaded when the machine has none) -- an unbootable JVM is the
         #    single most common reason a reproducer "does not work".
         files["nodes.env"] = self._gen_nodes_env(analysis, server_config)
+        files["ensure-server-home.sh"] = _ENSURE_SERVER_HOME_SH
         files["ensure-jdk.sh"] = _ENSURE_JDK_SH
         files["run-node.sh"] = _RUN_NODE_SH
         files["start-cluster.sh"] = self._gen_start_script(analysis, server_config)
@@ -606,14 +1566,166 @@ class ReproducerGenerator:
             files.update(self._gen_lb_scripts())
             files["instance-id.cli"] = self._gen_instance_id_cli()
 
-        # 8. README
+        # 8. The customer's own configuration, if the case bundle supplied it.
+        if config.customer_configs:
+            files.update(self._gen_customer_configs(config))
+
+        # 9. README
         files["README.md"] = self._gen_readme(analysis, server_config, config)
 
-        # 9. OpenShift files if applicable
+        # 10. OpenShift files if applicable
         if config.openshift_reproducer and self._needs_openshift(analysis):
             files.update(self._gen_openshift(analysis))
 
         self._write_files(output_dir, files)
+
+    def _gen_datagrid_package(
+        self, config: ReproducerConfig, server_config: str,
+    ) -> dict[str, str]:
+        """A Data Grid reproducer: no war, no load balancer, no Maven build.
+
+        The workload is REST traffic against the server's own endpoint, so the
+        whole thing is shell -- which also means it runs against any Data Grid
+        install without compiling anything.
+        """
+        analysis = config.issue_analysis
+        files = {
+            "nodes.env": self._gen_nodes_env(analysis, server_config),
+            "ensure-server-home.sh": _ENSURE_SERVER_HOME_SH,
+            "ensure-jdk.sh": _ENSURE_JDK_SH,
+            "run-node.sh": _DG_RUN_NODE_SH,
+            "start-cluster.sh": _DG_START_CLUSTER_SH,
+            "stop-cluster.sh": _DG_STOP_CLUSTER_SH,
+            "test.sh": _DG_TEST_SH,
+            "run-reproducer.sh": _DG_RUN_REPRODUCER_SH,
+        }
+        if config.customer_configs:
+            files.update(self._gen_customer_configs(config))
+        files["README.md"] = self._gen_readme(analysis, server_config, config)
+        return files
+
+    def _gen_jvm_package(
+        self, config: ReproducerConfig, namespace: str,
+    ) -> dict[str, str]:
+        """A JVM reproducer: one JVM, the customer's flags, and full diagnostics.
+
+        No cluster and no server home -- a heap/GC/metaspace issue reproduces in
+        a single JVM, and dragging a whole EAP cluster into it only adds noise.
+        What matters is that the run produces the artifacts an engineer needs to
+        analyse it: a heap dump on OOM, a GC log, and thread dumps on a timer.
+        """
+        analysis = config.issue_analysis
+        files = {
+            "ensure-jdk.sh": _ENSURE_JDK_SH,
+            "jvm.env": self._gen_jvm_env(analysis),
+            "run-reproducer.sh": _JVM_RUN_REPRODUCER_SH,
+            "capture.sh": _JVM_CAPTURE_SH,
+        }
+        files.update(self._gen_jvm_app(analysis))
+        if config.customer_configs:
+            files.update(self._gen_customer_configs(config))
+        files["README.md"] = self._gen_readme(analysis, "n/a", config)
+        return files
+
+    def _gen_jvm_env(self, analysis: IssueAnalysis) -> str:
+        """JVM flags for the run, seeded from the case and meant to be edited.
+
+        Whether a heap issue reproduces is decided almost entirely by -Xmx and
+        the collector, so these are pulled out into one file rather than buried
+        in a script.
+        """
+        customer_opts = (analysis.jdk or "").strip()
+        haystack = " ".join(
+            [c.lower() for c in analysis.categories]
+            + [(analysis.subsystem or "").lower(), (analysis.error_signature or "").lower(),
+               (analysis.possible_root_cause or "").lower()]
+        )
+        if "metaspace" in haystack or "classload" in haystack or "permgen" in haystack:
+            mode, extra = "metaspace", "-XX:MaxMetaspaceSize=64m"
+        elif "deadlock" in haystack or "thread" in haystack:
+            mode, extra = "threads", "-Xss256k"
+        else:
+            mode, extra = "heap", ""
+
+        # The JDK major the customer runs on. GC behaviour and the default
+        # collector differ enough between 8, 11, 17 and 21 that a heap issue
+        # can be version-specific, so this is pinned rather than "whatever
+        # java is on PATH".
+        m = re.search(r"(?:1\.)?(\d{1,2})", customer_opts)
+        required = m.group(1) if m else ""
+        return (
+            "# JVM flags for this reproducer. EDIT THESE to match the customer's\n"
+            "# real JAVA_OPTS -- heap size and collector choice are usually what\n"
+            "# decide whether the failure happens at all.\n"
+            "#\n"
+            "# Read by ensure-jdk.sh as well as run-reproducer.sh.\n"
+            'TARGET_KIND="jvm"\n'
+            "\n"
+            f"# Case reports JDK: {customer_opts or 'not stated'}\n"
+            + (f'REQUIRED_JDK="{required}"\n' if required else
+               '# REQUIRED_JDK=""   # set this to the customer\'s JDK major\n')
+            + "\n"
+            f'JVM_OPTS="-Xms128m -Xmx128m {extra}"\n'
+            "\n"
+            "# Passed to the workload: <mode> <iterations>\n"
+            f'WORKLOAD_ARGS="{mode} 100000"\n'
+        )
+
+    def _gen_jvm_app(self, analysis: IssueAnalysis) -> dict[str, str]:
+        """A single-file workload that can drive the three common JVM failures."""
+        return {"src/Workload.java": _JVM_WORKLOAD_JAVA}
+
+    def _gen_customer_configs(self, config: ReproducerConfig) -> dict[str, str]:
+        """Ship the customer's configuration next to the reproducer.
+
+        Not applied automatically: their standalone-ha.xml carries their
+        datasources, their realms and their bind addresses, and dropping it
+        onto a different machine usually just fails to boot. What it is good
+        for is diffing -- if the reproducer passes on stock config and fails on
+        theirs, the difference between the two files IS the bug.
+        """
+        files: dict[str, str] = {}
+        for name, content in config.customer_configs.items():
+            files[f"customer-configs/{name}"] = content
+
+        names = sorted(config.customer_configs)
+        listing = "\n".join(f"#   customer-configs/{n}" for n in names)
+        files["diff-customer-config.sh"] = f'''#!/bin/bash
+# Compare the customer's configuration against the stock files this reproducer
+# runs on. The differences are the candidate causes.
+#
+# Supplied by the case bundle:
+{listing}
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/nodes.env"
+
+if ! eap_export="$("$SCRIPT_DIR/ensure-server-home.sh" --export)"; then
+    echo "ABORTED: wrong or missing EAP installation (see above)." >&2
+    exit 1
+fi
+eval "$eap_export"
+
+shopt -s nullglob
+for theirs in "$SCRIPT_DIR"/customer-configs/*; do
+    name="$(basename "$theirs")"
+    stock="$EAP_HOME/standalone/configuration/$name"
+    [ -f "$stock" ] || stock="$EAP_HOME/domain/configuration/$name"
+    if [ ! -f "$stock" ]; then
+        echo "== $name: no stock counterpart in $EAP_HOME -- review by hand"
+        continue
+    fi
+    echo "== $name (stock <-> customer)"
+    diff -u "$stock" "$theirs" || true
+    echo
+done
+
+echo "To run against the customer's config instead of stock:"
+echo "  cp customer-configs/$SERVER_CONFIG \\"
+echo "     \"$EAP_HOME/standalone-node1/configuration/$SERVER_CONFIG\""
+echo "  # repeat per node, then fix bind addresses/datasources for this host."
+'''
+        return files
 
     # --- Application generation ---
 
@@ -842,27 +1954,118 @@ class ReproducerGenerator:
             'echo "Build complete: app/target/reproducer.war"\n'
         )
 
+    def _product_kind(self, analysis: IssueAnalysis) -> str:
+        """Which family of server this case is about: eap, datagrid or jvm.
+
+        Decides the installation layout to look for (bin/standalone.sh vs
+        bin/server.sh), which *_HOME variables to honour, and whether a server
+        is involved at all.
+        """
+        product = (analysis.product or "").lower()
+        if "data grid" in product or "datagrid" in product or "infinispan" in product:
+            return "datagrid"
+        if "eap" in product or "jboss" in product or "wildfly" in product:
+            return "eap"
+        # The product line is checked before the symptoms on purpose: an EAP
+        # case that ends in OutOfMemoryError is still an EAP case.
+        if any(t in product for t in ("jvm", "jdk", "openjdk", "hotspot",
+                                      "java se", "java virtual", "temurin")):
+            return "jvm"
+
+        # No product named, so classify by what is failing. Heap, GC, metaspace
+        # and thread problems reproduce in one JVM and need no server at all.
+        hints = ("jvm", "gc", "garbage", "memory", "heap", "oom", "outofmemory",
+                 "metaspace", "classloader leak", "thread dump", "deadlock",
+                 "thread leak")
+        haystack = " ".join(
+            [c.lower() for c in analysis.categories]
+            + [(analysis.subsystem or "").lower(), (analysis.error_signature or "").lower()]
+        )
+        if any(h in haystack for h in hints):
+            return "jvm"
+        return "eap"
+
+    def _home_vars(self, kind: str, major: str) -> list[str]:
+        """Env vars to check for the installation, most specific first.
+
+        A product-specific name (EAP8_HOME) is treated as intent; the generic
+        EAP_HOME that lives in someone's ~/.bashrc is treated as ambient and is
+        skipped rather than fatal when it points at the wrong major version.
+        That distinction is what lets one shell profile serve all four
+        reproducer workspaces.
+        """
+        if kind == "datagrid":
+            return ["DATAGRID_HOME", "RHDG_HOME", "INFINISPAN_HOME", "SERVER_HOME"]
+        specific = [f"EAP{major}_HOME"] if major else []
+        return specific + ["EAP_HOME", "JBOSS_HOME", "SERVER_HOME"]
+
     def _gen_nodes_env(self, analysis: IssueAnalysis, server_config: str) -> str:
         """The single source of truth for the topology, sourced by every script."""
         num_nodes = self._effective_nodes(analysis)
+        version = analysis.version or ""
+        major = version.split(".")[0] if version and version[0].isdigit() else ""
+        kind = self._product_kind(analysis)
+        home_vars = " ".join(self._home_vars(kind, major))
         lines = [
             "# Topology of this reproducer. Sourced by start-cluster.sh, run-node.sh,",
             "# stop-cluster.sh and run-reproducer.sh so they can never drift apart.",
+            "",
+            "# The product and version taken from the support case. ensure-server-home.sh",
+            "# enforces these: a reproducer built for one major version refuses to run",
+            "# against another, instead of silently producing a meaningless result.",
+            f'TARGET_PRODUCT="{analysis.product or "JBoss EAP"}"',
+            f'TARGET_VERSION="{version}"',
+            f'TARGET_MAJOR="{major}"',
+            f'TARGET_KIND="{kind}"',
+            "",
+            "# Installation is looked up in these variables, in order. The first is",
+            "# product-specific and a version mismatch there is fatal; the generic",
+            "# ones are ambient (~/.bashrc) and are skipped, not fatal, on mismatch.",
+            f'HOME_VARS="{home_vars}"',
+            "",
             f'SERVER_CONFIG="{server_config}"',
             "",
-            "# \"<name> <port-offset> <http-port> <mgmt-port> <server-base-dir-name>\"",
-            "#",
-            "# Every node gets its own jboss.server.base.dir, seeded from the stock",
-            "# $EAP_HOME/standalone. Instances that share one base dir fight over",
-            "# data/, tmp/, log/ and the deployment markers; a port offset alone does",
-            "# not isolate them.",
-            "NODES=(",
         ]
-        for i in range(1, num_nodes + 1):
-            offset = (i - 1) * 100
-            lines.append(
-                f'    "node{i} {offset} {8080 + offset} {9990 + offset} standalone-node{i}"'
-            )
+
+        if kind == "datagrid":
+            lines += [
+                "# Endpoint security is on by default in Data Grid 8; without a user",
+                "# every REST call returns 401 and the reproducer looks broken when it",
+                "# is only locked. Created per server root by run-node.sh.",
+                'DG_USER="admin"',
+                'DG_PASS="admin"',
+                "",
+                "# Endpoints and JGroups both bind here. Loopback keeps the JGroups",
+                "# ports predictable (7800 + offset), which is what lets run-node.sh",
+                "# list the peers explicitly instead of relying on IP multicast.",
+                'BIND_ADDRESS="127.0.0.1"',
+                f'ISSUE_LABEL="{(analysis.error_signature or analysis.subsystem or "data loss on node failure")[:80]}"',
+                "",
+                '# "<name> <port-offset> <endpoint-port> <server-root-name>"',
+                "#",
+                "# Every node gets its own server root, seeded from the stock server/",
+                "# directory. Nodes sharing one root fight over data/, log/ and the",
+                "# index files; a port offset alone does not isolate them.",
+                "NODES=(",
+            ]
+            for i in range(1, num_nodes + 1):
+                offset = (i - 1) * 100
+                lines.append(f'    "node{i} {offset} {11222 + offset} server-node{i}"')
+        else:
+            lines += [
+                '# "<name> <port-offset> <http-port> <mgmt-port> <server-base-dir-name>"',
+                "#",
+                "# Every node gets its own jboss.server.base.dir, seeded from the stock",
+                "# $EAP_HOME/standalone. Instances that share one base dir fight over",
+                "# data/, tmp/, log/ and the deployment markers; a port offset alone does",
+                "# not isolate them.",
+                "NODES=(",
+            ]
+            for i in range(1, num_nodes + 1):
+                offset = (i - 1) * 100
+                lines.append(
+                    f'    "node{i} {offset} {8080 + offset} {9990 + offset} standalone-node{i}"'
+                )
         lines.append(")")
         return "\n".join(lines) + "\n"
 
@@ -1359,6 +2562,9 @@ class ReproducerGenerator:
         num_nodes = self._effective_nodes(analysis)
         cluster_session = self._is_cluster_session(analysis)
         has_ocp = config.openshift_reproducer and self._needs_openshift(analysis)
+        product = analysis.product or "JBoss EAP"
+        version = analysis.version or "unknown version"
+        namespace_word = self._determine_namespace(analysis)
 
         lines = [
             f'# Reproducer: {analysis.error_signature or analysis.subsystem} Issue',
@@ -1408,9 +2614,17 @@ class ReproducerGenerator:
             '## Quick Start (one command)',
             '',
             '```bash',
-            'export EAP_HOME=/path/to/jboss-eap',
             './run-reproducer.sh --repeat 5',
             '```',
+            '',
+            f'You do not set `EAP_HOME`. This package was generated from a case that',
+            f'says **{product} {version}**, and `ensure-server-home.sh` finds an',
+            f'installation of that major version on this machine and uses it. If',
+            f'`EAP_HOME` is already set to a different major version the run **aborts**',
+            f'rather than producing a meaningless result -- a {namespace_word} application',
+            f'on the other major version deploys "OK" and then 404s on every request.',
+            f'Point it at a non-standard location with',
+            f'`EAP_SEARCH_PATHS=/where/i/keep/eap`.',
             '',
             'That provisions a compatible JDK (downloading one if this machine has',
             f'none), builds the app, brings up all {num_nodes} nodes **each in its own',
@@ -1427,9 +2641,9 @@ class ReproducerGenerator:
             '',
             '## Steps to Reproduce (manual)',
             '',
-            '1. Set environment:',
+            '1. Check which installation will be used:',
             '   ```bash',
-            '   export EAP_HOME=/path/to/jboss-eap',
+            '   ./ensure-server-home.sh          # prints the version it picked, or why it refused',
             '   ```',
             '',
             '2. Build the application:',
@@ -1629,6 +2843,14 @@ class ReproducerGenerator:
         return "jakarta"
 
     def _determine_server_config(self, analysis: IssueAnalysis) -> str:
+        # Data Grid Server has no standalone*.xml at all -- its configs live in
+        # server/conf/ and are named infinispan.xml.
+        kind = self._product_kind(analysis)
+        if kind == "datagrid":
+            return "infinispan.xml"
+        if kind == "jvm":
+            return ""
+
         cats = [c.lower() for c in analysis.categories]
         dt = analysis.deployment_type.lower()
         all_text = (analysis.reproducer_strategy + " " + analysis.topology_description + " " + dt).lower()

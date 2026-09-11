@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Secrets and local configuration -- never commit these
+.env
+.env.*
+.reproducer-agent.yaml
+
+# Generated reproducer packages. run.sh rebuilds these from input/, so there
+# is nothing here to preserve and plenty to leak: node logs carry hostnames
+# and heap dumps run to hundreds of megabytes.
+reproducers/*/generated/
+
+# Run output of the older standalone reproducer instances
+my-reproducer*/node*.log
+my-reproducer*/attempt-*.log
+my-reproducer*/lb/*.log
+my-reproducer*/app/target/
+my-reproducer*/classes/
+my-reproducer*/dumps/
+my-reproducer*/standalone-node*/
+
+# Anything a run drops at the top level
+*.hprof
+*.jfr
+
+# NOTE: reproducers/*/input/ is deliberately NOT ignored. Whatever you drop in
+# configs/ logs/ dumps/ attachments/ gets committed -- which is what you want
+# for a private repo, but means real customer logs land in git history. Move a
+# case out of input/ before pushing if you would rather it did not.
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Run state
+*.pid
+.jdk-env

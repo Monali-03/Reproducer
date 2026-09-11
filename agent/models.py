@@ -66,3 +66,7 @@ class ReproducerConfig:
     eap8_app: bool = False
     datagrid: bool = False
     jws: bool = False
+    # Config files supplied by the customer (filename -> contents), already
+    # redacted. Emitted alongside the reproducer so it can be run against the
+    # customer's real configuration rather than the stock one.
+    customer_configs: dict[str, str] = field(default_factory=dict)

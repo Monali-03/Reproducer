@@ -1,0 +1,26 @@
+Product: JVM
+Version: OpenJDK 21
+JDK: OpenJDK 21
+OS: RHEL 9
+Deployment Type: standalone java application
+Nodes: 1
+Subsystem: heap
+
+Description:
+The customer's application dies with java.lang.OutOfMemoryError: Java heap space
+after several hours. A cache of request objects is never evicted, so the live
+set grows until the collector can no longer keep up.
+
+Reproduction Steps:
+1. Start the application with -Xmx128m.
+2. Drive it with requests that each add an entry to the cache.
+3. Wait for the heap to fill.
+
+Expected Behavior:
+Memory is reclaimed and the process stays up.
+
+Actual Behavior:
+java.lang.OutOfMemoryError: Java heap space, and the process exits.
+
+Error Messages:
+java.lang.OutOfMemoryError: Java heap space

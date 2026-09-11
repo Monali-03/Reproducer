@@ -26,8 +26,19 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-export EAP_HOME="${EAP_HOME:?ERROR: Set EAP_HOME to your JBoss EAP installation}"
-eval "$("$SCRIPT_DIR/ensure-jdk.sh" --export)"
+# `eval "$(cmd)"` hides cmd's exit status from set -e, so capture and check first.
+resolve() {  # resolve <script> -- aborts if the helper rejects the environment
+    local out
+    if ! out="$("$SCRIPT_DIR/$1" --export)"; then
+        echo "ABORTED: $1 refused to run this reproducer here (see above)." >&2
+        exit 1
+    fi
+    eval "$out"
+}
+
+resolve ensure-eap-home.sh
+resolve ensure-jdk.sh
+export EAP_HOME
 export JAVA_HOME
 
 if [ ! -f "$SCRIPT_DIR/app/target/reproducer.war" ]; then

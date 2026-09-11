@@ -98,6 +98,27 @@ When the case text is ambiguous or you want to force a specific product version,
 
 The agent accepts customer case descriptions in several formats. The more detail provided, the better the reproducer.
 
+### Case bundles (raw customer artifacts)
+
+`-i` accepts a **directory** as well as a file. Drop the whole pile from the
+case — server logs, config XMLs, thread dumps, heap dumps, httpd logs — into
+one directory and point at it:
+
+```bash
+cp -r cases/_TEMPLATE cases/04123456
+# ... fill in case.txt, drop artifacts into configs/ logs/ dumps/ ...
+python reproduce.py generate -i cases/04123456 -o my-reproducer-04123456
+```
+
+Logs are distilled rather than pasted (distinct ERROR/WARN and WFLY/ISPN/JGRP
+codes with repeat counts, plus exception traces), thread dumps are summarized
+with their deadlocks quoted, heap dumps are recorded but not parsed, and
+credentials are redacted before anything is read. The product and version are
+cross-checked against the boot banner in the customer's own log.
+
+See [cases/README.md](cases/README.md) for the layout and what happens to each
+kind of artifact.
+
 ### Structured format (labeled fields)
 
 ```

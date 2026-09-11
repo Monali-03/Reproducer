@@ -3,7 +3,9 @@
 set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/nodes.env"
-EAP_HOME="${EAP_HOME:-}"
+if [ -z "${EAP_HOME:-}" ]; then
+    eval "$("$SCRIPT_DIR/ensure-eap-home.sh" --export)" 2>/dev/null || EAP_HOME=""
+fi
 
 for entry in "${NODES[@]}"; do
     read -r name offset http mgmt basedir <<< "$entry"

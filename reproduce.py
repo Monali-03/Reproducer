@@ -17,6 +17,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
 from agent.analyzer import IssueAnalyzer
+from agent.case_bundle import load_bundle
 from agent.case_parser import CaseParser
 from agent.generator import ReproducerGenerator
 from agent.models import ReproducerConfig
@@ -48,7 +49,8 @@ def cli() -> None:
 @click.option(
     "-i", "--input", "input_path",
     type=click.Path(exists=True),
-    help="Path to customer case file.",
+    help="Path to a customer case file, or a case bundle directory "
+         "(case.txt + configs/ + logs/ + dumps/).",
 )
 @click.option(
     "--api-key",
@@ -81,13 +83,15 @@ def analyze(
     llm_provider: str | None,
 ) -> None:
     """Analyze a customer case file and display the results."""
-    text = _read_input(input_path)
+    text, bundle = _read_input(input_path)
     if not text:
         console.print("[red]No input provided. Use --input or pipe via stdin.[/red]")
         raise SystemExit(1)
 
     parser = CaseParser()
     case = parser.parse_text(text)
+    if bundle:
+        case.config_files.update(bundle.config_files)
 
     with Progress(
         SpinnerColumn(),
@@ -113,7 +117,8 @@ def analyze(
 @click.option(
     "-i", "--input", "input_path",
     type=click.Path(exists=True),
-    help="Path to customer case file.",
+    help="Path to a customer case file, or a case bundle directory "
+         "(case.txt + configs/ + logs/ + dumps/).",
 )
 @click.option(
     "-o", "--output",
@@ -185,7 +190,7 @@ def generate(
     describe: bool,
 ) -> None:
     """Generate a reproducer from a customer case file."""
-    text = _read_input(input_path)
+    text, bundle = _read_input(input_path)
     if not text:
         console.print("[red]No input provided. Use --input or pipe via stdin.[/red]")
         raise SystemExit(1)
@@ -201,6 +206,14 @@ def generate(
         progress.add_task("Parsing customer case...", total=None)
         parser = CaseParser()
         case = parser.parse_text(text)
+
+    # The customer's real config files outrank anything scraped from prose.
+    if bundle:
+        case.config_files.update(bundle.config_files)
+        if bundle.detected_product and not case.product:
+            case.product = bundle.detected_product
+        if bundle.detected_version and not case.version:
+            case.version = bundle.detected_version
 
     if product:
         case.product = product
@@ -245,6 +258,7 @@ def generate(
         issue_analysis=analysis,
         local_reproducer=local,
         openshift_reproducer=openshift,
+        customer_configs=dict(bundle.config_files) if bundle else {},
     )
 
     # Determine EAP version flags
@@ -298,20 +312,46 @@ def generate(
 
     _display_validation(results)
 
-    # Step 5: Summary
+    # Step 5: Summary. The wording follows the package that was actually
+    # written -- a JVM reproducer has no cluster and a Data Grid one has no
+    # war, and telling the user to run ./build.sh when there is no build.sh
+    # is how a working reproducer gets reported as broken.
+    kind = generator._product_kind(analysis)
+    if kind == "jvm":
+        how = (
+            "That resolves a JDK, compiles the workload, runs it under the\n"
+            "flags in jvm.env with a heap dump on OOM, a GC log and periodic\n"
+            "thread dumps, and reports whether the failure happened.\n"
+            "Edit jvm.env first -- -Xmx and the collector are usually what\n"
+            "decide whether the issue shows up at all."
+        )
+    elif kind == "datagrid":
+        how = (
+            "That resolves the Data Grid install and a JDK, brings up every\n"
+            "node in its own terminal window, runs the cache test and reports\n"
+            f"how often the issue reproduced. Nothing to export: the target\n"
+            f"[cyan]{analysis.product} {analysis.version}[/cyan] comes from the case file, and the run\n"
+            "aborts if DATAGRID_HOME points at a different major version.\n"
+            "Add --no-terminals over SSH. Step by step instead:\n"
+            "  ./start-cluster.sh -> ./test.sh -> ./stop-cluster.sh"
+        )
+    else:
+        how = (
+            "That builds the app, brings up every node in its own terminal\n"
+            "window, starts the load balancer, runs the test and reports how\n"
+            "often the issue reproduced. Nothing to export: the target\n"
+            f"[cyan]{analysis.product} {analysis.version}[/cyan] comes from the case file, and the run\n"
+            "aborts if EAP_HOME points at a different major version. A\n"
+            "compatible JDK is resolved (and downloaded if missing) too.\n"
+            "Add --no-terminals over SSH. Step by step instead:\n"
+            "  ./build.sh -> ./start-cluster.sh -> ./test.sh -> ./stop-cluster.sh"
+        )
     console.print()
     console.print(
         Panel(
             f"[bold green]Reproducer ready at:[/bold green] {reproducer_path}\n\n"
-            "Next steps:\n"
-            "  1. export EAP_HOME=/path/to/jboss-eap\n"
-            "  2. ./run-reproducer.sh --repeat 5\n\n"
-            "That builds the app, brings up every node in its own terminal\n"
-            "window, starts the load balancer, runs the test and reports how\n"
-            "often the issue reproduced. A compatible JDK is resolved (and\n"
-            "downloaded if missing) automatically -- no JAVA_HOME needed.\n"
-            "Add --no-terminals over SSH. Step by step instead:\n"
-            "  ./build.sh -> ./start-cluster.sh -> ./test.sh -> ./stop-cluster.sh",
+            "Next step:\n"
+            "  ./run-reproducer.sh --repeat 5\n\n" + how,
             title="Done",
         )
     )
@@ -381,16 +421,44 @@ def templates_cmd() -> None:
 # Display helpers
 # -----------------------------------------------------------------------
 
-def _read_input(input_path: str | None) -> str:
-    """Read input from file or stdin."""
+def _read_input(input_path: str | None) -> tuple[str, object | None]:
+    """Read the case from a file, a bundle directory, or stdin.
+
+    Returns (text, bundle). `bundle` is None unless a directory was given, in
+    which case it also carries the customer's config files and a manifest of
+    what was actually read.
+    """
     if input_path:
-        return Path(input_path).read_text(encoding="utf-8")
+        path = Path(input_path)
+        if path.is_dir():
+            bundle = load_bundle(path)
+            _display_bundle(bundle)
+            return bundle.text, bundle
+        return path.read_text(encoding="utf-8"), None
 
     # Check if stdin has data (not a TTY)
     if not sys.stdin.isatty():
-        return sys.stdin.read()
+        return sys.stdin.read(), None
 
-    return ""
+    return "", None
+
+
+def _display_bundle(bundle: object) -> None:
+    """Show exactly which artifacts were ingested, and which were not."""
+    table = Table(title="Case Bundle Ingested")
+    table.add_column("Artifact", style="cyan")
+    for entry in bundle.manifest:
+        table.add_row(entry)
+    console.print()
+    console.print(table)
+
+    if bundle.detected_product:
+        console.print(
+            f"[green]Detected from the customer's own logs:[/green] "
+            f"{bundle.detected_product} {bundle.detected_version}"
+        )
+    for warning in bundle.warnings:
+        console.print(f"[yellow]![/yellow] {warning}")
 
 
 def _display_parsed_case(case: object) -> None:

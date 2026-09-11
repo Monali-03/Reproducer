@@ -556,6 +556,11 @@ class IssueAnalyzer:
 
         for line in case.error_messages.splitlines():
             line = line.strip()
+            # Bundle distillation emits "-- file: no ERROR/WARN lines found --"
+            # headers; those match on the word "warn" but describe the absence
+            # of an error, so they must never become the signature.
+            if line.startswith("--") and line.endswith("--"):
+                continue
             if line and ("error" in line.lower() or "warn" in line.lower()):
                 return line[:150]
 

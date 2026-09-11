@@ -1,5 +1,5 @@
 #!/bin/bash
-# Start the 3-node EAP cluster for reproducing: session lost on failover
+# Start the 3-node EAP cluster for reproducing: java.lang.IllegalStateException: Session already invalidated
 #
 # Each node comes up in ITS OWN TERMINAL WINDOW, so you can watch the servers
 # boot the way you would in a real lab. Pass --no-terminals to keep them in the
@@ -11,17 +11,23 @@
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/nodes.env"
-EAP_HOME="${EAP_HOME:?ERROR: Set EAP_HOME to your JBoss EAP installation}"
 
 USE_TERMINALS=1
 [ "${1:-}" = "--no-terminals" ] && USE_TERMINALS=0
 
-if [ ! -f "$EAP_HOME/bin/standalone.sh" ]; then
-    echo "ERROR: $EAP_HOME/bin/standalone.sh not found"
-    exit 1
-fi
+# `eval "$(cmd)"` hides cmd's exit status from set -e, so capture and check first.
+resolve() {  # resolve <script> -- aborts if the helper rejects the environment
+    local out
+    if ! out="$("$SCRIPT_DIR/$1" --export)"; then
+        echo "ABORTED: $1 refused to run this reproducer here (see above)." >&2
+        exit 1
+    fi
+    eval "$out"
+}
 
-eval "$("$SCRIPT_DIR/ensure-jdk.sh" --export)"
+# The case file decides which server this runs against, not the ambient shell.
+resolve ensure-eap-home.sh
+resolve ensure-jdk.sh
 export JAVA_HOME EAP_HOME
 
 if [ ! -f "$SCRIPT_DIR/app/target/reproducer.war" ]; then
